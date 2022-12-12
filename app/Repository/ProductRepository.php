@@ -10,9 +10,9 @@ use App\Models\Store;
 
 class ProductRepository extends BaseRepository
 {
-    private $product;
-    private $category;
-    private $store;
+    protected $product;
+    protected $category;
+    protected $store;
 
     public function __construct(Product $product,Category $category,Store $store)
     {
