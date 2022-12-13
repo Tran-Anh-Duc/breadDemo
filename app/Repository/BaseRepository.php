@@ -17,7 +17,7 @@ class BaseRepository
     }
 
     // abstract method getModel
-    abstract public function getModel();
+    //abstract public function getModel();
 
     /**
      * Set model
