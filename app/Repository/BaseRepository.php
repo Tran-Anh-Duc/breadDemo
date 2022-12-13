@@ -4,19 +4,17 @@
 namespace App\Repository;
 
 
-class BaseRepository
+abstract class BaseRepository
 {
     const DESC = 'DESC';
     const ASC = 'ASC';
     protected $model;
 
-    // construct
-    public function __construct()
+     public function __construct()
     {
         $this->setModel();
     }
 
-    // abstract method getModel
     abstract public function getModel();
 
     /**
