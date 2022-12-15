@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,4 +25,11 @@ Route::prefix('product')->group(function () {
     Route::post('/find_one/{id}', [ProductController::class, 'find_one']);
     Route::post('/update_product/{id}', [ProductController::class, 'update_product']);
 });
+
+Route::prefix('product')->group(function () {
+
+});
+
+
+
 
