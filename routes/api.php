@@ -26,6 +26,11 @@ Route::prefix('product')->group(function () {
     Route::post('/update_product/{id}', [ProductController::class, 'update_product']);
 });
 
+Route::prefix('product')->group(function () {
+
+});
+
+
 
 
 
