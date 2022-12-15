@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +28,11 @@ Route::prefix('product')->group(function () {
     Route::post('/update_product/{id}', [ProductController::class, 'update_product']);
 });
 
-Route::prefix('product')->group(function () {
-
+Route::prefix('category')->group(function () {
+    Route::post('/', [CategoryController::class, 'listCategory']);
+    Route::post('/create_category', [CategoryController::class, 'create_category']);
+    Route::post('/detail_category/{id}', [CategoryController::class, 'find_one']);
+    Route::post('/update_category/{id}', [CategoryController::class, 'update_category']);
 });
 
 
