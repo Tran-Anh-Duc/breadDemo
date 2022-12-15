@@ -22,10 +22,10 @@ class CategoryRepository extends BaseRepository
     public function createCategory($data)
     {
         $data1 = [
-            Category::COLUMN_CATEGORY_NAME => $data->category_name,
-            Category::COLUMN_CATEGORY_DESCRIPTION => $data->category_description,
-            Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_BLOCK,
-            Category::COLUMN_CATEGORY_IMAGE => $data->category_image
+            Category::COLUMN_CATEGORY_NAME => $data['category_name'] ?? null,
+            Category::COLUMN_CATEGORY_DESCRIPTION => $data['category_description'] ?? null,
+            Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_BLOCK ,
+            Category::COLUMN_CATEGORY_IMAGE => $data['category_image'] ?? null
         ];
         $result = $this->model->create($data1);
         return $result;
@@ -33,7 +33,8 @@ class CategoryRepository extends BaseRepository
 
     public function getOne($id)
     {
-        $result = $this->model->where([Category::COLUMN_ID => $id])->first();
+        $result = $this->model->where([Category::COLUMN_ID => $id])->first()->toArray();
+        return $result;
     }
 
     public function updateCategory($data,$id)
@@ -57,5 +58,6 @@ class CategoryRepository extends BaseRepository
 
         $result_category = $this->model->where([Category::COLUMN_ID => $id])->update($result);
         return $result_category;
+
     }
 }
