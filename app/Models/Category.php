@@ -18,4 +18,9 @@ class Category extends BaseModel
 
 
     protected $table = 'category';
+
+    public function product()
+    {
+        return $this->belongsTo('App\product', Category::COLUMN_PRODUC_ID);
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,13 @@ Route::prefix('category')->group(function () {
     Route::post('/create_category', [CategoryController::class, 'create_category']);
     Route::post('/detail_category/{id}', [CategoryController::class, 'find_one']);
     Route::post('/update_category/{id}', [CategoryController::class, 'update_category']);
+});
+
+Route::prefix('store')->group(function () {
+    Route::post('/', [StoreController::class, 'getAllStore']);
+    Route::post('/create_store', [StoreController::class, 'create_store']);
+    Route::post('/detail_store/{id}', [StoreController::class, 'find_one_store']);
+    Route::post('/update_store/{id}', [StoreController::class, 'update_store']);
 });
 
 

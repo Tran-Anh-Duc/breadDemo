@@ -19,8 +19,8 @@ class Product extends BaseModel
 
     protected $table = 'product';
 
-    public function product()
+    public function category()
     {
-        return $this->hasOne('App\product',Product::COLUMN_CATEGORY_ID);
+        return $this->hasOne('App\category',Product::COLUMN_CATEGORY_ID);
     }
 }
