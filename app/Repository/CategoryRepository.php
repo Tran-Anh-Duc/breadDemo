@@ -12,4 +12,52 @@ class CategoryRepository extends BaseRepository
         {
            return Category::class;
         }
+
+    public function getAllCategory()
+    {
+        $result = $this->model->where([Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_ACTIVE])->get();
+        return $result;
+    }
+
+    public function createCategory($data)
+    {
+        $data1 = [
+            Category::COLUMN_CATEGORY_NAME => $data['category_name'] ?? null,
+            Category::COLUMN_CATEGORY_DESCRIPTION => $data['category_description'] ?? null,
+            Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_BLOCK ,
+            Category::COLUMN_CATEGORY_IMAGE => $data['category_image'] ?? null
+        ];
+        $result = $this->model->create($data1);
+        return $result;
+    }
+
+    public function getOne($id)
+    {
+        $result = $this->model->where([Category::COLUMN_ID => $id])->first()->toArray();
+        return $result;
+    }
+
+    public function updateCategory($data,$id)
+    {
+        $result = [];
+        if (isset($data['category_name'])){
+            $result[Category::COLUMN_CATEGORY_NAME] = $data['category_name'];
+        }
+
+        if (isset($data['category_description'])){
+            $result[Category::COLUMN_CATEGORY_DESCRIPTION] = $data['category_description'];
+        }
+
+        if (isset($data['category_image'])){
+            $result[Category::COLUMN_CATEGORY_IMAGE] = $data['category_image'];
+        }
+
+        if (empty($result)){
+            return false;
+        }
+
+        $result_category = $this->model->where([Category::COLUMN_ID => $id])->update($result);
+        return $result_category;
+
+    }
 }

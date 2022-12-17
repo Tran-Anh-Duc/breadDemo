@@ -31,6 +31,14 @@ class ProductController extends Controller
             return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'find all data error',);
         }
     }
+
+    public function allProduct()
+    {
+        $resultAll = $this->productRepository->getAllDataProduct();
+        $result['all_product'] = $resultAll;
+        return View('master')->with(compact('result'));
+    }
+
 //tạo sản phẩm mới
     public function create_product(Request $request)
     {

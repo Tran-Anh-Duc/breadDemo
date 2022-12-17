@@ -31,7 +31,6 @@ class ProductRepository extends BaseRepository
         $result = $this->model->create($data1);
         return $result;
     }
-//chi tiết 1 sản phẩm
 //update 1 sản phẩm
     public function updateProduct($data,$id)
     {
