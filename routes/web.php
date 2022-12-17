@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('product')->group(function () {
+    Route::get('/', [ProductController::class, 'allProduct']);
+});
