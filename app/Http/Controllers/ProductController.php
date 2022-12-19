@@ -31,7 +31,7 @@ class ProductController extends Controller
             return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'find all data error',);
         }
     }
-
+//view all product
     public function allProduct()
     {
         $resultAll = $this->productRepository->getAllDataProduct();
