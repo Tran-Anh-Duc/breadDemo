@@ -11,8 +11,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
+<style>
+    body{
+        background-image: url('https://images01.nicepagecdn.com/page/67/56/website-template-preview-67567.jpg');
+        white-space: nowrap;
+        background-size:cover;
+    }
+</style>
 <body>
-<div class="menu-nav" style="margin-top: 10px;margin-bottom: 15px">
+<div class="menu-nav" style="margin-top: 10px;margin-bottom: 15px" >
     <ul class="nav justify-content-center">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{'list'}}">Danh sách sản phẩm</a>

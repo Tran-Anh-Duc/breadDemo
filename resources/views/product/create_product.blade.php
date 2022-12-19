@@ -2,37 +2,43 @@
 @section('title', 'Thêm mới sản phẩm ')
 @section('content')
     <div class="container-sm">
-        <div class="tabs">
-            <h2>Thêm mới sản phẩm</h2>
-            <lable>Tên sản phẩm</lable>
-            <input type="text" name="name_product" placeholder="Nhập tên sản phẩm" id="name_product"
-                   class="name_product form-control"/>
+        <div class="card">
+        <div class="card-body ">
+            <div class="tabs">
+                <h2>Thêm mới sản phẩm</h2>
+                <lable>Tên sản phẩm</lable>
+                <input type="text" name="name_product" placeholder="Nhập tên sản phẩm" id="name_product"
+                       class="name_product form-control"/>
 
-            <lable>Mô tả sản phẩm</lable>
-            <input type="text" name="product_description" placeholder="Nhập mô tả sản phẩm"
-                   class="product_description form-control"
-                   id="product_description form-control">
+                <lable>Mô tả sản phẩm</lable>
+                <input type="text" name="product_description" placeholder="Nhập mô tả sản phẩm"
+                       class="product_description form-control"
+                       id="product_description form-control">
 
-            <lable>Loại sản phẩm</lable>
-            <select name="category" id="category" class="form-control">
-                <option value="">-- chọn loại sản phẩm --</option>
-            </select>
+                <lable>Loại sản phẩm</lable>
+                <select name="category" id="category" class="form-control">
+                    <option value="">-- chọn loại sản phẩm --</option>
+                </select>
 
-            <lable>Cửa hàng</lable>
-            <select name="store" id="store" class="form-control">
-                <option value="">-- chọn cửa hàng --</option>
-            </select>
+                <lable>Cửa hàng</lable>
+                <select name="store" id="store" class="form-control">
+                    <option value="">-- chọn cửa hàng --</option>
+                </select>
 
-            <lable>upload ảnh</lable>
-            <input type="text" name="image" id="image" class="form-control">
-        </div>
-        <div class="buttons" style="margin-top: 10px; margin-bottom: 15px">
-            <div>
-                <button  id="saveProduct" class="btn btn-success saveProduct">Thêm mới</button>
-                <a href="{{'list'}}" class="btn btn-danger close">Hủy</a>
+                <lable>upload ảnh</lable>
+                <input type="text" name="image" id="image" class="form-control">
+            </div>
+            <div class="buttons" style="margin-top: 10px; margin-bottom: 15px">
+                <div>
+                    <button id="saveProduct" class="btn btn-success saveProduct">Thêm mới</button>
+                    <a href="{{'list'}}" class="btn btn-danger close">Hủy</a>
+                </div>
             </div>
         </div>
     </div>
+    </div>
+
+
 @endsection
 <!-- modal success -->
 <div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
