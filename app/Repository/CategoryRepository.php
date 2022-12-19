@@ -15,7 +15,7 @@ class CategoryRepository extends BaseRepository
 
     public function getAllCategory()
     {
-        $result = $this->model->where([Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_ACTIVE])->get();
+        $result = $this->model->where([Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_ACTIVE])->get()->toArray();
         return $result;
     }
 

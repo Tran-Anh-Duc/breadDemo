@@ -15,7 +15,7 @@ class StoreRepository extends BaseRepository
 
     public function getAllStore()
     {
-        $result = $this->model->where([Store::COLUMN_STATUS_STORE => Store::COLUMN_STATUS_ACTIVE])->get();
+        $result = $this->model->where([Store::COLUMN_STATUS_STORE => Store::COLUMN_STATUS_ACTIVE])->get()->toArray();
         return $result;
     }
 

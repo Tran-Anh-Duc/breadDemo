@@ -28,6 +28,7 @@
                                             sản phẩm đã được kích hoạt
                                         @endif
                                     </td>
+                                    <td><a href="{{url('product/detail_product/'.$value['id'])}}" class="btn btn-warning">Chi tiết</a></td>
                                 </tr>
                             @endforeach
                         @else

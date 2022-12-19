@@ -18,11 +18,17 @@
                 <lable>Loại sản phẩm</lable>
                 <select name="category" id="category" class="form-control">
                     <option value="">-- chọn loại sản phẩm --</option>
+                    @foreach($category as $key => $value)
+                        <option value="{{$value['id']}}">{{$value['name_category']}}</option>
+                    @endforeach
                 </select>
 
                 <lable>Cửa hàng</lable>
                 <select name="store" id="store" class="form-control">
                     <option value="">-- chọn cửa hàng --</option>
+                    @foreach($store as $key => $value)
+                        <option value="{{$value['id']}}">{{$value['store_name']}}</option>
+                    @endforeach
                 </select>
 
                 <lable>upload ảnh</lable>
@@ -37,8 +43,6 @@
         </div>
     </div>
     </div>
-
-
 @endsection
 <!-- modal success -->
 <div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
@@ -88,13 +92,15 @@
                 console.log('here')
                 var name_product = $("input[name='name_product']").val();
                 var product_description = $("input[name='product_description']").val();
-                var category = $("input[name='category']").val();
-                var store = $("input[name='store']").val();
+                var category = $("select[name='category']").val();
+                var store = $("select[name='store']").val();
+                var image = $("input[name='image']").val();
                 var formData =  formData = new FormData();
                 formData.append('name_product', name_product);
                 formData.append('product_description', product_description);
-                formData.append('category', category);
-                formData.append('store', store);
+                formData.append('category_id', category);
+                formData.append('store_id', store);
+                formData.append('image', image);
                 console.log(name_product, product_description, category, store)
                 $.ajax({
                     url: '{{route('product.create_product')}}',

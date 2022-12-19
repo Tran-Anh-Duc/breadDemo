@@ -22,7 +22,7 @@
 <div class="menu-nav" style="margin-top: 10px;margin-bottom: 15px" >
     <ul class="nav justify-content-center">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{'list'}}">Danh sách sản phẩm</a>
+            <a class="nav-link active" aria-current="page" href="{{url('product/list')}}">Danh sách sản phẩm</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#" id="test">Danh sách loại sản phẩm</a>

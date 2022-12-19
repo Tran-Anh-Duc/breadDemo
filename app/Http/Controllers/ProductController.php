@@ -57,11 +57,16 @@ class ProductController extends Controller
 //chi tiết 1 sản phẩm
     public function find_one($id)
     {
-        $result = $this->productRepository->find($id);
-        return Controller::sendResponse(Controller::HTTP_OK,'find one data succes',$result);
+        $category = $this->categoryRepository->getAllCategory();
+        $store = $this->storeRepository->getAllStore();
+        $result_one = $this->productRepository->find($id);
+        $result['detail'] = $result_one;
+        $result['category'] = $category;
+        $result['store'] = $store;
+        return view('product.detail_product',$result);
     }
 //update 1 sản phẩm
-    public function update_product(Request $request ,$id)
+    public function update_product(Request $request,$id)
     {
         $data = $request->all();
         $find_product = $this->productRepository->find($id);

@@ -27,6 +27,8 @@ Route::prefix('product')->group(function () {
     Route::get('/list', [ProductController::class, 'allDataProduct']);
     Route::get('/create_product', [ProductController::class, 'viewProduct'])->name('product.create_product_view');
     Route::post('/create', [ProductController::class, 'create_product'])->name('product.create_product');
+    Route::get('/detail_product/{id}', [ProductController::class, 'find_one'])->name('product.detail_product');
+    Route::post('/update_product/{id}', [ProductController::class, 'update_product'])->name('product.update_product');
 });
 
 
