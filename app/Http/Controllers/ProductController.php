@@ -31,12 +31,20 @@ class ProductController extends Controller
             return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'find all data error',);
         }
     }
-//view all product
-    public function allProduct()
+
+    public function allDataProduct()
     {
         $resultAll = $this->productRepository->getAllDataProduct();
         $result['all_product'] = $resultAll;
-        return View('master')->with(compact('result'));
+        return View('product.list_product',compact("resultAll"));
+    }
+
+//view create
+    public function viewProduct()
+    {
+        $category = $this->categoryRepository->getAllCategory();
+        $store = $this->storeRepository->getAllStore();
+        return view('product.create_product',compact("category","store"));
     }
 
 //tạo sản phẩm mới
