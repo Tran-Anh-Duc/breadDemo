@@ -108,7 +108,9 @@
                 console.log(id,name_product, product_description, category, store)
                 if (confirm("Bạn chắc chắn muốn cập nhật hợp đồng?")) {
                     $.ajax({
-                        url: 'http://127.0.0.1:8000/product/update_product/' + id,
+                        // url: 'http://127.0.0.1:8000/product/update_product/' + id,
+                        {{--url: '{{url('product/update_product/' . $id)}}',--}}
+                        url: '{{route('product.update_product' , ['id' => $id])}}',
                         type: "POST",
                         data: formData,
                         dataType: 'json',

@@ -63,7 +63,8 @@ class ProductController extends Controller
         $result['detail'] = $result_one;
         $result['category'] = $category;
         $result['store'] = $store;
-        return view('product.detail_product',$result);
+        $result['id'] = $id;
+        return view('product.detail_product', $result);
     }
 //update 1 sản phẩm
     public function update_product(Request $request,$id)
