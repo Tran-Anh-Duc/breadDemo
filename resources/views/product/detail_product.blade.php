@@ -1,3 +1,4 @@
+
 @extends('home')
 @section('title', 'Chi mới sản phẩm ')
 @section('content')
@@ -82,6 +83,7 @@
         </div>
     </div>
 </div>
+
 @section('script')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript">
@@ -108,7 +110,8 @@
                 console.log(id,name_product, product_description, category, store)
                 if (confirm("Bạn chắc chắn muốn cập nhật hợp đồng?")) {
                     $.ajax({
-                        url: 'http://127.0.0.1:8000/product/update_product/' + id,
+                         url: 'http://127.0.0.1:8000/product/update_product/' + id,
+                        {{--url: '{{url('product/update_product/' + id)}}',--}}
                         type: "POST",
                         data: formData,
                         dataType: 'json',
@@ -122,17 +125,17 @@
                             if (data.status == 200) {
                                 $('#successModal').modal('show');
                                 $('.msg_success').text(data.message);
-                                // window.scrollTo(0, 0);
-                                // setTimeout(function () {
-                                //     window.location.reload();
-                                // }, 500);
+                                window.scrollTo(0, 0);
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 500);
                             } else {
                                 $('#errorModal').modal('show');
                                 $('.msg_success').text(data.message);
-                                // window.scrollTo(0, 0);
-                                // setTimeout(function () {
-                                //     window.location.reload();
-                                // }, 500);
+                                window.scrollTo(0, 0);
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 500);
                             }
                         },
                         error: function (data) {
