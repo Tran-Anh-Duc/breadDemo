@@ -22,9 +22,10 @@ class ProductController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 //lấy tất cả các sản phẩm
-    public function getAllProduct()
+    public function getAllProduct(Request $request)
     {
-        $result = $this->productRepository->getAllDataProduct();
+        $data = $request->all();
+        $result = $this->productRepository->getAllDataProduct($data);
         if (!empty($result)){
             return Controller::sendResponse(Controller::HTTP_OK,'find all data succes',$result);
         }else{
@@ -32,9 +33,10 @@ class ProductController extends Controller
         }
     }
 
-    public function allDataProduct()
+    public function allDataProduct(Request $request)
     {
-        $resultAll = $this->productRepository->getAllDataProduct();
+        $data = $request->all();
+        $resultAll = $this->productRepository->getAllDataProduct($data);
         $result['all_product'] = $resultAll;
         return View('product.list_product',compact("resultAll"));
     }

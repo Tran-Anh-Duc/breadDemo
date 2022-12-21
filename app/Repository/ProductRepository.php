@@ -12,10 +12,25 @@ class ProductRepository extends BaseRepository
        return Product::class;
     }
 //lấy tất cả các sản phẩm
-    public function getAllDataProduct()
+    public function getAllDataProduct($data)
     {
-        $result = $this->model->where([Product::COLUMN_STATUS_PRODUCT => Product::COLUMN_STATUS_ACTIVE])->get()->toArray();
-        return $result;
+        $result = $this->model;
+        if (!empty($data['status'])) {
+            $result = $result->where(Product::COLUMN_STATUS_PRODUCT, $data['status']);
+        }
+
+        if (!empty($data['name_product'])) {
+            $result = $result->where(Product::COLUMN_PRODUCT_NAME, $data['name_product']);
+        }
+
+        $result = $result->
+        whereIn(
+            Product::COLUMN_STATUS_PRODUCT,
+            [Product::COLUMN_STATUS_ACTIVE, Product::COLUMN_STATUS_BLOCK]);
+        return $result
+            ->orderBy(Product::CREATED_AT, self::DESC)
+            ->paginate(5);
+
     }
 //tạo sản phẩm mới
     public function createProduct($data)
