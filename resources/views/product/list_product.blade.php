@@ -41,7 +41,7 @@
                     </table>
                 </div>
                 <div class="pagination d-felx justify-content-right">
-                    {{ $resultAll->links() }}
+                    {{ $resultAll->withQueryString()->render('paginate') }}
                 </div>
             </div>
         </div>
