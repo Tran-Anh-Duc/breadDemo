@@ -41,7 +41,8 @@
                     </table>
                 </div>
                 <div class="pagination d-felx justify-content-right">
-                    {{ $resultAll->withQueryString()->render('paginate') }}
+{{--                        {{ $resultAll->withQueryString()->render('paginate') }}--}}
+                    {{ $resultAll->appends($_GET)->links()}}
                 </div>
             </div>
         </div>
@@ -91,7 +92,11 @@
                 console.log(name_product, status)
                 window.location.href = '{{route('product.list_product')}}' + '?name_product=' + name_product + '&status=' + status;
             })
+
+
+
         });
+
 
     </script>
 @endsection
