@@ -22,9 +22,10 @@ class TemplateController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function allProduct()
+    public function allProduct(Request $request)
     {
-        $resultAll = $this->productRepository->getAllDataProduct();
+        $data = $request->all();
+        $resultAll = $this->productRepository->getAllDataProduct($data);
         $result['all_product'] = $resultAll;
         return View('master')->with(compact('resultAll'));
     }

@@ -26,7 +26,7 @@
             <a class="nav-link active" aria-current="page" href="{{url('product/list')}}">Danh sách sản phẩm</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" id="test">Danh sách loại sản phẩm</a>
+            <a class="nav-link" href="{{url('category/list')}}" id="test">Danh sách loại sản phẩm</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Danh sách cửa hàng</a>

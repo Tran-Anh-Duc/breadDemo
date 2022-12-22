@@ -5,7 +5,7 @@
             <div class="card-body">
                 <div class="tables ">
                     <div style="right: 100%">
-                        <a href="{{'create_product'}}" class="btn btn-success " style="margin-left: 82%">Thêm sản phẩm</a>
+                        <a href="{{route('product.create_product_view')}}" class="btn btn-success " style="margin-left: 82%">Thêm sản phẩm</a>
                         <a type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#modal1">Tìm kiếm </a>
                     </div>
                     <table class="table">
@@ -41,8 +41,8 @@
                     </table>
                 </div>
                 <div class="pagination d-felx justify-content-right">
-{{--                        {{ $resultAll->withQueryString()->render('paginate') }}--}}
-                    {{ $resultAll->appends($_GET)->links()}}
+                        {{ $resultAll->withQueryString()->render('paginate') }}
+{{--                    {{ $resultAll->appends($_GET)->links()}}--}}
                 </div>
             </div>
         </div>
@@ -92,11 +92,6 @@
                 console.log(name_product, status)
                 window.location.href = '{{route('product.list_product')}}' + '?name_product=' + name_product + '&status=' + status;
             })
-
-
-
         });
-
-
     </script>
 @endsection

@@ -21,8 +21,9 @@ class CategoryController extends Controller
 
     public function listCategory()
     {
-        $result = $this->categoryRepository->getAllCategory();
-        return Controller::sendResponse(Controller::HTTP_OK,'find all succes', $result);
+        $result_category = $this->categoryRepository->getAllCategory();
+        $result['category'] = $result_category;
+        return view('category/list_category',$result);
     }
 
     public function create_category(Request $request)
