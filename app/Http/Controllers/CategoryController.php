@@ -26,6 +26,12 @@ class CategoryController extends Controller
         return view('category/list_category',$result);
     }
 
+
+    public function view_create_category()
+    {
+        return view('category.create_category');
+    }
+
     public function create_category(Request $request)
     {
         $data = $request->all();

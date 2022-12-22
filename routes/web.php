@@ -34,6 +34,7 @@ Route::prefix('product')->group(function () {
 
 Route::prefix('category')->group(function () {
     Route::get('/list', [CategoryController::class, 'listCategory'])->name('category.list_category');
+    Route::get('/create_category', [CategoryController::class, 'view_create_category'])->name('category.create_category_view');
 
 });
 
