@@ -35,6 +35,10 @@
 
                     <lable>upload ảnh</lable>
                     <input type="text" name="image" id="image" class="form-control" value="{{$detail['image']}}">
+
+                    <lable>Ngày tạo sản phẩm</lable>
+                    <input type="text" name="created_at" id="created_at" class="form-control" value="{{$detail['created_at']}}" disabled>
+
                     <input type="text" hidden value="{{$detail['id']}}"  name="id_product"
                            class="id_product form-control">
                 </div>
@@ -124,17 +128,13 @@
                             if (data.status == 200) {
                                 $('#successModal').modal('show');
                                 $('.msg_success').text(data.message);
-                                // window.scrollTo(0, 0);
-                                // setTimeout(function () {
-                                //     window.location.reload();
-                                // }, 500);
+                                window.scrollTo(0, 0);
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 500);
                             } else {
                                 $('#errorModal').modal('show');
                                 $('.msg_success').text(data.message);
-                                // window.scrollTo(0, 0);
-                                // setTimeout(function () {
-                                //     window.location.reload();
-                                // }, 500);
                             }
                         },
                         error: function (data) {
