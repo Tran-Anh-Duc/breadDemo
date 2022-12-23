@@ -110,7 +110,7 @@
                 formData.append('store_id', store)
                 formData.append('image', image)
                 console.log(id,name_product, product_description, category, store)
-                if (confirm("Bạn chắc chắn muốn cập nhật hợp đồng?")) {
+                if (confirm("Bạn chắc chắn muốn cập nhật sản phẩm này?")) {
                     $.ajax({
                         // url: 'http://127.0.0.1:8000/product/update_product/' + id,
                         url: '{{url('product/update_product/' . $id)}}',
@@ -134,7 +134,7 @@
                                 }, 500);
                             } else {
                                 $('#errorModal').modal('show');
-                                $('.msg_success').text(data.message);
+                                $('.msg_error').text(data.message);
                             }
                         },
                         error: function (data) {

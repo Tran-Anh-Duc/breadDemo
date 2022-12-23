@@ -44,7 +44,6 @@
                 </div>
                 <div class="pagination d-felx justify-content-right">
                         {{ $resultAll->withQueryString()->render('paginate') }}
-{{--                    {{ $resultAll->appends($_GET)->links()}}--}}
                 </div>
             </div>
         </div>

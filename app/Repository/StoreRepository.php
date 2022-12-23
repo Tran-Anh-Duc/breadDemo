@@ -15,8 +15,9 @@ class StoreRepository extends BaseRepository
 
     public function getAllStore()
     {
-        $result = $this->model->where([Store::COLUMN_STATUS_STORE => Store::COLUMN_STATUS_ACTIVE])->get()->toArray();
-        return $result;
+        $result = $this->model;
+        $result->whereIn(Store::COLUMN_STATUS_STORE,[Store::COLUMN_STATUS_BLOCK,Store::COLUMN_STATUS_BLOCK]);
+        return $result->orderby(Store::CREATED_AT,'DESC')->paginate(4);
     }
 
     public function createStore($data)

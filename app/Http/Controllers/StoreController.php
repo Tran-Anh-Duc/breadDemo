@@ -18,15 +18,21 @@ class StoreController extends Controller
 
     public function getAllStore()
     {
-        $result = $this->storeRepository->getAllStore();
-        return Controller::sendResponse(Controller::HTTP_OK,'find all succes', $result);
+        $result_store = $this->storeRepository->getAllStore();
+        $result['store'] = $result_store;
+        return view('store.list_store',$result);
+    }
+
+    public function view_store()
+    {
+        return view('store.create_store');
     }
 
     public function create_store(Request $request)
     {
         $data = $request->all();
         $result = $this->storeRepository->createStore($data);
-        return Controller::sendResponse(Controller::HTTP_OK,'creat data store succes', $result);
+        return Controller::sendResponse(Controller::HTTP_OK,'Tạo mới cửa hàng thành công', $result);
     }
 
     public function find_one_store($id)

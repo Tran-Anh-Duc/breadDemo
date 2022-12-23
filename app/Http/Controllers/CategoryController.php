@@ -23,7 +23,7 @@ class CategoryController extends Controller
     {
         $result_category = $this->categoryRepository->getAllCategory();
         $result['category'] = $result_category;
-        return view('category/list_category',$result);
+        return view('category.list_category',$result);
     }
 
 
@@ -45,19 +45,23 @@ class CategoryController extends Controller
 
     public function find_one($id)
     {
-        $result = $this->categoryRepository->getOne($id);
-        return Controller::sendResponse(Controller::HTTP_OK , 'find one succes', $result);
+        $result_category = $this->categoryRepository->find($id);
+        $result['category'] = $result_category;
+        $result['id'] = $id;
+        return view('category.detail_category',$result);
     }
+
+
 
     public function update_category(Request $request,$id)
     {
         $data = $request->all();
-        $resultCategoryFindOne = $this->categoryRepository->getOne($id);
-        if ($resultCategoryFindOne['status'] == 1){
+        $resultCategoryFindOne = $this->categoryRepository->find($id);
+        if ($resultCategoryFindOne['status'] == 1 || $resultCategoryFindOne['status'] == 2 ){
             $result = $this->categoryRepository->updateCategory($data,$id);
-            return Controller::sendResponse(Controller::HTTP_OK,'update success',$result);
+            return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật loại sản phẩm thành công',$result);
         }else{
-            return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'update error');
+            return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'Cập nhật loại sản phẩm thất bại');
         }
     }
 }

@@ -33,25 +33,21 @@ class CategoryRepository extends BaseRepository
         return $result;
     }
 
-    public function getOne($id)
-    {
-        $result = $this->model->where([Category::COLUMN_ID => $id])->first()->toArray();
-        return $result;
-    }
+
 
     public function updateCategory($data,$id)
     {
         $result = [];
-        if (isset($data['category_name'])){
-            $result[Category::COLUMN_CATEGORY_NAME] = $data['category_name'];
+        if (isset($data['name_category'])){
+            $result[Category::COLUMN_CATEGORY_NAME] = $data['name_category'];
         }
 
         if (isset($data['category_description'])){
             $result[Category::COLUMN_CATEGORY_DESCRIPTION] = $data['category_description'];
         }
 
-        if (isset($data['category_image'])){
-            $result[Category::COLUMN_CATEGORY_IMAGE] = $data['category_image'];
+        if (isset($data['image'])){
+            $result[Category::COLUMN_CATEGORY_IMAGE] = $data['image'];
         }
 
         if (empty($result)){

@@ -75,9 +75,9 @@ class ProductController extends Controller
         $find_product = $this->productRepository->find($id);
         if ($find_product['status'] == 2){
             $result = $this->productRepository->updateProduct($data,$id);
-            return Controller::sendResponse(Controller::HTTP_OK,'update data succes',$result);
+            return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật sản phẩm thành công',$result);
         }else{
-             return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'update data error');
+             return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'Sản phẩm chưa được kích hoạt');
         }
     }
 

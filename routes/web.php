@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,15 @@ Route::prefix('category')->group(function () {
     Route::get('/list', [CategoryController::class, 'listCategory'])->name('category.list_category');
     Route::get('/create_category', [CategoryController::class, 'view_create_category'])->name('category.create_category_view');
     Route::post('/create', [CategoryController::class, 'create_category'])->name('category.create_category');
+    Route::get('/detail_category/{id}', [CategoryController::class, 'find_one'])->name('category.detail_category');
+    Route::post('/update_category/{id}', [CategoryController::class, 'update_category'])->name('category.update_category');
+});
 
+
+Route::prefix('store')->group(function () {
+    Route::get('/list', [StoreController::class, 'getAllStore'])->name('store.list_store');
+    Route::get('/create_store', [StoreController::class, 'view_store'])->name('store.view_store');
+    Route::post('/create', [StoreController::class, 'create_store'])->name('store.create_store');
 });
 
 

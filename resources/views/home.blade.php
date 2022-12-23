@@ -29,7 +29,7 @@
             <a class="nav-link" href="{{url('category/list')}}" id="test">Danh sách loại sản phẩm</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Danh sách cửa hàng</a>
+            <a class="nav-link" href="{{url('store/list')}}">Danh sách cửa hàng</a>
         </li>
         <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Lịch sử</a>
