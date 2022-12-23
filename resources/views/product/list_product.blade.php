@@ -93,8 +93,6 @@
                 window.location.href = '{{route('product.list_product')}}' + '?name_product=' + name_product + '&status=' + status;
             })
 
-
-
         });
 
 
