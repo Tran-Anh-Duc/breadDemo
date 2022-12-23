@@ -35,7 +35,9 @@
                                 </tr>
                             @endforeach
                         @else
-                            'Không có dữ liệu '
+                            <div>
+                                <p style="color: red">Không có dữ liệu</p>
+                            </div>
                         @endif
                         </tbody>
                     </table>

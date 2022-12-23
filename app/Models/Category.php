@@ -6,7 +6,7 @@ namespace App\Models;
 
 class Category extends BaseModel
 {
-    const COLUMN_CATEGORY_NAME = 'category_name';
+    const COLUMN_CATEGORY_NAME = 'name_category';
     const COLUMN_CATEGORY_DESCRIPTION = 'category_description';
     const COLUMN_STORE_ID = 'store_id';
     const COLUMN_PRODUC_ID = 'product_id';

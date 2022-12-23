@@ -35,14 +35,16 @@
                                 </tr>
                             @endforeach
                         @else
-                            'Không có dữ liệu '
+                             <div>
+                                 <p style="color: red">Không có dữ liệu</p>
+                             </div>
                         @endif
                         </tbody>
                     </table>
                 </div>
                 <div class="pagination d-felx justify-content-right">
-{{--                        {{ $resultAll->withQueryString()->render('paginate') }}--}}
-                    {{ $resultAll->appends($_GET)->links()}}
+                        {{ $resultAll->withQueryString()->render('paginate') }}
+{{--                    {{ $resultAll->appends($_GET)->links()}}--}}
                 </div>
             </div>
         </div>
@@ -93,7 +95,5 @@
                 window.location.href = '{{route('product.list_product')}}' + '?name_product=' + name_product + '&status=' + status;
             })
         });
-
-
     </script>
 @endsection

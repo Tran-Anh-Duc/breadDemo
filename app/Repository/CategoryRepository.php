@@ -22,7 +22,7 @@ class CategoryRepository extends BaseRepository
     public function createCategory($data)
     {
         $data1 = [
-            Category::COLUMN_CATEGORY_NAME => $data['category_name'] ?? null,
+            Category::COLUMN_CATEGORY_NAME => $data['name_category'] ?? null,
             Category::COLUMN_CATEGORY_DESCRIPTION => $data['category_description'] ?? null,
             Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_BLOCK ,
             Category::COLUMN_CATEGORY_IMAGE => $data['category_image'] ?? null
