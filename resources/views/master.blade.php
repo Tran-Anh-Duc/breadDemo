@@ -99,6 +99,9 @@
     @else
         'không có dữ liệu'
     @endif
+        <div class="pagination d-felx justify-content-right" style="margin-top: 20px;margin-left: 80%">
+            {{ $resultAll->withQueryString()->render('paginate') }}
+        </div>
 </div>
 
 </body>

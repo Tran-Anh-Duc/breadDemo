@@ -29,7 +29,7 @@ class ProductRepository extends BaseRepository
             [Product::COLUMN_STATUS_ACTIVE, Product::COLUMN_STATUS_BLOCK]);
         return $result
             ->orderBy(Product::CREATED_AT, self::DESC)
-            ->paginate(5);
+            ->paginate(4);
 
     }
 //tạo sản phẩm mới

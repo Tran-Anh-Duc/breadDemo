@@ -51,10 +51,11 @@
 @if ($paginator->hasPages())
 <?php
     $vars = [];
-    if (isset($_SERVER['QUERY_STRING'])) {
+    if (isset($_SERVER['QUERY_STRING'])){
         parse_str($_SERVER['QUERY_STRING'], $vars);
+        unset($vars['page']);
     }
-    unset($vars['page']);
+
 ?>
     <!-- Pagination -->
     <div class="pull-right">
