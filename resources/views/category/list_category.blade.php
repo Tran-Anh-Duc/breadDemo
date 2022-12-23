@@ -31,7 +31,7 @@
                                             sản phẩm đã được kích hoạt
                                         @endif
                                     </td>
-{{--                                    <td><a href="{{url('product/detail_product/'.$value['id'])}}" class="btn btn-warning">Chi tiết</a></td>--}}
+                                    <td><a href="#" class="btn btn-warning">Chi tiết</a></td>
                                 </tr>
                             @endforeach
                         @else
@@ -43,7 +43,7 @@
                     </table>
                 </div>
                 <div class="pagination d-felx justify-content-right">
-{{--                 {{ $category->appends($_GET)->links()}}--}}
+                 {{ $category->appends($_GET)->links()}}
                 </div>
             </div>
         </div>

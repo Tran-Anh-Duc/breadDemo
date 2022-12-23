@@ -38,25 +38,7 @@
                 <p class="msg_success text-primary"></p>
             </div>
             <div class="modal-footer">
-                {{--            <a id="redirect-url" class="btn btn-success">Xem</a>--}}
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- modal success -->
-<div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-success" id="staticBackdropLabel">Thành công</h5>
-            </div>
-            <div class="modal-body">
-                <p class="msg_success text-primary"></p>
-            </div>
-            <div class="modal-footer">
-                {{--            <a id="redirect-url" class="btn btn-success">Xem</a>--}}
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -73,7 +55,7 @@
                 <div class="msg_error"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -89,13 +71,14 @@
          $(document).ready(function () {
             $("#saveCategory").click(function (event) {
                 event.preventDefault();
-                console.log('here')
                 var category_name = $("input[name='category_name']").val();
                 var category_description = $("input[name='category_description']").val();
+                var image = $("input[name='category_image']").val();
                 var formData =  formData = new FormData();
                 formData.append('name_category', category_name);
                 formData.append('category_description', category_description);
-                console.log(category_name, category_description)
+                formData.append('image', image);
+                console.log(category_name, category_description,image)
                 $.ajax({
                     url: '{{route('category.create_category')}}',
                     type: "POST",

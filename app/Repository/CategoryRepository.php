@@ -15,8 +15,10 @@ class CategoryRepository extends BaseRepository
 
     public function getAllCategory()
     {
-        $result = $this->model->where([Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_ACTIVE])->get()->toArray();
-        return $result;
+        $result = $this->model;
+        $result = $result->whereIn(Category::COLUMN_STATUS_CATEGORY, [Category::COLUMN_STATUS_ACTIVE, Category::COLUMN_STATUS_BLOCK]);
+        return $result->orderby(Category::CREATED_AT, 'DESC')
+            ->paginate(4);
     }
 
     public function createCategory($data)
@@ -25,7 +27,7 @@ class CategoryRepository extends BaseRepository
             Category::COLUMN_CATEGORY_NAME => $data['name_category'] ?? null,
             Category::COLUMN_CATEGORY_DESCRIPTION => $data['category_description'] ?? null,
             Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_BLOCK ,
-            Category::COLUMN_CATEGORY_IMAGE => $data['category_image'] ?? null
+            Category::COLUMN_CATEGORY_IMAGE => $data['image'] ?? null
         ];
         $result = $this->model->create($data1);
         return $result;
