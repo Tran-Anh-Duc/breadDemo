@@ -20,6 +20,7 @@
     }
 </style>
 <body>
+@yield('style')
 <div class="menu-nav" style="margin-top: 10px;margin-bottom: 15px" >
     <ul class="nav justify-content-center">
         <li class="nav-item">

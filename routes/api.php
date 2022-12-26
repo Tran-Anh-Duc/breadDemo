@@ -27,6 +27,7 @@ Route::prefix('product')->group(function () {
     Route::post('/create_product', [ProductController::class, 'create_product']);
     Route::post('/find_one/{id}', [ProductController::class, 'find_one']);
     Route::post('/update_product/{id}', [ProductController::class, 'update_product']);
+    Route::post('/update_status/{id}', [ProductController::class, 'updateStatus']);
 });
 
 Route::prefix('category')->group(function () {

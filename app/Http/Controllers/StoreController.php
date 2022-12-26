@@ -37,8 +37,10 @@ class StoreController extends Controller
 
     public function find_one_store($id)
     {
-        $result = $this->storeRepository->findOneStore($id);
-        return Controller::sendResponse(Controller::HTTP_OK,'find one store succes',$result);
+        $result_detail = $this->storeRepository->findOneStore($id);
+        $result['detail'] = $result_detail;
+        $result['id'] = $id;
+        return view('store.detail_store',$result);
     }
 
     public function update_store(Request $request,$id)

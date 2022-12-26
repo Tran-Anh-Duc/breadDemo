@@ -1,39 +1,38 @@
 @extends('home')
 @section('content')
+
     <div class="container-sm">
         <div class="card">
             <div class="card-body ">
                 <div class="tabs">
                     <h2>Chi tiết sản phẩm</h2>
                     <lable>Tên sản phẩm</lable>
-                    <input type="text" name="name_category" placeholder="Nhập tên loại sản phẩm" id="name_category"
-                           value="{{$category['name_category']}}"
-                           class="name_category  form-control"/>
+                    <input type="text" name="store_name" placeholder="Nhập tên loại sản phẩm" id="store_name"
+                           value="{{$detail['store_name']}}"
+                           class="store_name  form-control"/>
 
                     <lable>Mô tả sản phẩm</lable>
-                    <input type="text" name="category_description" placeholder="Nhập mô loại tả sản phẩm"
-                           value="{{$category['category_description']}}"
-                           class="category_description form-control"
-                           id="category_description form-control">
-
-                    <lable>upload ảnh</lable>
-                    <input type="text" name="image" id="image" class="form-control" value="{{$category['image']}}">
+                    <input type="text" name="store_address" placeholder="Nhập mô loại tả sản phẩm"
+                           value="{{$detail['store_address']}}"
+                           class="store_address form-control"
+                           id="store_address form-control">
 
                     <lable>Ngày tạo sản phẩm</lable>
-                    <input type="text" name="created_at" id="created_at" class="form-control" value="{{$category['created_at']}}" disabled>
+                    <input type="text" name="created_at" id="created_at" class="form-control" value="{{$detail['created_at']}}" disabled>
 
-                    <input type="text"  value="{{$category['id']}}"  name="id_category" hidden
-                           class="id_category form-control">
+                    <input type="text"  value="{{$detail['id']}}"  name="id_store" hidden
+                           class="id_store form-control">
                 </div>
                 <div class="buttons" style="margin-top: 10px; margin-bottom: 15px">
                     <div>
-                        <button id="saveDetailCategory" data-id="{{$category['id']}}" class="btn btn-success ">Chỉnh sửa</button>
-                        <a href="{{url('category/list')}}" class="btn btn-danger close">Hủy</a>
+                        <button id="saveDetailStore" data-id="{{$detail['id']}}" class="btn btn-success ">Chỉnh sửa</button>
+                        <a href="{{url('store/list')}}" class="btn btn-danger close">Hủy</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 <!-- modal success -->
 <div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
@@ -77,19 +76,20 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $("#saveDetailCategory").click(function (e) {
+
+        $("#saveDetailStore").click(function (e) {
             e.preventDefault();
             var id = $(this).attr('data-id');
-            var name_category = $("input[name='name_category']").val()
-            var category_description = $("input[name='category_description']").val()
+            var store_name = $("input[name='store_name']").val()
+            var store_address = $("input[name='store_address']").val()
             var formData = new FormData();
             formData.append('id', id)
-            formData.append('name_category', name_category)
-            formData.append('category_description', category_description)
-            console.log(name_category,category_description)
+            formData.append('store_name', store_name)
+            formData.append('store_address', store_address)
+            console.log(store_name,store_address)
             if (confirm("Bạn chắc chắn muốn cập nhật loại sản phẩm?")) {
                 $.ajax({
-                    url: '{{url('category/update_category/' . $id)}}',
+                    url: '{{url('store/update_store/' . $id)}}',
                     type: "POST",
                     data: formData,
                     dataType: 'json',

@@ -31,6 +31,7 @@ Route::prefix('product')->group(function () {
     Route::post('/create', [ProductController::class, 'create_product'])->name('product.create_product');
     Route::get('/detail_product/{id}', [ProductController::class, 'find_one'])->name('product.detail_product');
     Route::post('/update_product/{id}', [ProductController::class, 'update_product'])->name('product.update_product');
+    Route::post('/update_status/{id}', [ProductController::class, 'updateStatus'])->name('product.update_status');
 });
 
 Route::prefix('category')->group(function () {
@@ -46,6 +47,8 @@ Route::prefix('store')->group(function () {
     Route::get('/list', [StoreController::class, 'getAllStore'])->name('store.list_store');
     Route::get('/create_store', [StoreController::class, 'view_store'])->name('store.view_store');
     Route::post('/create', [StoreController::class, 'create_store'])->name('store.create_store');
+    Route::get('/detail_store/{id}', [StoreController::class, 'find_one_store'])->name('store.detail_store');
+    Route::post('/update_store/{id}', [StoreController::class, 'update_store'])->name('store.update_store');
 });
 
 

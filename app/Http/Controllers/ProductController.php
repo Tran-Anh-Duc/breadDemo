@@ -36,9 +36,12 @@ class ProductController extends Controller
     public function allDataProduct(Request $request)
     {
         $data = $request->all();
+        $id = !empty($data['id']) ? $data['id'] : "";
         $resultAll = $this->productRepository->getAllDataProduct($data);
         $result['all_product'] = $resultAll;
-        return View('product.list_product',compact("resultAll"));
+        $updateStatusUrl = url('product/update_status/'. $id);
+        $result['updateStatusUrl'] = $updateStatusUrl;
+        return View('product.list_product',$result);
     }
 
 //view create
@@ -79,6 +82,13 @@ class ProductController extends Controller
         }else{
              return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'Sản phẩm chưa được kích hoạt');
         }
+    }
+//update status product
+
+    public function updateStatus($id)
+    {
+        $result = $this->productRepository->update_status($id);
+        return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật trạng thái  sản phẩm thành công',$result);
     }
 
 
