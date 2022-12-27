@@ -59,4 +59,16 @@ class StoreRepository extends BaseRepository
             ->update($result);
         return  $result_update_store;
     }
+
+    //update status product(cập nhật trạng thái của loại sản phẩm)
+    public function update_status($id)
+    {
+        $result = $this->model->find($id);
+        if (!empty($result) && $result['status_store'] == 1){
+            $resultActive = $this->model->where([Store::COLUMN_ID => $id])->update([Store::COLUMN_STATUS_STORE => Store::COLUMN_STATUS_ACTIVE ]);
+        }elseif(!empty($result) && $result['status_store'] == 2){
+            $resultActive = $this->model->where([Store::COLUMN_ID => $id])->update([Store::COLUMN_STATUS_STORE => Store::COLUMN_STATUS_BLOCK ]);
+        }
+        return $resultActive;
+    }
 }

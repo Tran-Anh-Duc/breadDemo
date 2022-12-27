@@ -55,6 +55,12 @@ class StoreController extends Controller
         }
     }
 
+    public function updateStatus($id)
+    {
+        $result = $this->storeRepository->update_status($id);
+        return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật trạng thái cửa hàng thành công',$result);
+    }
+
 
 
 }

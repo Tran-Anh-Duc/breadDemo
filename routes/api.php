@@ -35,6 +35,7 @@ Route::prefix('category')->group(function () {
     Route::post('/create_category', [CategoryController::class, 'create_category']);
     Route::post('/detail_category/{id}', [CategoryController::class, 'find_one']);
     Route::post('/update_category/{id}', [CategoryController::class, 'update_category']);
+    Route::post('/update_status/{id}', [CategoryController::class, 'updateStatus']);
 });
 
 Route::prefix('store')->group(function () {
@@ -42,6 +43,7 @@ Route::prefix('store')->group(function () {
     Route::post('/create_store', [StoreController::class, 'create_store']);
     Route::post('/detail_store/{id}', [StoreController::class, 'find_one_store']);
     Route::post('/update_store/{id}', [StoreController::class, 'update_store']);
+    Route::post('/update_status/{id}', [StoreController::class, 'updateStatus']);
 });
 
 

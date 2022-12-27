@@ -40,6 +40,7 @@ Route::prefix('category')->group(function () {
     Route::post('/create', [CategoryController::class, 'create_category'])->name('category.create_category');
     Route::get('/detail_category/{id}', [CategoryController::class, 'find_one'])->name('category.detail_category');
     Route::post('/update_category/{id}', [CategoryController::class, 'update_category'])->name('category.update_category');
+    Route::post('/update_status/{id}', [CategoryController::class, 'updateStatus'])->name('category.update_status');
 });
 
 
@@ -49,6 +50,7 @@ Route::prefix('store')->group(function () {
     Route::post('/create', [StoreController::class, 'create_store'])->name('store.create_store');
     Route::get('/detail_store/{id}', [StoreController::class, 'find_one_store'])->name('store.detail_store');
     Route::post('/update_store/{id}', [StoreController::class, 'update_store'])->name('store.update_store');
+    Route::post('/update_status/{id}', [StoreController::class, 'updateStatus'])->name('store.update_status');
 });
 
 
