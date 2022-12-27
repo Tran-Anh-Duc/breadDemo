@@ -39,8 +39,12 @@ class ProductController extends Controller
         $id = !empty($data['id']) ? $data['id'] : "";
         $resultAll = $this->productRepository->getAllDataProduct($data);
         $result['all_product'] = $resultAll;
-        $updateStatusUrl = url('product/update_status/'. $id);
-        $result['updateStatusUrl'] = $updateStatusUrl;
+//        foreach ($resultAll as $v){
+//            echo '<pre>';
+//            var_dump($v['status']);
+//            echo '</pre>';
+//            die();
+//        }
         return View('product.list_product',$result);
     }
 

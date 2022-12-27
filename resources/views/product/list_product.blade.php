@@ -96,10 +96,10 @@
                                             sản phẩm đã được kích hoạt
                                         @endif
                                     </td>
-                                    <td style="text-align: center">
-                                        <label for="" class="switch" data-id="{{$value['id']}}">
-                                            <input value="{{$value['id']}}" type="checkbox" name="status_id" id="status_id" class="form-check-input "
-                                            <?php $value['status'] == 2 ? 'checked' : '' ?>
+                                    <td style="text-align: center;padding-top: 13px">
+                                        <label for="" class="switch" data-id="{{$value['id']}}" data-url="{{route('product.update_status', ['id' => $value['id']])}}">
+                                            <input type="checkbox" name="status_id" id="status_id" class="form-check-input "
+                                                   value="2" {{$value['status'] == 2 ? 'checked' : ''}}
                                             />
                                             <span class="slider round"></span>
                                         </label>
@@ -204,13 +204,13 @@
             $('.switch').click(function (event) {
                 event.preventDefault();
                 let id = $(this).attr('data-id');
-                // let status = $(this).prop('checked') == 2 ? 'Đã kích hoạt' : 'Chưa kích hoạt';
+                let url = $(this).attr('data-url');
                 let formData = new FormData();
                 formData.append('id', id);
-                // formData.append('status', status);
+                console.log(id,url)
                 if (confirm("Bạn chắc chắn muốn thay đổi?")) {
                     $.ajax({
-                        url: '<?= $updateStatusUrl ?>',
+                        url: url,
                         type: 'POST',
                         dataType: 'json',
                         headers: {
@@ -223,13 +223,14 @@
                             $(".theloading").show();
                         },
                         success: function (data) {
+                            console.log(data.data)
                             $(".theloading").hide();
-                            if (data.data.status == 200) {
+                            if (data.status == 200) {
                                 $('#successModal').modal('show');
                                 $('.msg_success').text(data.message);
-                                // setTimeout(function () {
-                                //     window.location.reload();
-                                // }, 500)
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 500)
                             } else {
                                 $('#errorModal').modal('show');
                                 $('.msg_error').text(data.data.message);
@@ -246,3 +247,4 @@
         });
     </script>
 @endsection
+
