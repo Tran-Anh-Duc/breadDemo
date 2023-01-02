@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\TemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,7 @@ Route::prefix('product')->group(function () {
     Route::post('/find_one/{id}', [ProductController::class, 'find_one']);
     Route::post('/update_product/{id}', [ProductController::class, 'update_product']);
     Route::post('/update_status/{id}', [ProductController::class, 'updateStatus']);
-    Route::post('/add_to_card/{id}', [ProductController::class, 'add_to_card']);
+    Route::post('/add_to_card/{id}', [TemplateController::class, 'add_to_card']);
 });
 
 Route::prefix('category')->group(function () {

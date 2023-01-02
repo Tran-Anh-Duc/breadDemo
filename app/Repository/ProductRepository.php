@@ -42,6 +42,9 @@ class ProductRepository extends BaseRepository
             Product::COLUMN_STATUS_PRODUCT => Product::COLUMN_STATUS_BLOCK,
             Product::COLUMN_STORE_ID => $data['store_id'] ?? null,
             Product::COLUMN_CATEGORY_ID => $data['category_id'] ?? null,
+            Product::COLUMN_PRICE => $data['price'] ?? null,
+            Product::COLUMN_TOTAL => $data['total'] ?? null,
+            Product::COLUMN_CLICK_ID => $data['click_id'] ?? null,
         ];
         $result = $this->model->create($data1);
         return $result;
@@ -91,25 +94,5 @@ class ProductRepository extends BaseRepository
         return $resultActive;
     }
 
-    public function addToCard($id)
-    {
-
-        $product = $this->model->findOrFail($id);
-
-        $cart = session()->get('cart',[]);
-
-        if (isset($cart[$id])){
-            $cart[$id]['quantity']++;
-        }else{
-            $cart[$id] = [
-               Product::COLUMN_PRODUCT_NAME => $product->name,
-               Product::COLUMN_PRICE => $product->price,
-               Product::COLUMN_PRODUCT_IMAGE => $product->product_image,
-               'quantity' => 1
-            ];
-        }
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
-    }
 
 }

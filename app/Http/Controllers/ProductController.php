@@ -89,11 +89,7 @@ class ProductController extends Controller
         return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật trạng thái  sản phẩm thành công',$result);
     }
 
-    public function add_to_card($id)
-    {
-        $result = $this->productRepository->addToCard($id);
-        return Controller::sendResponse(Controller::HTTP_OK,'Thêm giỏ hàng thành công',$result);
-    }
+
 
 
 }
