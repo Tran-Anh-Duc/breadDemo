@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-{{--    <link href="{{ asset('public/card_list.css') }}" rel="stylesheet" type="text/css">--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/card_list.css') }}">
 </head>
 <style>
@@ -139,7 +138,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            <a class="nav-link " href="{{route('bread.card')}}" tabindex="-1" aria-disabled="false" >show card: {{count(session('card'))}}</a>
                         </li>
                     </ul>
                     <form class="d-flex">

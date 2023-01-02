@@ -31,17 +31,38 @@ class TemplateController extends Controller
 
     public function view_card()
     {
-        return view('card.card');
+        $card = session()->get('card');
+        return view('card.card',compact("card"));
     }
 
     public function add_to_card($id)
     {
-        dd('add to card: ' .$id);
+        //session()->flush('card');
+        $card = session()->get('card');
+        $product = $this->productRepository->find($id);
+        if (isset($card[$id])){
+            $card[$id]['quantity'] = $card[$id]['quantity'] + 1;
+        }else{
+            $card[$id] = [
+                'name_product' => $product['name_product'],
+                'price' => $product['price'],
+                'quantity' => 1
+            ];
+        }
+        session()->put('card',$card);
+        return Controller::sendResponse(Controller::HTTP_OK,'create card succes');
     }
 
     public function updateCard(Request $request)
     {
-
+        if ($request->id && $request->quantity){
+            $cards = session()->get('card');
+            $cards[$request->id]['quantity'] = $request->quantity;
+            session()->put('card',$cards);
+            $cards = session()->get('card');
+            $cardView = view('card.card',compact("cards"))->render();
+            return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
+        }
 
     }
 

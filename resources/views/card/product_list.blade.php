@@ -81,10 +81,18 @@
                    type:"GET",
                    url: url,
                     success:function (data) {
-
+                        console.log(data)
+                        if(data.status == 200){
+                            alert('thêm sản phẩm thành công');
+                            window.scrollTo(0, 0);
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                        }
                     },
                     error:function (data) {
-
+                        console.log(data)
+                            alert('them san pham that bai')
                     }
                 });
             })
