@@ -63,11 +63,17 @@ class TemplateController extends Controller
             $cardView = view('card.card',compact("cards"))->render();
             return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
         }
-
     }
 
     public function removeCard(Request $request)
     {
-
+        if ($request->id){
+            $cards = session()->get('card');
+            unset($cards[$request->id]);
+            session()->put('card',$cards);
+            $cards = session()->get('card');
+            $cardView = view('card.card',compact("cards"))->render();
+            return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
+        }
     }
 }

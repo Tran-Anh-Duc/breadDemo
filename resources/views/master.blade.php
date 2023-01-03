@@ -138,7 +138,13 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="{{route('bread.card')}}" tabindex="-1" aria-disabled="false" >show card: {{count(session('card'))}}</a>
+                            <a class="nav-link " href="{{route('bread.card')}}" tabindex="-1" aria-disabled="false" >
+                                @if(!empty(session('card')))
+                                    show card: {{count(session('card'))}}
+                                @else
+                                    show card: 0
+                                @endif
+                            </a>
                         </li>
                     </ul>
                     <form class="d-flex">
