@@ -95,7 +95,7 @@
                 var category = $("select[name='category']").val();
                 var store = $("select[name='store']").val();
                 var image = $("input[name='image']").val();
-                var formData =  formData = new FormData();
+                var formData = new FormData();
                 formData.append('name_product', name_product);
                 formData.append('product_description', product_description);
                 formData.append('category_id', category);

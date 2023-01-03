@@ -12,4 +12,14 @@ class UserRepository extends BaseRepository
     {
        return User::class;
     }
+
+    public function registerUser($data)
+    {
+        $data1 = [
+           'name'  => $data['name'] ?? null,
+           'email' => $data['email'] ?? null,
+           'password' =>  !empty($data['password']) ? bcrypt($data['password']) : null
+        ];
+        $user = $this->model->create($data1);
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -27,6 +28,10 @@ Route::prefix('bread')->group(function () {
     Route::get('/add_to_card/{id}', [TemplateController::class, 'add_to_card'])->name('bread.add_to_card');
     Route::get('/updateCard', [TemplateController::class, 'updateCard'])->name('bread.updateCard');
     Route::get('/removeCard', [TemplateController::class, 'removeCard'])->name('bread.removeCard');
+    Route::get('/view_register', [AuthController::class, 'viewRegister'])->name('bread.viewRegister');
+    Route::get('/view_login', [AuthController::class, 'viewLogin'])->name('bread.viewLogin');
+    Route::post('/register', [AuthController::class, 'register'])->name('bread.register');
+    Route::post('/login', [AuthController::class, 'login'])->name('bread.login');
 });
 
 Route::prefix('product')->group(function () {
