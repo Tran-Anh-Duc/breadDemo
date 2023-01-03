@@ -23,6 +23,10 @@ Route::get('/', function () {
 
 Route::prefix('bread')->group(function () {
     Route::get('/list_product', [TemplateController::class, 'allProduct']);
+    Route::get('/view_card', [TemplateController::class, 'view_card'])->name('bread.card');
+    Route::get('/add_to_card/{id}', [TemplateController::class, 'add_to_card'])->name('bread.add_to_card');
+    Route::get('/updateCard', [TemplateController::class, 'updateCard'])->name('bread.updateCard');
+    Route::get('/removeCard', [TemplateController::class, 'removeCard'])->name('bread.removeCard');
 });
 
 Route::prefix('product')->group(function () {
@@ -40,6 +44,7 @@ Route::prefix('category')->group(function () {
     Route::post('/create', [CategoryController::class, 'create_category'])->name('category.create_category');
     Route::get('/detail_category/{id}', [CategoryController::class, 'find_one'])->name('category.detail_category');
     Route::post('/update_category/{id}', [CategoryController::class, 'update_category'])->name('category.update_category');
+    Route::post('/update_status/{id}', [CategoryController::class, 'updateStatus'])->name('category.update_status');
 });
 
 
@@ -49,6 +54,7 @@ Route::prefix('store')->group(function () {
     Route::post('/create', [StoreController::class, 'create_store'])->name('store.create_store');
     Route::get('/detail_store/{id}', [StoreController::class, 'find_one_store'])->name('store.detail_store');
     Route::post('/update_store/{id}', [StoreController::class, 'update_store'])->name('store.update_store');
+    Route::post('/update_status/{id}', [StoreController::class, 'updateStatus'])->name('store.update_status');
 });
 
 

@@ -12,6 +12,9 @@ class Product extends BaseModel
     const COLUMN_CATEGORY_ID = 'category_id';
     const COLUMN_STATUS_PRODUCT = 'status';
     const COLUMN_PRODUCT_IMAGE = 'image';
+    const COLUMN_PRICE = 'price';
+    const COLUMN_CLICK_ID = 'click_id';
+    const COLUMN_TOTAL = 'total';
 
     const COLUMN_STATUS_ACTIVE = 2;
     const COLUMN_STATUS_BLOCK = 1;

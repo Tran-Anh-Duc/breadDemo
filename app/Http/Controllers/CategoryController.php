@@ -64,4 +64,10 @@ class CategoryController extends Controller
             return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'Cập nhật loại sản phẩm thất bại');
         }
     }
+
+    public function updateStatus($id)
+    {
+        $result = $this->categoryRepository->update_status($id);
+        return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật trạng thái loại sản phẩm thành công',$result);
+    }
 }

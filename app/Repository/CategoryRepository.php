@@ -58,4 +58,16 @@ class CategoryRepository extends BaseRepository
         return $result_category;
 
     }
+
+    //update status product(cập nhật trạng thái của loại sản phẩm)
+    public function update_status($id)
+    {
+        $result = $this->model->find($id);
+        if (!empty($result) && $result['status'] == 1){
+            $resultActive = $this->model->where([Category::COLUMN_ID => $id])->update([Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_ACTIVE ]);
+        }elseif(!empty($result) && $result['status'] == 2){
+            $resultActive = $this->model->where([Category::COLUMN_ID => $id])->update([Category::COLUMN_STATUS_CATEGORY => Category::COLUMN_STATUS_BLOCK ]);
+        }
+        return $resultActive;
+    }
 }
