@@ -212,8 +212,13 @@
 
                     </div>
                 </div>
-                <div class="cont_btn">
-                    <button class="btn_sign sign_in" id="sign_up">SIGN IN</button>
+                <div class="cont_btn row">
+                    <div class="col-6 ">
+                        <button style="width: 130px;margin-left: 50px;right: 50px" class="btn_sign " id="sign_up">SIGN IN</button>
+                    </div>
+                    <div class="col-6">
+                        <button style="width: 130px;margin: 20px 20px 20px 20px;right: 5px" class="btn_sign sign_in" id="sign_in">Log In</button>
+                    </div>
 
                 </div>
 
@@ -416,5 +421,43 @@
                 }
             })
         })
+
+        $('#sign_in').on('click', function (e) {
+            e.preventDefault();
+            var email = $("input[name='email']").val();
+            var password = $("input[name='password']").val();
+            var formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password)
+            console.log(email,password)
+            $.ajax({
+                url: '{{route('bread.login')}}',
+                type: "POST",
+                data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    $(".theloading").show();
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        $('#successModal').modal('show');
+                        $('.msg_success').text(data.message);
+                        window.scrollTo(0, 0);
+                        setTimeout(function () {
+                            window.location.href = "{{route('list')}}";
+                        }, 500);
+                    } else {
+                        $('#errorModal').modal('show');
+                        $('.msg_error').text(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                    $(".theloading").hide();
+                }
+            })
+        });
     })
 </script>

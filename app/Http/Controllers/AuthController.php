@@ -31,7 +31,12 @@ class AuthController extends Controller
         return Controller::sendResponse(self::HTTP_OK,'create success',$result);
     }
 
-
+    public function login(Request $request)
+    {
+        $data = $request->all();
+        $result = $this->userRepository->loginUser($data);
+        return Controller::sendResponse(self::HTTP_OK,'login success',$result);
+    }
 
 
 }
