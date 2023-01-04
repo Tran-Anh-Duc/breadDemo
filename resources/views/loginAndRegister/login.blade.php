@@ -191,10 +191,10 @@
             <form action="">
                 <div class="cont_tabs_login">
                     <ul class='ul_tabs'>
-                        <li class="active"><a href="#" onclick="sign_in()">SIGN IN</a>
+                        <li class="active"><a href="#" onclick="sign_in()" id="signIn">SIGN IN</a>
                             <span class="linea_bajo_nom"></span>
                         </li>
-                        <li><a href="#up" onclick="sign_up()" >SIGN UP</a><span class="linea_bajo_nom"></span>
+                        <li><a href="#up" onclick="sign_up()" id="signUp">SIGN UP</a><span class="linea_bajo_nom"></span>
                         </li>
                     </ul>
                 </div>
@@ -204,7 +204,7 @@
                     <input type="text" class="input_form_sign d_block active_inp email" placeholder="EMAIL" name="email" id="email" />
 
                     <input type="password" class="input_form_sign d_block  active_inp password" placeholder="PASSWORD" name="password"  id="password"/>
-                    <input type="password" class="input_form_sign" placeholder="CONFIRM PASSWORD" name="conf_pass_us" />
+{{--                    <input type="password" class="input_form_sign" placeholder="CONFIRM PASSWORD" name="conf_pass_us" />--}}
 
                     <a href="#" class="link_forgot_pass d_block">Forgot Password ?</a>
                     <div class="terms_and_cons d_none">
@@ -214,7 +214,7 @@
                 </div>
                 <div class="cont_btn row">
                     <div class="col-6 ">
-                        <button style="width: 130px;margin-left: 50px;right: 50px" class="btn_sign " id="sign_up">SIGN IN</button>
+                        <button style="width: 130px;margin-left: 50px;right: 50px;display: none" class="btn_sign " id="sign_up">SIGN IN</button>
                     </div>
                     <div class="col-6">
                         <button style="width: 130px;margin: 20px 20px 20px 20px;right: 5px" class="btn_sign sign_in" id="sign_in">Log In</button>
@@ -382,6 +382,20 @@
         }
     });
     $(document).ready(function () {
+
+        $("#signIn").on('click',function (e) {
+            e.preventDefault();
+            $('#sign_up').addClass('hide').css('display','none')
+             $("#sign_in").show()
+        })
+
+         $("#signUp").on('click',function (e) {
+                e.preventDefault();
+             $("#sign_up").show()
+             $("#sign_in").addClass('hidde').css('display','none')
+         });
+
+
         $('#sign_up').on('click', function (e) {
             e.preventDefault();
             var name = $("input[name='name']").val();
