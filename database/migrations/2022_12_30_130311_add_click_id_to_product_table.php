@@ -14,9 +14,9 @@ class AddClickIdToProductTable extends Migration
     public function up()
     {
         Schema::table('product', function (Blueprint $table) {
-            $table->integer('price');
-            $table->integer('click_id');
-            $table->string('total');
+            $table->integer('price')->nullable();
+            $table->integer('click_id')->nullable();
+            $table->string('total')->nullable();
         });
     }
 

@@ -74,7 +74,7 @@
                 var category_name = $("input[name='category_name']").val();
                 var category_description = $("input[name='category_description']").val();
                 var image = $("input[name='category_image']").val();
-                var formData =  formData = new FormData();
+                var formData = new FormData();
                 formData.append('name_category', category_name);
                 formData.append('category_description', category_description);
                 formData.append('image', image);
