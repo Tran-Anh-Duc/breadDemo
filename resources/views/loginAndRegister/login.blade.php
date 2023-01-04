@@ -212,21 +212,13 @@
 
                     </div>
                 </div>
-                <div class="cont_btn row">
-                    <div class="col-6 ">
-                        <button style="width: 130px;margin-left: 50px;right: 50px;display: none" class="btn_sign " id="sign_up">SIGN IN</button>
-                    </div>
-                    <div class="col-6">
-                        <button style="width: 130px;margin: 20px 20px 20px 20px;right: 5px" class="btn_sign sign_in" id="sign_in">Log In</button>
-                    </div>
-
+                <div class="cont_btn ">
+                    <button style="display: none" class="btn_sign " id="sign_up">SIGN IN</button>
+                    <button style="" class="btn_sign sign_in" id="sign_in">Log In</button>
                 </div>
-
             </form>
         </div>
-
     </div>
-
 </div>
 <!-- modal success -->
 <div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">

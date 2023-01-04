@@ -37,7 +37,6 @@ class TemplateController extends Controller
 
     public function add_to_card($id)
     {
-        //session()->flush('card');
         $card = session()->get('card');
         $product = $this->productRepository->find($id);
         if (isset($card[$id])){

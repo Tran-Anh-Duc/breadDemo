@@ -32,6 +32,7 @@ Route::prefix('bread')->group(function () {
     Route::get('/view_login', [AuthController::class, 'viewLogin'])->name('bread.viewLogin');
     Route::post('/register', [AuthController::class, 'register'])->name('bread.register');
     Route::post('/login', [AuthController::class, 'login'])->name('bread.login');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('bread.logout');
 });
 
 Route::prefix('product')->group(function () {

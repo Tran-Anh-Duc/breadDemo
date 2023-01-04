@@ -31,5 +31,16 @@ class UserRepository extends BaseRepository
            'password' => $data['password']
         ]);
         return $result;
+
+        $bool = false;
+        if (Auth::attempt([
+            'email' => $data['email'],
+            'password' => $data['password']
+        ])){
+            $bool = true;
+        }else{
+            $bool = false;
+        }
+        return  $bool;
     }
 }

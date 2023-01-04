@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -35,7 +36,18 @@ class AuthController extends Controller
     {
         $data = $request->all();
         $result = $this->userRepository->loginUser($data);
-        return Controller::sendResponse(self::HTTP_OK,'login success',$result);
+        if (!empty($result) &&  $result == 1 ){
+            return Controller::sendResponse(self::HTTP_OK,'login success',$result);
+        }else{
+            return Controller::sendResponse(self::HTTP_BAD_REQUEST,'login error');
+        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        session()->flush();
+        return redirect()->route('bread.viewLogin');
     }
 
 
