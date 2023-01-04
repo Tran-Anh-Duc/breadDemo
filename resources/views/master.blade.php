@@ -99,6 +99,11 @@
         border: 10px solid transparent;
         border-bottom-color: #fff;
     }
+    body{
+        background-image: url('https://images01.nicepagecdn.com/page/67/56/ website-template-preview-67567.jpg');
+        white-space: nowrap;
+        background-size:cover;
+    }
 
 </style>
 <body>

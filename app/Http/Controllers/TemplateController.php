@@ -24,8 +24,10 @@ class TemplateController extends Controller
     public function allProduct(Request $request)
     {
         $data = $request->all();
+        $user = session()->get('user');
         $resultAll = $this->productRepository->getAllDataProduct($data);
         $result['all_product'] = $resultAll;
+        $result['user'] = $user;
         return View('card.product_list',$result);
     }
 

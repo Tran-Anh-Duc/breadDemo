@@ -14,7 +14,7 @@
 </head>
 <style>
     body{
-        background-image: url('https://images01.nicepagecdn.com/page/67/56/website-template-preview-67567.jpg');
+        background-image: url('https://images01.nicepagecdn.com/page/67/56/ website-template-preview-67567.jpg');
         white-space: nowrap;
         background-size:cover;
     }
