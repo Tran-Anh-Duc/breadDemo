@@ -95,4 +95,22 @@ class ProductRepository extends BaseRepository
     }
 
 
+    public function getAllDataProductLike($data)
+    {
+        $result = $this->model;
+
+        if (!empty($data->name_product)) {
+            $result = $result->where('name_product', 'like',"%$data->name_product%");
+        }
+
+        $result = $result->
+        whereIn(
+            Product::COLUMN_STATUS_PRODUCT,
+            [Product::COLUMN_STATUS_ACTIVE, Product::COLUMN_STATUS_BLOCK]);
+        return $result
+            ->orderBy(Product::CREATED_AT, self::DESC)->get();
+//            ->paginate(4);
+    }
+
+
 }
