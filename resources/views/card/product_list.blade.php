@@ -35,11 +35,10 @@
     </style>
 @endsection
 @section('content')
-
-    <div class="flex-container row">
+    <div class="flex-container row" style="margin-left: 20%;max-width:100% ">
         @if(count($all_product) > 0)
             @foreach($all_product as $key => $value)
-                <div class="card col-md-3">
+                <div class="card col-md-3" style="margin: 10px;">
                     <img
                         src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
                         alt="Denim Jeans" style="width:100%">
@@ -56,7 +55,7 @@
                 </div>
             @endforeach
         @else
-            'không có dữ liệu'
+           <span style="color: red;font-size: 30px;margin-left: 30%">'không có dữ liệu'</span>
         @endif
         <div class="pagination d-felx justify-content-right" style="margin-top: 20px;margin-left: 80%">
             {{ $all_product->withQueryString()->render('paginate') }}

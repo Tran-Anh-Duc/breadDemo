@@ -33,6 +33,7 @@ Route::prefix('product')->group(function () {
     Route::post('/update_product/{id}', [ProductController::class, 'update_product']);
     Route::post('/update_status/{id}', [ProductController::class, 'updateStatus']);
     Route::post('/add_to_card/{id}', [TemplateController::class, 'add_to_card']);
+    Route::post('/searchLike', [TemplateController::class, 'searchLikeProduct']);
 });
 
 Route::prefix('category')->group(function () {

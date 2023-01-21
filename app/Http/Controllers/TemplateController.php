@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\StoreRepository;
@@ -34,12 +35,12 @@ class TemplateController extends Controller
 
     public function searchLikeProduct(Request $request)
     {
-        $result = $this->productRepository->getAllDataProductLike($request);
-        try {
-            return Controller::sendResponse(Controller::HTTP_OK,'find data succes',$result);
-        }catch (Exception $e){
-        return Controller::sendResponse(Controller::HTTP_OK,'find data error');
-    }
+        $data = $request->all();
+        $id = !empty($data['id']) ? $data['id'] : "";
+        $resultAll = $this->productRepository->getAllDataProductLike($data);
+        $result['all_product'] = $resultAll;
+        return View('master',$result);
+        //return $result;
     }
 
     public function view_card()
@@ -88,4 +89,8 @@ class TemplateController extends Controller
             return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
         }
     }
+
+
+
+
 }

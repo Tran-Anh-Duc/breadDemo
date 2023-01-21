@@ -19,8 +19,12 @@ class ProductRepository extends BaseRepository
             $result = $result->where(Product::COLUMN_STATUS_PRODUCT, $data['status']);
         }
 
-        if (!empty($data['name_product'])) {
-            $result = $result->where(Product::COLUMN_PRODUCT_NAME, $data['name_product']);
+//        if (!empty($data['name_product'])) {
+//            $result = $result->where(Product::COLUMN_PRODUCT_NAME, $data['name_product']);
+//        }
+
+        if (!empty($data['name_product'])){
+            $result = $result->where(Product::COLUMN_PRODUCT_NAME, 'LIKE','%'.$data['name_product'].'%');
         }
 
         $result = $result->
@@ -29,7 +33,7 @@ class ProductRepository extends BaseRepository
             [Product::COLUMN_STATUS_ACTIVE, Product::COLUMN_STATUS_BLOCK]);
         return $result
             ->orderBy(Product::CREATED_AT, self::DESC)
-            ->paginate(4);
+            ->paginate(8);
 
     }
 //tạo sản phẩm mới
@@ -95,22 +99,22 @@ class ProductRepository extends BaseRepository
     }
 
 
-    public function getAllDataProductLike($data)
-    {
-        $result = $this->model;
+//    public function getAllDataProductLike($data)
+//    {
+//        $result = $this->model;
+//        if (!empty($data->name_product)) {
+//            //$result = $result->where('name_product', 'like',"%$data->name_product%");
+//            $result = $result->where('name_product', 'LIKE','%'.$data->name_product.'%');
+//        }
+//        $result = $result->
+//        whereIn(
+//            Product::COLUMN_STATUS_PRODUCT,
+//            [Product::COLUMN_STATUS_ACTIVE, Product::COLUMN_STATUS_BLOCK]);
+//        return $result
+//            ->orderBy(Product::CREATED_AT, self::DESC)->get();
+//    }
 
-        if (!empty($data->name_product)) {
-            $result = $result->where('name_product', 'like',"%$data->name_product%");
-        }
 
-        $result = $result->
-        whereIn(
-            Product::COLUMN_STATUS_PRODUCT,
-            [Product::COLUMN_STATUS_ACTIVE, Product::COLUMN_STATUS_BLOCK]);
-        return $result
-            ->orderBy(Product::CREATED_AT, self::DESC)->get();
-//            ->paginate(4);
-    }
 
 
 }

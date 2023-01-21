@@ -4,6 +4,7 @@
     <title>Bread Demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -105,6 +106,7 @@
         background-size:cover;
     }
 
+
 </style>
 <body>
 
@@ -142,7 +144,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="{{route('bread.card')}}" tabindex="-1" aria-disabled="false" >
+                            <a class="nav-link " href="{{route('bread.card')}}" tabindex="-1" aria-disabled="false">
                                 @if(!empty(session('card')))
                                     show card: {{count(session('card'))}}
                                 @else
@@ -151,9 +153,12 @@
                             </a>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2 search-product" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    <form class="d-flex" >
+{{--                        action="{{url('bread/searchLikeProduct')}}" method="POST"--}}
+{{--                        {{csrf_field()}}--}}
+                            <input class="form-control me-2 search-product" name="name_product"  type="search" placeholder="Search"
+                                   aria-label="Search">
+                            <button class="btn btn-outline-success search-product" id="search-product" type="submit">Search</button>
                     </form>
                 </div>
             </div>
@@ -170,37 +175,11 @@
                 }
             });
             $(document).ready(function () {
-                $('.search-product').on('keyup',function () {
-                    var value = $(this).val();
-                    $.ajax({
-                        url: '{{route('bread.searchLikeProduct')}}',
-                        data:{'name_product' : value },
-                        type: "GET",
-                        dataType: 'json',
-                        processData: false,
-                        contentType: false,
-                        beforeSend: function () {
-                            $(".theloading").show();
-                        },
-                        success: function (data) {
-                            var product_search = "";
-                            $(data.data).each(function (key,value) {
-                                product_search += `<div class="card col-md-3">`
-                                product_search += `<img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80" alt="Denim Jeans" style="width:100%">`
-                                product_search +=`<h1 style="height: 100%"></h1>`
-                                product_search +=`<p class="price">`+ value.price +`</p>`
-                                product_search +=`<p>`+ value.name_product +`</p>`
-                                product_search +=`<p><a href="#" class="btn btn-info addCard" type="button" data-url="">Thêm giỏ hàng</a></p>`
-                                product_search +=`</div>`
-                            })
-                            $('#product_search').html(product_search);
-                        },
-                        error: function (data) {
-                            console.log(data);
-                            $(".theloading").hide();
-                        }
-                    })
-
+                $('#search-product').click(function () {
+                    console.log('here')
+                    let name_product = $("input[name='name_product']").val()
+                    console.log(name_product)
+                    window.location.href = '{{route('list')}}' + '?name_product=' + name_product;
                 })
             })
         </script>

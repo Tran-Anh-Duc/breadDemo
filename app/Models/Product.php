@@ -26,4 +26,7 @@ class Product extends BaseModel
     {
         return $this->hasOne('App\category',Product::COLUMN_CATEGORY_ID);
     }
+
+
+
 }
