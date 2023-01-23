@@ -156,7 +156,14 @@
                     <form class="d-flex" >
 {{--                        action="{{url('bread/searchLikeProduct')}}" method="POST"--}}
 {{--                        {{csrf_field()}}--}}
-                            <input class="form-control me-2 search-product" name="name_product"  type="search" placeholder="Search"
+                            <?php
+                                if (!empty($_GET['name_product'])){
+                                    $nameProduct =  $_GET['name_product'];
+                                }else{
+                                    $nameProduct = "";
+                                }
+                            ?>
+                            <input class="form-control me-2 search-product" name="name_product"  type="search" placeholder="Search" value="{{$nameProduct}}"
                                    aria-label="Search">
                             <button class="btn btn-outline-success search-product" id="search-product" type="submit">Search</button>
                     </form>

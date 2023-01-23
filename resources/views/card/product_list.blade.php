@@ -42,15 +42,16 @@
                     <img
                         src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
                         alt="Denim Jeans" style="width:100%">
-                    <h1 style="height: 100%">{{$value['name_product']}}</h1>
-                    <p class="price">{{number_format($value['price'])}}</p>
-                    <p>{{$value['product_description']}}</p>
+                    <p style="height: 100%; font-size: 20px;text-align:center;font-weight: 1000">{{$value['name_product']}}</p>
+                    <p class="price" style="text-align: center">Giá bán: {{number_format($value['price'])}}</p>
+                    <p style="text-align: center;text-overflow: ellipsis;"  >Mô ta ngắn: {{$value['product_description']}}</p>
                     <p>
                         <a href="#"
                            class="btn btn-info addCard"
                            type="button"
                            data-url="{{route('bread.add_to_card',['id' =>$value['id']])}}"
                         >Thêm giỏ hàng</a>
+                        <a href="" type="button" class="btn btn-primary">Xem chi tiết</a>
                     </p>
                 </div>
             @endforeach
