@@ -90,6 +90,12 @@ class TemplateController extends Controller
         }
     }
 
+    public function detailProduct($id)
+    {
+        $result = $this->productRepository->find($id);
+        return view('card.detailProduct',compact('result'));
+    }
+
 
 
 

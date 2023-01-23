@@ -29,6 +29,7 @@ Route::prefix('bread')->group(function () {
     Route::get('/updateCard', [TemplateController::class, 'updateCard'])->name('bread.updateCard');
     Route::get('/removeCard', [TemplateController::class, 'removeCard'])->name('bread.removeCard');
     Route::get('/searchLikeProduct', [TemplateController::class, 'searchLikeProduct'])->name('bread.searchLikeProduct');
+    Route::get('/detailProduct/{id}', [TemplateController::class, 'detailProduct'])->name('bread.detailProduct');
 
 
 
