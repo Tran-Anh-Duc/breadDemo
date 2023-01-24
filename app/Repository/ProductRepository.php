@@ -114,6 +114,13 @@ class ProductRepository extends BaseRepository
 //            ->orderBy(Product::CREATED_AT, self::DESC)->get();
 //    }
 
+//lấy tất cả các bản ghi có số lần click nhiều nhất (click_id)
+    public function getDataCLick()
+    {
+        $result = $this->model->orderBy('click_id','DESC')->limit(3)->get();
+        return $result;
+    }
+
 
 
 

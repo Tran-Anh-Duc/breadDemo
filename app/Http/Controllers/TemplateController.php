@@ -30,6 +30,8 @@ class TemplateController extends Controller
         $resultAll = $this->productRepository->getAllDataProduct($data);
         $result['all_product'] = $resultAll;
         $result['user'] = $user;
+        $resultClick = $this->productRepository->getDataCLick();
+        $result['resultClick'] = $resultClick;
         return View('card.product_list',$result);
     }
 
@@ -40,7 +42,6 @@ class TemplateController extends Controller
         $resultAll = $this->productRepository->getAllDataProductLike($data);
         $result['all_product'] = $resultAll;
         return View('master',$result);
-        //return $result;
     }
 
     public function view_card()
@@ -93,8 +94,14 @@ class TemplateController extends Controller
     public function detailProduct($id)
     {
         $result = $this->productRepository->find($id);
+        if (!empty($result)){
+            $click = $result['click_id'] + 1;
+            $this->productRepository->update($id,[Product::COLUMN_CLICK_ID => $click]);
+        }
         return view('card.detailProduct',compact('result'));
     }
+
+
 
 
 

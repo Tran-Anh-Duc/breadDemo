@@ -34,6 +34,29 @@
         }
     </style>
 @endsection
+@section('slide')
+    @parent
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active ">
+                <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pfeiffer-beach-sunset-big-sur-ca-royalty-free-image-1590086887.jpg?crop=1.00xw:0.753xh;0,0&resize=980:*" class="d-block" alt="..." style="width:1100px;margin-left: 20%;height: 500px">
+            </div>
+            @foreach($resultClick as $key => $value)
+            <div class="carousel-item">
+                <input type="text" value="{{$value['name_product']}}" hidden>
+                <img src="{{$value['image']}}" class="d-block " alt="..." style="width:1100px;margin-left: 20%;height: 500px">
+            </div>
+            @endforeach
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+@endsection
 @section('content')
     <div class="flex-container row" style="margin-left: 20%;max-width:100% ">
         @if(count($all_product) > 0)
@@ -61,9 +84,7 @@
         <div class="pagination d-felx justify-content-right" style="margin-top: 20px;margin-left: 80%">
             {{ $all_product->withQueryString()->render('paginate') }}
         </div>
-
     </div>
-
 @endsection
 @section('script')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

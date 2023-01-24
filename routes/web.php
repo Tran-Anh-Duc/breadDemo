@@ -30,6 +30,7 @@ Route::prefix('bread')->group(function () {
     Route::get('/removeCard', [TemplateController::class, 'removeCard'])->name('bread.removeCard');
     Route::get('/searchLikeProduct', [TemplateController::class, 'searchLikeProduct'])->name('bread.searchLikeProduct');
     Route::get('/detailProduct/{id}', [TemplateController::class, 'detailProduct'])->name('bread.detailProduct');
+    Route::get('/getALlClick', [TemplateController::class, 'getALlClick'])->name('bread.getALlClick');
 
 
 
