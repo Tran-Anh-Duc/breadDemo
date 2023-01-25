@@ -33,6 +33,9 @@
             <a class="nav-link" href="{{url('store/list')}}">Danh sách cửa hàng</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{url('news/list')}}">Danh sách sự kiện</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Lịch sử</a>
         </li>
     </ul>

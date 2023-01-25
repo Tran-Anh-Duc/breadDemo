@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\BaseRepository;
 use App\Repository\NewsRepository;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,9 @@ class NewsController extends Controller
 
     public function getAllNews()
     {
-        $result = $this->newsRepository->getAll();
-        return $result;
+        $resultNews = $this->newsRepository->getAll();
+        $result['resultNews'] =$resultNews;
+        return view('news.list_news',$result);
     }
 
 
@@ -28,4 +30,23 @@ class NewsController extends Controller
         $result = $this->newsRepository->createNews($data);
         return $result;
     }
+
+    public function update_news(Request $request,$id)
+    {
+        $data = $request->all();
+        $result = $this->newsRepository->updateNews($data,$id);
+        return $result;
+    }
+
+    public function update_status($id)
+    {
+        $result = $this->newsRepository->updateStatus($id);
+        return Controller::sendResponse(Controller::HTTP_OK,'update status success',$result);
+    }
+
+    public function view_create_news()
+    {
+        return view('news.create_news');
+    }
+
 }

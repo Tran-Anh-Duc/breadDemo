@@ -76,6 +76,8 @@ Route::prefix('store')->group(function () {
 Route::prefix('news')->group(function () {
     Route::get('/list', [NewsController::class, 'getAllNews'])->name('news.list_news');
     Route::post('/create_news', [NewsController::class, 'create_news'])->name('news.create_news');
+    Route::get('/view_create_news', [NewsController::class, 'view_create_news'])->name('news.view_create_news');
+    Route::post('/update_status/{id}', [NewsController::class, 'update_status'])->name('news.update_status');
 });
 
 

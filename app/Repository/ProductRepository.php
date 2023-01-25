@@ -25,16 +25,12 @@ class ProductRepository extends BaseRepository
             $result = $result->where(Product::COLUMN_STATUS_PRODUCT, $data['status']);
         }
 
-//        if (!empty($data['name_product'])) {
-//            $result = $result->where(Product::COLUMN_PRODUCT_NAME, $data['name_product']);
-//        }
-
-        if (!empty($data['name_product'])){
-            $result = $result->where(Product::COLUMN_PRODUCT_NAME, 'LIKE','%'.$data['name_product'].'%');
+        if (!empty($data['name_product'])) {
+            $result = $result->where(Product::COLUMN_PRODUCT_NAME, 'LIKE', '%' . $data['name_product'] . '%');
         }
 
-        if (!empty($data['category_id'])){
-            $result = $result->where(Product::COLUMN_CATEGORY_ID,$data['category_id']);
+        if (!empty($data['category_id'])) {
+            $result = $result->where(Product::COLUMN_CATEGORY_ID, $data['category_id']);
         }
 
         $result = $result->
@@ -116,7 +112,7 @@ class ProductRepository extends BaseRepository
         return $result;
     }
 
-//lấy các sản phẩm theo category
+
 
 
 

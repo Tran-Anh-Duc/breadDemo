@@ -56,6 +56,8 @@ Route::prefix('store')->group(function () {
 Route::prefix('news')->group(function () {
     Route::post('/', [StoreController::class, 'getAllNews']);
     Route::post('/create_news', [NewsController::class, 'create_news']);
+    Route::post('/update_news/{id}', [NewsController::class, 'update_news']);
+    Route::post('/update_status/{id}', [NewsController::class, 'update_status']);
 });
 
 
