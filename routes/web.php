@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TemplateController;
@@ -31,6 +32,7 @@ Route::prefix('bread')->group(function () {
     Route::get('/searchLikeProduct', [TemplateController::class, 'searchLikeProduct'])->name('bread.searchLikeProduct');
     Route::get('/detailProduct/{id}', [TemplateController::class, 'detailProduct'])->name('bread.detailProduct');
     Route::get('/getALlClick', [TemplateController::class, 'getALlClick'])->name('bread.getALlClick');
+    Route::get('/test', [TemplateController::class, 'test'])->name('bread.test');
 
 
 
@@ -68,6 +70,12 @@ Route::prefix('store')->group(function () {
     Route::get('/detail_store/{id}', [StoreController::class, 'find_one_store'])->name('store.detail_store');
     Route::post('/update_store/{id}', [StoreController::class, 'update_store'])->name('store.update_store');
     Route::post('/update_status/{id}', [StoreController::class, 'updateStatus'])->name('store.update_status');
+});
+
+
+Route::prefix('news')->group(function () {
+    Route::get('/list', [NewsController::class, 'getAllNews'])->name('news.list_news');
+    Route::post('/create_news', [NewsController::class, 'create_news'])->name('news.create_news');
 });
 
 

@@ -70,4 +70,10 @@ class CategoryRepository extends BaseRepository
         }
         return $resultActive;
     }
+
+    public function getAllCate()
+    {
+         $result = $this->model->whereIn(Category::COLUMN_STATUS_CATEGORY, [Category::COLUMN_STATUS_ACTIVE, Category::COLUMN_STATUS_BLOCK])->get();
+         return $result;
+    }
 }

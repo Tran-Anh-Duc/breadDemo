@@ -7,10 +7,16 @@ use App\Models\Product;
 
 class ProductRepository extends BaseRepository
 {
+    protected $category;
+
     public function getModel()
     {
        return Product::class;
+
     }
+
+
+
 //lấy tất cả các sản phẩm
     public function getAllDataProduct($data)
     {
@@ -25,6 +31,10 @@ class ProductRepository extends BaseRepository
 
         if (!empty($data['name_product'])){
             $result = $result->where(Product::COLUMN_PRODUCT_NAME, 'LIKE','%'.$data['name_product'].'%');
+        }
+
+        if (!empty($data['category_id'])){
+            $result = $result->where(Product::COLUMN_CATEGORY_ID,$data['category_id']);
         }
 
         $result = $result->
@@ -99,27 +109,18 @@ class ProductRepository extends BaseRepository
     }
 
 
-//    public function getAllDataProductLike($data)
-//    {
-//        $result = $this->model;
-//        if (!empty($data->name_product)) {
-//            //$result = $result->where('name_product', 'like',"%$data->name_product%");
-//            $result = $result->where('name_product', 'LIKE','%'.$data->name_product.'%');
-//        }
-//        $result = $result->
-//        whereIn(
-//            Product::COLUMN_STATUS_PRODUCT,
-//            [Product::COLUMN_STATUS_ACTIVE, Product::COLUMN_STATUS_BLOCK]);
-//        return $result
-//            ->orderBy(Product::CREATED_AT, self::DESC)->get();
-//    }
-
 //lấy tất cả các bản ghi có số lần click nhiều nhất (click_id)
     public function getDataCLick()
     {
         $result = $this->model->orderBy('click_id','DESC')->limit(3)->get();
         return $result;
     }
+
+//lấy các sản phẩm theo category
+
+
+
+
 
 
 

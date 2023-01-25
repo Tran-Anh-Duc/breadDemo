@@ -120,7 +120,7 @@
 
         <nav style="margin-bottom: 20px" class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="{{route('list')}}">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -134,13 +134,12 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                loại sản phẩm
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 270px !important;top: 45px !important">
+                                @foreach($resultCategory as $key => $value)
+                                    <li class="dropdown-item" id="dropdown-item" data-category="{{$value['id']}}">{{$value['name_category']}}</li>
+                                @endforeach
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -225,6 +224,14 @@
                     console.log(name_product)
                     window.location.href = '{{route('list')}}' + '?name_product=' + name_product;
                 })
+
+                $('.dropdown-item').click(function () {
+                    console.log('here')
+                    let category_id = $(this).data('category')
+                    console.log(category_id)
+                    window.location.href = '{{route('list')}}' + '?category_id=' + category_id;
+                })
+
             })
         </script>
 @yield('script')

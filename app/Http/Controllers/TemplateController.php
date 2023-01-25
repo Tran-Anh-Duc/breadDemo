@@ -32,8 +32,11 @@ class TemplateController extends Controller
         $result['user'] = $user;
         $resultClick = $this->productRepository->getDataCLick();
         $result['resultClick'] = $resultClick;
+        $resultCategory = $this->categoryRepository->getAllCate()->toArray();
+        $result['resultCategory']  = $resultCategory;
         return View('card.product_list',$result);
     }
+
 
     public function searchLikeProduct(Request $request)
     {
@@ -99,6 +102,13 @@ class TemplateController extends Controller
             $this->productRepository->update($id,[Product::COLUMN_CLICK_ID => $click]);
         }
         return view('card.detailProduct',compact('result'));
+    }
+
+    //test
+    public function test()
+    {
+         $result = $this->categoryRepository->getAllCate();
+         return $result;
     }
 
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TemplateController;
@@ -50,6 +51,11 @@ Route::prefix('store')->group(function () {
     Route::post('/detail_store/{id}', [StoreController::class, 'find_one_store']);
     Route::post('/update_store/{id}', [StoreController::class, 'update_store']);
     Route::post('/update_status/{id}', [StoreController::class, 'updateStatus']);
+});
+
+Route::prefix('news')->group(function () {
+    Route::post('/', [StoreController::class, 'getAllNews']);
+    Route::post('/create_news', [NewsController::class, 'create_news']);
 });
 
 
