@@ -28,7 +28,7 @@ class NewsController extends Controller
     {
         $data = $request->all();
         $result = $this->newsRepository->createNews($data);
-        return $result;
+        return Controller::sendResponse(Controller::HTTP_OK,'thêm bài viết thành công',$result);
     }
 
     public function update_news(Request $request,$id)
