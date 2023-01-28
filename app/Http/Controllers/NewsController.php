@@ -49,4 +49,11 @@ class NewsController extends Controller
         return view('news.create_news');
     }
 
+
+    public function findOneNews($id)
+    {
+        $result = $this->newsRepository->find($id);
+        return view('news.detail_news',compact('result'));
+    }
+
 }

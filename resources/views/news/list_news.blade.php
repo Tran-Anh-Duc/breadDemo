@@ -104,7 +104,7 @@
                                             <span class="slider round"></span>
                                         </label>
                                     </td>
-                                    <td><a href="{{url('store/detail_store/'.$value['id'])}}" class="btn btn-warning">Chi tiết</a></td>
+                                    <td><a href="{{url('news/findOneNews/'.$value['id'])}}" class="btn btn-warning">Chi tiết</a></td>
                                 </tr>
                             @endforeach
                         @else
