@@ -11,6 +11,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/card_list.css') }}">
 </head>
 <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+    }
     .thumbnail {
         position: relative;
         padding: 0px;

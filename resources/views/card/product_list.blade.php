@@ -81,7 +81,7 @@
         @else
            <span style="color: red;font-size: 30px;margin-left: 30%">'không có dữ liệu'</span>
         @endif
-        <div class="pagination d-felx justify-content-right" style="margin-top: 20px;margin-left: 80%">
+        <div class="pagination d-felx justify-content-right" style="display: flex !important;justify-content: flex-end !important;">
             {{ $all_product->withQueryString()->render('paginate') }}
         </div>
     </div>
