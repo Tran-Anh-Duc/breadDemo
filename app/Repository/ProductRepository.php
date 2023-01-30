@@ -52,9 +52,9 @@ class ProductRepository extends BaseRepository
             Product::COLUMN_STATUS_PRODUCT => Product::COLUMN_STATUS_BLOCK,
             Product::COLUMN_STORE_ID => $data['store_id'] ?? null,
             Product::COLUMN_CATEGORY_ID => $data['category_id'] ?? null,
-            Product::COLUMN_PRICE => $data['price'] ?? null,
-            Product::COLUMN_TOTAL => $data['total'] ?? null,
-            Product::COLUMN_CLICK_ID => $data['click_id'] ?? null,
+            Product::COLUMN_PRICE =>  !empty($data['price']) ? $data['price'] : 0,
+            Product::COLUMN_TOTAL => !empty($data['total']) ? $data['total'] : 0,
+            Product::COLUMN_CLICK_ID => !empty($data['click_id']) ? $data['click_id'] : 0,
         ];
         $result = $this->model->create($data1);
         return $result;

@@ -1,7 +1,7 @@
 <style type="text/css">
     .pagination {
       display: flex !important;
-      justify-content: space-between !important;
+      justify-content: flex-end !important;
       align-items: center !important;
       font-size: 14px !important;
       padding: 0px 20px 28px !important;
