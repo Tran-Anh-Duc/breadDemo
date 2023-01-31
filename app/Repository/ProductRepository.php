@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 use App\Models\Product;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ProductRepository extends BaseRepository
 {
@@ -113,8 +114,10 @@ class ProductRepository extends BaseRepository
     }
 
 
-
-
+//    public function uploadImage($data)
+//    {
+//        Cloudinary::
+//    }
 
 
 
