@@ -7,28 +7,27 @@
                 <div class="tabs">
                     <h2>Chi tiết sản phẩm</h2>
                     <lable>Tên sản phẩm</lable>
-                    <input type="text" name="name_category" placeholder="Nhập tên loại sản phẩm" id="name_category"
-                           value="{{$category['name_category']}}"
-                           class="name_category  form-control"/>
+                    <input type="text" name="news_name" placeholder="Nhập tên loại sản phẩm" id="news_name"
+                           value="{{$resultFindOneNew['news_name']}}"
+                           class="news_name  form-control"/>
 
                     <lable>Mô tả sản phẩm</lable>
-                    <input type="text" name="category_description" placeholder="Nhập mô loại tả sản phẩm"
-                           value="{{$category['category_description']}}"
-                           class="category_description form-control"
-                           id="category_description form-control">
+                    <textarea type="text" name="news_description" placeholder="Nhập mô loại tả sản phẩm"
+                           class="news_description form-control"
+                              id="news_description form-control">{{$resultFindOneNew['news_description']}}</textarea>
 
                     <lable>upload ảnh</lable>
-                    <input type="text" name="image" id="image" class="form-control" value="{{$category['image']}}">
+                    <input type="text" name="image" id="image" class="form-control" value="{{$resultFindOneNew['image']}}">
 
                     <lable>Ngày tạo sản phẩm</lable>
-                    <input type="text" name="created_at" id="created_at" class="form-control" value="{{$category['created_at']}}" disabled>
+                    <input type="text" name="created_at" id="created_at" class="form-control" value="{{$resultFindOneNew['created_at']}}" disabled>
 
-                    <input type="text"  value="{{$category['id']}}"  name="id_category" hidden
-                           class="id_category form-control">
+                    <input type="text"  value="{{$resultFindOneNew['id']}}"  name="id_news" hidden
+                           class="id_news form-control">
                 </div>
                 <div class="buttons" style="margin-top: 10px; margin-bottom: 15px">
                     <div>
-                        <button id="saveDetailCategory" data-id="{{$category['id']}}" class="btn btn-success ">Chỉnh sửa</button>
+                        <button id="saveDetailNews" data-id="{{$resultFindOneNew['id']}}" class="btn btn-success ">Chỉnh sửa</button>
                         <a href="{{url('category/list')}}" class="btn btn-danger close">Hủy</a>
                     </div>
                 </div>
