@@ -61,21 +61,70 @@
            Welcome Optimizer Photo
        </div>
        <div class="links">
-           <form action="{{route('news.uploadImage')}}" method="POST" enctype="multipart/form-data">
+{{--           <form action="{{route('news.uploadImage')}}" method="POST" enctype="multipart/form-data">--}}
                @csrf
                <div class="row">
 
                    <div class="col-md-6">
-                       <input type="file" name="image" class="form-control">
+                       <input type="file" name="image" class="form-control submitImage" id="submitImage">
                    </div>
 
                    <div class="col-md-6">
-                       <button type="submit" class="btn btn-success">Upload a File</button>
+                       <button type="submit" class="btn btn-success" id="submitImage1">Upload a File</button>
                    </div>
 
                </div>
-           </form>
+{{--           </form>--}}
        </div>
    </div>
 </div>
+@endsection
+@section('script')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#submitImage1').on('click',function () {
+             var image = $("input[name='image']").val();
+             var formData = new FormData();
+             formData.append('image',image);
+             console.log(image);
+            $.ajax({
+                url: '{{route('news.uploadImage')}}',
+                type: "POST",
+                data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                beforeSend: function () {
+                    $(".theloading").show();
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        $('#successModal').modal('show');
+                        $('.msg_success').text(data.message);
+                        // window.scrollTo(0, 0);
+                        // setTimeout(function () {
+                        //     window.location.reload();
+                        // }, 2500);
+                    } else {
+                        $('#errorModal').modal('show');
+                        $('.msg_error').text(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                    $(".theloading").hide();
+                }
+            })
+        })
+
+
+     </script>
+
 @endsection

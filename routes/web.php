@@ -81,6 +81,7 @@ Route::prefix('news')->group(function () {
     Route::get('/findOneNews/{id}', [NewsController::class, 'findOneNews'])->name('news.findOneNews');
     Route::get('/viewImage', [NewsController::class, 'viewImage'])->name('news.viewImage');
     Route::post('/uploadImage', [NewsController::class, 'uploadImage'])->name('news.uploadImage');
+    Route::post('/update_news/{id}', [NewsController::class, 'update_news'])->name('news.update_news');
 });
 
 

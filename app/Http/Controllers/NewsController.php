@@ -36,7 +36,7 @@ class NewsController extends Controller
     {
         $data = $request->all();
         $result = $this->newsRepository->updateNews($data,$id);
-        return $result;
+        return Controller::sendResponse(Controller::HTTP_OK,'cập nhật bài viết thành công',$result);
     }
 
     public function update_status($id)
@@ -55,6 +55,7 @@ class NewsController extends Controller
     {
         $resultFindOneNew = $this->newsRepository->find($id);
         $result['resultFindOneNew'] = $resultFindOneNew;
+        $result['id'] = $resultFindOneNew['id'];
         return view('news.detail_news',$result);
     }
 
