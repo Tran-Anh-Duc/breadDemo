@@ -57,4 +57,21 @@ class NewsController extends Controller
         return view('news.detail_news',compact('result'));
     }
 
+    public function viewImage()
+    {
+        return view('news.test');
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            //upload image
+            $result = $request->file('image')->storeOnCloudinary();
+            //get url image luu vao db
+            $image = $result->getPath();
+        }
+        return Controller::sendResponse(Controller::HTTP_OK,'update status success',$image);
+    }
+
+
 }
