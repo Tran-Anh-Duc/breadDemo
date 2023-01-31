@@ -53,8 +53,9 @@ class NewsController extends Controller
 
     public function findOneNews($id)
     {
-        $result = $this->newsRepository->find($id);
-        return view('news.detail_news',compact('result'));
+        $resultFindOneNew = $this->newsRepository->find($id);
+        $result['resultFindOneNew'] = $resultFindOneNew;
+        return view('news.detail_news',$result);
     }
 
     public function viewImage()
@@ -72,6 +73,8 @@ class NewsController extends Controller
         }
         return Controller::sendResponse(Controller::HTTP_OK,'update status success',$image);
     }
+
+
 
 
 }
