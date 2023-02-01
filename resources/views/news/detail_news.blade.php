@@ -28,7 +28,7 @@
                 <div class="buttons" style="margin-top: 10px; margin-bottom: 15px">
                     <div>
                         <button id="saveDetailNews" data-id="{{$resultFindOneNew['id']}}" class="btn btn-success ">Chỉnh sửa</button>
-                        <a href="{{url('category/list')}}" class="btn btn-danger close">Hủy</a>
+                        <a href="{{url('news/list')}}" class="btn btn-danger close">Hủy</a>
                     </div>
                 </div>
             </div>
@@ -69,3 +69,59 @@
         </div>
     </div>
 </div>
+@section('script')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#saveDetailNews').click(function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            var news_name = $("input[name='news_name']").val();
+            var news_description = $("textarea[name='news_description']").val()
+            var formData = new FormData();
+            formData.append('id',id);
+            formData.append('news_name',news_name);
+            formData.append('news_description',news_description);
+            console.log(id,news_name,news_description)
+            if (confirm("Bạn chắc chắn muốn cập nhật loại sản phẩm?")) {
+                $.ajax({
+                    url: '{{url('news/update_news/' . $id)}}',
+                    type: "POST",
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function () {
+                        $(".theloading").show();
+                    },
+                    success: function (data) {
+                        console.log(data.data)
+                        $(".theloading").hide();
+                        if (data.status == 200) {
+                            $('#successModal').modal('show');
+                            $('.msg_success').text(data.message);
+                            window.scrollTo(0, 0);
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                        } else {
+                            $('#errorModal').modal('show');
+                            $('.msg_error').text(data.message);
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        $(".theloading").hide();
+                    }
+                });
+            }
+        })
+
+
+    </script>
+@endsection

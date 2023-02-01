@@ -16,7 +16,13 @@
                               id="news_description form-control"></textarea>
 
                     <lable>upload ảnh</lable>
-                    <input type="text" name="image" id="image" class="form-control">
+                    <input type="file"
+                           name="image_news"
+                           id="image_news"
+                           class="form-control">
+                    <div class="imageHidden">
+
+                    </div>
                 </div>
                 <div class="buttons" style="margin-top: 10px; margin-bottom: 15px">
                     <div>
@@ -74,7 +80,7 @@
                 e.preventDefault();
                 var news_name = $("input[name='news_name']").val();
                 var news_description = $("textarea[name='news_description']").val();
-                var image = $("input[name='image']").val();
+                var image = $("input[name='image2']").val();
                 var formData = new FormData();
                 formData.append('news_name',news_name);
                 formData.append('news_description',news_description);
@@ -87,6 +93,7 @@
                     dataType: 'json',
                     processData: false,
                     contentType: false,
+                    enctype: 'multipart/form-data',
                     beforeSend: function () {
                         $(".theloading").show();
                     },
@@ -109,6 +116,42 @@
                     }
                 })
             })
+
+            $('#image_news').on('change',function () {
+             var image = $("input[name='image_news']")[0].files[0];
+             var formData = new FormData();
+             formData.append('image_news',image);
+            $.ajax({
+                url: '{{route('news.uploadImage')}}',
+                type: "POST",
+                data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                beforeSend: function () {
+                    $(".theloading").show();
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        // $('#successModal').modal('show');
+                        $('.msg_success').text(data.message);
+                        console.log(data.data)
+                        $('.imageHidden').append(
+                            ' <input type="text"  id="image2" name="image2" class="form-control" value="'+ data.data +'" hidden/>'
+                        );
+                    } else {
+                        $('#errorModal').modal('show');
+                        $('.msg_error').text(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                    $(".theloading").hide();
+                }
+            })
+        })
+
         })
 
     </script>
