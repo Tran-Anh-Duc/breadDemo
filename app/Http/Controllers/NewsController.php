@@ -66,9 +66,9 @@ class NewsController extends Controller
 
     public function uploadImage(Request $request)
     {
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('image_news')) {
             //upload image
-            $result = $request->file('image')->storeOnCloudinary();
+            $result = $request->file('image_news')->storeOnCloudinary();
             //get url image luu vao db
             $image = $result->getPath();
             //return $image;
