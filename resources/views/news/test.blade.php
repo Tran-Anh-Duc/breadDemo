@@ -68,7 +68,9 @@
                    <div class="col-md-6">
                        <input type="file" name="image" class="form-control submitImage" id="submitImage">
                    </div>
-
+                   <div class="col-md-6 image1">
+{{--                       <input type="text"  id="image1" name="image1" class="form-control" />--}}
+                   </div>
                    <div class="col-md-6">
                        <button type="submit" class="btn btn-success" id="submitImage1">Upload a File</button>
                    </div>
@@ -88,11 +90,10 @@
             }
         });
 
-        $('#submitImage1').on('click',function () {
-             var image = $("input[name='image']").val();
+        $('#submitImage').on('change',function () {
+             var image = $("input[name='image']")[0].files[0];
              var formData = new FormData();
              formData.append('image',image);
-             console.log(image);
             $.ajax({
                 url: '{{route('news.uploadImage')}}',
                 type: "POST",
@@ -108,10 +109,10 @@
                     if (data.status == 200) {
                         $('#successModal').modal('show');
                         $('.msg_success').text(data.message);
-                        // window.scrollTo(0, 0);
-                        // setTimeout(function () {
-                        //     window.location.reload();
-                        // }, 2500);
+                        console.log(data.data)
+                        $('.image1').append(
+                            ' <input type="text"  id="image2" name="image2" class="form-control" value="'+ data.data +'" hidden/>'
+                        );
                     } else {
                         $('#errorModal').modal('show');
                         $('.msg_error').text(data.message);

@@ -71,8 +71,11 @@ class NewsController extends Controller
             $result = $request->file('image')->storeOnCloudinary();
             //get url image luu vao db
             $image = $result->getPath();
+            //return $image;
+            return Controller::sendResponse(Controller::HTTP_OK,'update status success',$image);
+        } else {
+            return false;
         }
-        return Controller::sendResponse(Controller::HTTP_OK,'update status success',$image);
     }
 
 
