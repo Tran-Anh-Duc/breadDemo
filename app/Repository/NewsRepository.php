@@ -66,5 +66,14 @@ class NewsRepository extends BaseRepository
         return $resultActive;
     }
 
+    public function getAllDatanew()
+    {
+        $result = $this->model;
+        $result = $result->whereIn(News::COLUMN_STATUS, [News::COLUMN_STATUS_ACTIVE]);
+
+        return $result->orderBy(News::COLUMN_ID,self::DESC)
+            ->get();
+    }
+
 
 }

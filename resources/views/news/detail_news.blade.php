@@ -16,9 +16,11 @@
                            class="news_description form-control"
                               id="news_description form-control">{{$resultFindOneNew['news_description']}}</textarea>
 
-                    <lable>upload ảnh</lable>
-                    <input type="text" name="image" id="image" class="form-control" value="{{$resultFindOneNew['image']}}">
-
+                    <lable>ảnh mô tả</lable>
+                    <input hidden type="text" name="image" id="image" class="form-control" value="{{$resultFindOneNew['image']}}">
+                    <div>
+                        <img src="{{$resultFindOneNew['image']}}" alt="" style="width: 250px; height: 250px">
+                    </div>
                     <lable>Ngày tạo sản phẩm</lable>
                     <input type="text" name="created_at" id="created_at" class="form-control" value="{{$resultFindOneNew['created_at']}}" disabled>
 

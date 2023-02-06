@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\TableController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,16 @@ Route::prefix('news')->group(function () {
     Route::post('/update_status/{id}', [NewsController::class, 'update_status']);
     Route::post('/findOneNews/{id}', [NewsController::class, 'findOneNews']);
     Route::post('/uploadImage', [NewsController::class, 'uploadImage']);
+});
+
+
+Route::prefix('table')->group(function () {
+    Route::post('/', [TableController::class, 'getDataTable']);
+    Route::post('/createTable', [TableController::class, 'createTable']);
+//    Route::post('/update_news/{id}', [NewsController::class, 'update_news']);
+    Route::post('/update_status/{id}', [TableController::class, 'update_status']);
+    Route::post('/find_one_table/{id}', [TableController::class, 'find_one_table']);
+//    Route::post('/uploadImage', [NewsController::class, 'uploadImage']);
 });
 
 

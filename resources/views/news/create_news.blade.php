@@ -81,6 +81,7 @@
                 var news_name = $("input[name='news_name']").val();
                 var news_description = $("textarea[name='news_description']").val();
                 var image = $("input[name='image2']").val();
+                var url = '{{route('news.list_news')}}'
                 var formData = new FormData();
                 formData.append('news_name',news_name);
                 formData.append('news_description',news_description);
@@ -101,10 +102,11 @@
                         if (data.status == 200) {
                             $('#successModal').modal('show');
                             $('.msg_success').text(data.message);
-                            // window.scrollTo(0, 0);
-                            // setTimeout(function () {
-                            //     window.location.reload();
-                            // }, 2500);
+                            window.scrollTo(0, 0);
+                            setTimeout(function () {
+                                //window.location.reload();
+                                window.location.href = url;
+                            }, 2500);
                         } else {
                             $('#errorModal').modal('show');
                             $('.msg_error').text(data.message);

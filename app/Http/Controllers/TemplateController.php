@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Repository\CategoryRepository;
+use App\Repository\NewsRepository;
 use App\Repository\ProductRepository;
 use App\Repository\StoreRepository;
 use http\Exception;
@@ -15,12 +16,15 @@ class TemplateController extends Controller
     protected $productRepository;
     protected $storeRepository;
     protected $categoryRepository;
+    protected $newsRepository;
 
-    public function __construct(ProductRepository $productRepository,StoreRepository $storeRepository,CategoryRepository $categoryRepository)
+    public function __construct(ProductRepository $productRepository,StoreRepository $storeRepository,CategoryRepository $categoryRepository,
+                                NewsRepository $newsRepository)
     {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->newsRepository = $newsRepository;
     }
 
     public function allProduct(Request $request)
@@ -34,6 +38,8 @@ class TemplateController extends Controller
         $result['resultClick'] = $resultClick;
         $resultCategory = $this->categoryRepository->getAllCate()->toArray();
         $result['resultCategory']  = $resultCategory;
+        $resultNews = $this->newsRepository->getAllDatanew();
+        $result['news'] = $resultNews;
         return View('card.product_list',$result);
     }
 
