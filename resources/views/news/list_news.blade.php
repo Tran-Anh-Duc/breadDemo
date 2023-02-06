@@ -115,7 +115,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="pagination d-felx justify-content-right">
+                <div class="pagination d-felx" style="justify-content: flex-end">
                     {{ $resultNews->appends($_GET)->links()}}
                 </div>
             </div>

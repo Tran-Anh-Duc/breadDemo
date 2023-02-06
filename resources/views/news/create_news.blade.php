@@ -98,10 +98,10 @@
                         if (data.status == 200) {
                             $('#successModal').modal('show');
                             $('.msg_success').text(data.message);
-                            window.scrollTo(0, 0);
-                            setTimeout(function () {
-                                window.location.reload();
-                            }, 2500);
+                            // window.scrollTo(0, 0);
+                            // setTimeout(function () {
+                            //     window.location.reload();
+                            // }, 2500);
                         } else {
                             $('#errorModal').modal('show');
                             $('.msg_error').text(data.message);

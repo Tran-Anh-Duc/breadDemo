@@ -27,6 +27,10 @@ class NewsController extends Controller
     public function create_news(Request $request)
     {
         $data = $request->all();
+        if ($request->hasFile('image')) {
+            $file_name = $data->file('image')->storeOnCloudinary();
+            $image = $result->getPath();
+        }
         $result = $this->newsRepository->createNews($data);
         return Controller::sendResponse(Controller::HTTP_OK,'thêm bài viết thành công',$result);
         //return $result;
