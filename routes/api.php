@@ -59,6 +59,7 @@ Route::prefix('news')->group(function () {
     Route::post('/update_news/{id}', [NewsController::class, 'update_news']);
     Route::post('/update_status/{id}', [NewsController::class, 'update_status']);
     Route::post('/findOneNews/{id}', [NewsController::class, 'findOneNews']);
+    Route::post('/uploadImage', [NewsController::class, 'uploadImage']);
 });
 
 
