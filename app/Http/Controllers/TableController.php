@@ -19,7 +19,12 @@ class TableController extends Controller
     public function getDataTable()
     {
         $result = $this->tableRepository->getAllTable();
-        return $result;
+        return view('table.list_table',compact('result'));
+    }
+
+    public function view_create_table()
+    {
+        return view('table.create_table');
     }
 
     public function createTable(Request $request)

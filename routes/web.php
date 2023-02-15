@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\TableController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Support\Facades\Route;
 
@@ -82,6 +83,13 @@ Route::prefix('news')->group(function () {
     Route::get('/viewImage', [NewsController::class, 'viewImage'])->name('news.viewImage');
     Route::post('/uploadImage', [NewsController::class, 'uploadImage'])->name('news.uploadImage');
     Route::post('/update_news/{id}', [NewsController::class, 'update_news'])->name('news.update_news');
+});
+//
+Route::prefix('table')->group(function (){
+    Route::get('/list', [TableController::class, 'getDataTable'])->name('table.list_table');
+    Route::post('/update_status/{id}', [TableController::class, 'update_status'])->name('table.update_status');
+    Route::get('view_create',[TableController::class,'view_create_table'])->name('table.view_create');
+    Route::post('/create',[TableController::class,'createTable'])->name('table.create');
 });
 
 

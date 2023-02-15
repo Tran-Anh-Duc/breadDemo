@@ -14,11 +14,16 @@ class TableRepository extends BaseRepository
         return Table::class;
     }
 
-    public function getAllTable()
+    public function getAllTable($export = false )
     {
         $result = $this->model;
-        $result->whereIn(Table::COLUMN_STATUS,[Table::COLUMN_STATUS_BLOCK,Table::COLUMN_STATUS_BLOCK]);
-        return $result->orderby(Table::CREATED_AT,'DESC')->paginate(10);
+        $result->whereIn(Table::COLUMN_STATUS,[Table::COLUMN_STATUS_BLOCK,Table::COLUMN_STATUS_ACTIVE]);
+        if (!empty($export)){
+            return $result->orderby(Table::CREATED_AT,'DESC')->get();
+        }else{
+            return $result->orderby(Table::CREATED_AT,'DESC')->paginate(10);
+        }
+
     }
 
     public function createTable($data)
