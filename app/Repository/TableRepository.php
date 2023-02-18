@@ -14,7 +14,7 @@ class TableRepository extends BaseRepository
         return Table::class;
     }
 
-    public function getAllTable($export = false )
+    public function getAllTable($export = false)
     {
         $result = $this->model;
         $result->whereIn(Table::COLUMN_STATUS,[Table::COLUMN_STATUS_BLOCK,Table::COLUMN_STATUS_ACTIVE]);

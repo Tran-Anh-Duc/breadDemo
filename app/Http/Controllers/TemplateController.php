@@ -9,6 +9,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\NewsRepository;
 use App\Repository\ProductRepository;
 use App\Repository\StoreRepository;
+use App\Repository\TableRepository;
 use http\Exception;
 use Illuminate\Http\Request;
 class TemplateController extends Controller
@@ -17,14 +18,16 @@ class TemplateController extends Controller
     protected $storeRepository;
     protected $categoryRepository;
     protected $newsRepository;
+    protected $tableRepository;
 
     public function __construct(ProductRepository $productRepository,StoreRepository $storeRepository,CategoryRepository $categoryRepository,
-                                NewsRepository $newsRepository)
+                                NewsRepository $newsRepository,TableRepository $tableRepository)
     {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
         $this->categoryRepository = $categoryRepository;
         $this->newsRepository = $newsRepository;
+        $this->tableRepository = $tableRepository;
     }
 
     public function allProduct(Request $request)
@@ -109,6 +112,61 @@ class TemplateController extends Controller
         }
         return view('card.detailProduct',compact('result'));
     }
+
+    public function viewTable()
+    {
+        $export = true;
+        $resultTable = $this->tableRepository->getAllTable($export);
+        $result['resultTable'] = $resultTable;
+        return view('card.openCardTable',$result);
+    }
+
+    public function detailTable($id,Request $request)
+    {
+        $data = $request->all();
+        $resultTable = $this->tableRepository->findOneTable($id);
+        $resultProduct = $this->productRepository->getAllDataProduct($data);
+        $result['resultProduct'] = $resultProduct;
+        $result['resultTable'] = $resultTable;
+        $cardTable = session()->get('cardTable');
+        $result['cardTable'] = $cardTable;
+        $result['id'] = $id;
+        return view('card.detailTable',$result);
+    }
+
+    public function addCardTable($id)
+    {
+        $cardTable = session()->get('cardTable');
+        $product = $this->productRepository->find($id);
+        if (isset($cardTable[$id])) {
+            $cardTable[$id]['quantity'] = $cardTable[$id]['quantity'] + 1;
+        } else {
+            $cardTable[$id] = [
+                'name_product' => $product['name_product'],
+                'price' => $product['price'],
+                'quantity' => 1
+            ];
+        }
+        session()->put('cardTable',$cardTable);
+        return Controller::sendResponse(Controller::HTTP_OK,'create card succes');
+    }
+
+    public function updateCardTable(Request $request)
+    {
+        if ($request->id && $request->quantity){
+            $cardTable = session()->get('cardTable');
+            $cardTable[$request->id]['quantity'] = $request->quantity;
+            session()->put('cardTable',$cardTable);
+            $cardTable = session()->get('cardTable');
+            $resultProduct = $this->productRepository->getAllDataProduct($request);
+            $cardView = view('card.detailTable',compact('cardTable','resultProduct'))->render();
+            return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
+        }
+    }
+
+
+
+
 
     //test
     public function test()

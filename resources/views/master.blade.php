@@ -135,16 +135,20 @@
                             <a class="nav-link active" aria-current="page" href="{{route('bread.logout')}}">Đăng xuất</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="{{route('bread.tableList')}}">danh sách bàn</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 loại sản phẩm
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 270px !important;top: 45px !important">
+                            @if(!empty($resultCategory))
                                 @foreach($resultCategory as $key => $value)
                                     <li class="dropdown-item" id="dropdown-item" data-category="{{$value['id']}}">{{$value['name_category']}}</li>
                                 @endforeach
+                                @else
+                                     <li style="display: none" class="dropdown-item" id="dropdown-item" data-category="{{$value['id']}}">{{$value['name_category']}}</li>
+                                @endif
                             </ul>
                         </li>
                         <li class="nav-item">

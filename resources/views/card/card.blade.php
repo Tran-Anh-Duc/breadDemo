@@ -32,8 +32,8 @@
         <tbody>
         @php $total = 0 @endphp
         @if(!empty(session('card')))
-            @foreach(session('card') as $key => $details)
-                @php $total += $details['price'] * $details['quantity'] @endphp
+            @foreach(session('card') as $key => $detail)
+                @php $total += $detail['price'] * $detail['quantity'] @endphp
                 <tr data-id="{{ $key }}">
                     <td data-th="Product">
                         <div class="row">
@@ -41,15 +41,15 @@
                                 <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
                                      width="100" height="100" class="img-responsive"/></div>
                             <div class="col-sm-9">
-                                <h4 class="nomargin" style="color: white">{{ $details['name_product'] }}</h4>
+                                <h4 class="nomargin" style="color: white">{{ $detail['name_product'] }}</h4>
                             </div>
                         </div>
                     </td>
-                    <td data-th="Price" style="color: white">{{ number_format($details['price']) }} VND</td>
+                    <td data-th="Price" style="color: white">{{ number_format($detail['price']) }} VND</td>
                     <td data-th="Quantity">
-                        <input type="number" value="{{ $details['quantity'] }}" class="form-control quantity update-cart" />
+                        <input type="number" value="{{ $detail['quantity'] }}" class="form-control quantity update-cart" />
                     </td>
-                    <td data-th="Subtotal" class="text-center" style="color: white">{{ number_format($details['price'] * $details['quantity']) }}VND</td>
+                    <td data-th="Subtotal" class="text-center" style="color: white">{{ number_format($detail['price'] * $detail['quantity']) }}VND</td>
                     <td class="actions" data-th="">
                         <button data-id-delete="{{$key}}" class="btn btn-danger btn-sm remove-from-cart" data-delete="{{route('bread.removeCard')}}"><i class="fa fa-trash-o"></i></button>
                     </td>

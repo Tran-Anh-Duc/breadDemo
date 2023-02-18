@@ -91,6 +91,7 @@
                             setTimeout(function () {
                                 window.location.reload();
                             }, 2500);
+                            $('#number_table').val('')
                         } else {
                             $('#errorModal').modal('show');
                             $('.msg_error').text(data.message);
