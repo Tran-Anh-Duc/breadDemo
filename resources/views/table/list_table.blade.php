@@ -97,9 +97,9 @@
                                     </td>
                                     <td style="text-align: center">
                                         @if($value['status'] == 1)
-                                            sản phẩm chưa kích hoạt
+                                            Bàn chưa kích hoạt
                                         @elseif($value['status'] == 2)
-                                            sản phẩm đã được kích hoạt
+                                            Bàn đã được kích hoạt
                                         @endif
                                     </td>
                                     <td style="text-align: center;padding-top: 13px">

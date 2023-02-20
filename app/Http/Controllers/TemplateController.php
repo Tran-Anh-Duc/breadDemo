@@ -130,24 +130,29 @@ class TemplateController extends Controller
         $result['resultTable'] = $resultTable;
         $cardTable = session()->get('cardTable');
         $result['cardTable'] = $cardTable;
+        //dd($result['cardTable']);
         $result['id'] = $id;
         return view('card.detailTable',$result);
     }
 
-    public function addCardTable($id)
+    public function addCardTable($idProduct,$idTable)
     {
-        $cardTable = session()->get('cardTable');
-        $product = $this->productRepository->find($id);
-        if (isset($cardTable[$id])) {
-            $cardTable[$id]['quantity'] = $cardTable[$id]['quantity'] + 1;
+        $tableName = "table-" . $idTable;
+        //$order = session()->get($tableName) ?? [];
+        $cardTable = session()->get($tableName) ?? [];
+        //$cardTable = session()->get('cardTable');
+        $product = $this->productRepository->find($idProduct);
+        if (isset($cardTable[$idProduct])) {
+            $cardTable[$idProduct]['quantity'] = $cardTable[$idProduct]['quantity'] + 1;
         } else {
-            $cardTable[$id] = [
+            $cardTable[$idProduct] = [
                 'name_product' => $product['name_product'],
                 'price' => $product['price'],
                 'quantity' => 1
             ];
         }
-        session()->put('cardTable',$cardTable);
+        //session()->put('cardTable',$cardTable);
+        session()->put($tableName,$cardTable);
         return Controller::sendResponse(Controller::HTTP_OK,'create card succes');
     }
 
@@ -162,6 +167,11 @@ class TemplateController extends Controller
             $cardView = view('card.detailTable',compact('cardTable','resultProduct'))->render();
             return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
         }
+    }
+
+    public function paymentOneTable($idtable)
+    {
+
     }
 
 

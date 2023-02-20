@@ -43,7 +43,7 @@
                                     <a href="#"
                                        class="btn btn-info addCard"
                                        type="button"
-                                       data-url="{{route('bread.addCardTable',['id' =>$value['id']])}}"
+                                       data-url="{{route('bread.addCardTable',['idProduct' =>$value['id'] ,'idTable'=>$id ])}}" data-idProduct="{{$value['id']}}" data-idTable="{{$id}}"
                                     >Thêm giỏ hàng</a>
                             </div>
                         @endforeach
@@ -70,9 +70,10 @@
         </thead>
         <tbody>
         @php $total = 0 @endphp
-        @if(session()->has(''))
-        @if(!empty(session('cardTable')))
-            @foreach(session('cardTable') as $key => $details)
+        @if(session()->has('table-'.$id))
+{{--        @if(!empty(session('cardTable')))--}}
+{{--            @foreach(session('cardTable') as $key => $details)--}}
+                @foreach(session('table-'.$id) as $key => $details)
                 @php $total += $details['price'] * $details['quantity'] @endphp
                 <tr data-id="{{ $key }}">
                     <td data-th="Product">
@@ -98,20 +99,21 @@
                     </td>
                 </tr>
             @endforeach
-        @else
-            <p style="color: red;margin-top: 20px;text-align: center">không có sản phẩm nào trong giỏ hàng</p>
+{{--        @else--}}
+{{--            <p style="color: red;margin-top: 20px;text-align: center">không có sản phẩm nào trong giỏ hàng</p>--}}
+{{--        @endif--}}
         @endif
         </tbody>
         <tfoot>
         <tr>
             <td colspan="5" class="text-right"><h3><strong>Total {{ number_format($total) }} VND</strong></h3></td>
         </tr>
-{{--        <tr>--}}
-{{--            <td colspan="5" class="text-right">--}}
-{{--                <a href="{{ url('/bread/list_product') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>--}}
-{{--                <button class="btn btn-success">Checkout</button>--}}
-{{--            </td>--}}
-{{--        </tr>--}}
+        <tr>
+            <td colspan="5" class="text-right">
+                <a href="{{ url('/bread/tableList') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+                <button class="btn btn-success">Checkout</button>
+            </td>
+        </tr>
         </tfoot>
     </table>
         </div>
@@ -130,10 +132,17 @@
     $(document).ready(function () {
         $(".addCard").on('click', function (e) {
             e.preventDefault();
+            var idProduct  = $(this).attr('data-idProduct');
+            var idTable  = $(this).attr('data-idTable');
             var url = $(this).data('url');
+            console.log(idProduct,idTable)
             $.ajax({
                 type: "GET",
                 url: url,
+                data: {
+                    idProduct: idProduct,
+                    idTable : idTable
+                },
                 success: function (data) {
                     console.log(data)
                     if (data.status == 200) {

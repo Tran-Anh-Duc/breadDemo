@@ -36,9 +36,9 @@
         @if(count($resultTable) > 0)
             @foreach($resultTable as $key => $value)
                 <div class="card col-md-3 cardTable">
-                    <p style="height: 100%; font-size: 15px;text-align:center;font-weight: 500;color: #ac6e6e !important;">Bàn số: {{$value['number_table']}}</p>
+                    <p style="height: 100%; font-size: 15px;text-align:center;font-weight: 500;color: #ac6e6e !important;">Bàn số: {{$value['number_table']}} : <span style="color: #0c4128"><i class="fa fa-circle-o" aria-hidden="true"></i></span></p>
                     <p>
-                        <a href="{{route('bread.findOneTable',['id' =>$value['id']])}}" type="button" class="btn btn-primary keyTable" style="width: 100px;height: 33px;size: 10px">chi tiết</a>
+                        <a href="{{route('bread.findOneTable',['id' =>$value['id']])}}" type="button" class="btn btn-primary keyTable" style="width: 100px;height: 33px;size: 10px">Xem</a>
                     </p>
                 </div>
             @endforeach
