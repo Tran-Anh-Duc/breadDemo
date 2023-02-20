@@ -71,6 +71,7 @@ Route::prefix('table')->group(function () {
     Route::post('/update_status/{id}', [TableController::class, 'update_status']);
     Route::post('/find_one_table/{id}', [TableController::class, 'find_one_table']);
 //    Route::post('/uploadImage', [NewsController::class, 'uploadImage']);
+    Route::post('/updateStatusOrder/{id}', [TableController::class, 'updateStatusOrder']);
 });
 
 

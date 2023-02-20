@@ -46,5 +46,11 @@ class TableController extends Controller
         return Controller::sendResponse(Controller::HTTP_OK,'cập nhật trạng thái thành công',$result);
     }
 
+    public function updateStatusOrder($id)
+    {
+        $result = $this->tableRepository->statusOrder($id);
+        return Controller::sendResponse(Controller::HTTP_OK,'cập nhật trạng thái thành công',$result);
+    }
+
 
 }

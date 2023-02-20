@@ -142,6 +142,7 @@
                                 loại sản phẩm
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 270px !important;top: 45px !important">
+
                             @if(!empty($resultCategory))
                                 @foreach($resultCategory as $key => $value)
                                     <li class="dropdown-item" id="dropdown-item" data-category="{{$value['id']}}">{{$value['name_category']}}</li>
@@ -181,7 +182,7 @@
         <div id="product_search"></div>
         @section('slide')
         @show
-    <div class="container">
+    <div class="container" style="min-height: 70vh;">
         @yield('content')
     </div>
         <footer class="bg-light text-center text-lg-start" style="border-radius: 5px solid while">

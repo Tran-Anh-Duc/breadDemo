@@ -111,7 +111,13 @@
         <tr>
             <td colspan="5" class="text-right">
                 <a href="{{ url('/bread/tableList') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
-                <button class="btn btn-success">Checkout</button>
+{{--                <button class="btn btn-success">Checkout</button>--}}
+                @if($resultTable['status_order'] == 2)
+                <a href="" class="btn btn-success" type="button" data-urlPay="{{route('bread.paymentOneTable',['idTable' => $id])}}" id="payment">Checkout</a>
+                @else
+                    <a href="" class="btn btn-success" type="button" data-urlPay="{{route('bread.paymentOneTable',['idTable' => $id])}}" style="display: none">Checkout</a>
+                @endif
+
             </td>
         </tr>
         </tfoot>
@@ -216,6 +222,30 @@
                     alert('delete errors')
                 }
             })
+        })
+
+        $('#payment').on('click',function (e) {
+            e.preventDefault();
+            var urlPay = $(this).attr('data-urlPay');
+            console.log(urlPay)
+            $.ajax({
+                type: "GET",
+                url: urlPay,
+                success: function (data) {
+                    console.log(data)
+                    if (data.status == 200) {
+                        alert('thanh toán thành công');
+                        window.scrollTo(0, 0);
+                        setTimeout(function () {
+                            window.location.href='{{route('bread.tableList')}}';
+                        }, 500);
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                    alert('them san pham that bai')
+                }
+            });
         })
     });
 

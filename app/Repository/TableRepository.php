@@ -32,7 +32,8 @@ class TableRepository extends BaseRepository
           Table::COLUMN_NUMBER_TABLE => $data['number_table'] ?? null,
           Table::COLUMN_STATUS => Table::COLUMN_STATUS_BLOCK,
           Table::COLUMN_IMAGE_TABLE => $data['image_table'] ?? null,
-          Table::COLUMN_COLOR_TABLE => Table::COLUMN_COLOR_BLOCK
+          Table::COLUMN_COLOR_TABLE => Table::COLUMN_COLOR_BLOCK,
+          Table::COLUMN_STATUS_ORDER => Table::COLUMN_STATUS_BLOCK,
         ];
         $result = $this->model->create($data1);
         return $result;
@@ -54,6 +55,20 @@ class TableRepository extends BaseRepository
         }
         return $resultActive;
     }
+
+    public function statusOrder($id)
+    {
+        $resultOrder = $this->model->find($id);
+        if (!empty($resultOrder) && $resultOrder['status_order'] == 1){
+            $result = $this->model->where([Table::COLUMN_ID => $id])->update([Table::COLUMN_STATUS_ORDER => Table::COLUMN_STATUS_ACTIVE]);
+        }else{
+            $result = $this->model->where([Table::COLUMN_ID => $id])->update([Table::COLUMN_STATUS_ORDER => Table::COLUMN_STATUS_BLOCK]);
+        }
+        return $result;
+    }
+
+
+
 
 
 

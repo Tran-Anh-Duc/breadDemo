@@ -1,3 +1,7 @@
+{{--<title>card</title>--}}
+{{--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">--}}
+{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>--}}
+{{--<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">--}}
 @extends('master')
 @section('title','list table')
 @section('style')
@@ -36,9 +40,32 @@
         @if(count($resultTable) > 0)
             @foreach($resultTable as $key => $value)
                 <div class="card col-md-3 cardTable">
-                    <p style="height: 100%; font-size: 15px;text-align:center;font-weight: 500;color: #ac6e6e !important;">Bàn số: {{$value['number_table']}} : <span style="color: #0c4128"><i class="fa fa-circle-o" aria-hidden="true"></i></span></p>
+                    <p style="height: 100%; font-size: 15px;text-align:center;font-weight: 500;color: #ac6e6e !important;">
+                    Bàn số: {{$value['number_table']}} : <span style="color: #0c4128"><i class="fa fa-circle-o onTable" id="onTable"
+                    @if($value['status_order'] == 2) style="color: red" @else style="color: #0f5132"  @endif  aria-hidden="true"></i>
+                    <span>@if($value['status_order'] == 2) on @else off @endif</span>
+                    </span></p>
                     <p>
-                        <a href="{{route('bread.findOneTable',['id' =>$value['id']])}}" type="button" class="btn btn-primary keyTable" style="width: 100px;height: 33px;size: 10px">Xem</a>
+                        @if($value['status_order'] == 2)
+                             <a href="{{route('bread.findOneTable',['id' =>$value['id']])}}" type="button" class="btn btn-primary keyTable"
+                             style="width: 100px;height: 33px;size: 10px;margin-bottom: -41px">Xem</a>
+                        @else
+                              <a href="{{route('bread.findOneTable',['id' =>$value['id']])}}" type="button" class="btn btn-primary keyTable"
+                              style="width: 100px;height: 33px;size: 10px;display: none">Xem</a>
+                        @endif
+
+                    </p>
+                    <p>
+                        @if($value['status_order'] == 1)
+                         <a href="#" type="button" class="btn btn-info openTable" id="openTable"
+                        data-url="{{route('bread.updateStatusOrder',['id' =>$value['id']])}}" data-detailId="{{route('bread.findOneTable',['id' => $value['id']])}}"
+                        style="width: 100px;height: 33px;font-size: 15px !important;margin-bottom: -15px">Mở bàn</a>
+                        @else
+                         <a href="#" type="button" class="btn btn-info openTable" id="openTable"
+                        data-url="{{route('bread.updateStatusOrder',['id' =>$value['id']])}}" data-detailId="{{route('bread.findOneTable',['id' => $value['id']])}}"
+                        style="width: 100px;height: 33px;font-size: 15px !important;margin-bottom: -15px;display: none">Mở bàn</a>
+                        @endif
+
                     </p>
                 </div>
             @endforeach
@@ -46,7 +73,46 @@
            <span style="color: red;font-size: 30px;margin-left: 30%">'không có dữ liệu'</span>
         @endif
     </div>
-
-
 </body>
+@endsection
+@section('script')
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).ready(function () {
+            $('.openTable').on('click', function (e) {
+                e.preventDefault();
+                var url = $(this).data('url');
+                var detailId = $(this).attr('data-detailId');
+                console.log(detailId)
+                if (confirm('bạn chắc chắn muốn mở bàn')) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function (data) {
+                            console.log(data)
+                            if (data.status == 200) {
+                                alert('mở bàn thành công');
+                                $('#onTable').css('color', 'red')
+                                window.scrollTo(0, 0);
+                                setTimeout(function () {
+                                    window.location.href = detailId;
+                                }, 500);
+                            }
+                        },
+                        error: function (data) {
+                            console.log(data)
+                            alert('them san pham that bai')
+                        }
+                    });
+                }
+            })
+        })
+
+    </script>
 @endsection

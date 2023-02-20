@@ -125,12 +125,12 @@ class TemplateController extends Controller
     {
         $data = $request->all();
         $resultTable = $this->tableRepository->findOneTable($id);
+        $result['resultTable'] = $resultTable;
         $resultProduct = $this->productRepository->getAllDataProduct($data);
         $result['resultProduct'] = $resultProduct;
         $result['resultTable'] = $resultTable;
         $cardTable = session()->get('cardTable');
         $result['cardTable'] = $cardTable;
-        //dd($result['cardTable']);
         $result['id'] = $id;
         return view('card.detailTable',$result);
     }
@@ -169,10 +169,22 @@ class TemplateController extends Controller
         }
     }
 
-    public function paymentOneTable($idtable)
+    public function paymentOneTable($idTable)
     {
-
+          $tableName = 'table-' . $idTable;
+          $delete = session()->forget($tableName);
+          $result = $this->tableRepository->statusOrder($idTable);
+          return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$result);
     }
+
+    public function updateStatusOrder($id)
+    {
+         $result = $this->tableRepository->statusOrder($id);
+         return Controller::sendResponse(Controller::HTTP_OK,'update status order succes',$result);
+    }
+
+
+
 
 
 
