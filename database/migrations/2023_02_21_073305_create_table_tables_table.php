@@ -19,6 +19,7 @@ class CreateTableTablesTable extends Migration
             $table->string('image_table')->nullable();
             $table->string('color_table')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('status_order')->nullable();
             $table->timestamps();
         });
     }

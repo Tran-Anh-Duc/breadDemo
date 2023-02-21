@@ -15,6 +15,7 @@ class Product extends BaseModel
     const COLUMN_PRICE = 'price';
     const COLUMN_CLICK_ID = 'click_id';
     const COLUMN_TOTAL = 'total';
+    const COLUMN_WAREHOUSE_ID = 'warehouse_id';
 
     const COLUMN_STATUS_ACTIVE = 2;
     const COLUMN_STATUS_BLOCK = 1;
@@ -26,6 +27,13 @@ class Product extends BaseModel
     {
         return $this->hasOne('App\category',Product::COLUMN_CATEGORY_ID);
     }
+
+    public function stores()
+    {
+         return $this->belongsToMany(Store::class);
+    }
+
+
 
 
 

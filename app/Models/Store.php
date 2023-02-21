@@ -15,4 +15,9 @@ class Store extends BaseModel
 
 
     protected $table = 'store';
+
+    public function products()
+    {
+         return $this->belongsToMany(Product::class);
+    }
 }

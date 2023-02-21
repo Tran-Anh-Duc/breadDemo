@@ -3,12 +3,15 @@
 
 namespace App\Repository;
 
+use App\Models\Category;
 use App\Models\Product;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository extends BaseRepository
 {
     protected $category;
+    protected $warehouse;
 
     public function getModel()
     {
@@ -114,10 +117,20 @@ class ProductRepository extends BaseRepository
     }
 
 
-//    public function uploadImage($data)
-//    {
-//        Cloudinary::
-//    }
+    public function test($id)
+    {
+//        $test = DB::table('product')
+//                    ->leftJoin('category', 'product.id','=','category.product_id')
+//                    ->where('product.id','=',$id)
+//                    ->get();
+
+                $test = DB::table('product')
+                    ->Join('warehouses', 'product.id','=','warehouses.product_id')
+                    ->where('product.id','=',$id)
+                    ->get();
+
+        return $test;
+    }
 
 
 
