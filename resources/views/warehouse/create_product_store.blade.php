@@ -2,8 +2,17 @@
 @section('title','Thêm mới')
 @section('style')
     <style>
-         .hidden {
+        .hidden {
             display: none !important;
+        }
+
+        .store_name {
+            width: 32%;
+        }
+
+        .btn-more {
+            display: flex;
+            justify-content: flex-end;
         }
 
     </style>
@@ -15,7 +24,7 @@
                 <div class="tabs">
                     <h2>Thêm mới sản phẩm vào kho</h2>
                     <lable>Tên kho</lable>
-                    <select name="" id="" class="form-control">
+                    <select name="" id="" class="form-select store_name">
                         <option value="">-- Chọn kho --</option>
                         @foreach($lead_store as $key => $value)
                             <option value="{{$value['id']}}">{{$value['store_name']}}</option>
