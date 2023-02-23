@@ -70,4 +70,11 @@ class CategoryController extends Controller
         $result = $this->categoryRepository->update_status($id);
         return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật trạng thái loại sản phẩm thành công',$result);
     }
+
+    public function test(Request $request)
+    {
+        $data = $request->all();
+        $result = $this->categoryRepository->test($data);
+        return $result;
+    }
 }

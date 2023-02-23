@@ -4,13 +4,22 @@
 namespace App\Repository;
 
 
+use App\Models\Product;
 use App\Models\Store;
+use Illuminate\Support\Facades\DB;
 
 class StoreRepository extends BaseRepository
 {
+    protected $productRepository;
+
     public function getModel()
     {
         return Store::class;
+    }
+
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
     }
 
     public function getAllStore()
@@ -70,5 +79,44 @@ class StoreRepository extends BaseRepository
             $resultActive = $this->model->where([Store::COLUMN_ID => $id])->update([Store::COLUMN_STATUS_STORE => Store::COLUMN_STATUS_BLOCK ]);
         }
         return $resultActive;
+    }
+
+    public function test($storeId,$productId)
+    {
+        $findId = $this->productRepository->find($productId);
+        $store = Store::find($storeId);
+        $store->products()->attach($productId,['total' => [$findId['total']]]);
+        return $store;
+    }
+
+    public function test1($storeId,$data)
+    {
+        if (!empty($data)){
+            foreach ($data['data'] as $key => $value){
+                $productId = $value['product_id'];
+                $total = $value['total'];
+                $product = Store::find($storeId);
+                $product->products()->updateExistingPivot($productId, ['total'=>$total]);
+            }
+        }
+        $result = DB::table('product_store')->where('store_id','=',$storeId)->distinct()->get();
+        return $result;
+    }
+
+    public function test2($id)
+    {
+//        $test = DB::table('product')
+//            ->where('product.id','=',$id)
+//            ->leftJoin('product_store', 'product.id', '=', 'product_store.product_id')
+//            ->get();
+
+        $test = DB::table('product_store')
+            //->where('product_store.id', '=', $id)
+            ->fullOuterJoin('product', 'product_store.product_id', '=', 'product.id')
+            //->select('name_product','total','product_store.product_id')
+            ->select('name_product','total','product.id')
+            ->get();
+
+        return $test;
     }
 }

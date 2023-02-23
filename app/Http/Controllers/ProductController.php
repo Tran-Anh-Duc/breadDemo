@@ -89,9 +89,9 @@ class ProductController extends Controller
         return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật trạng thái  sản phẩm thành công',$result);
     }
 
-    public function test($id)
+    public function test()
     {
-         $result = $this->productRepository->test($id);
+         $result = $this->productRepository->test();
          return $result;
     }
 

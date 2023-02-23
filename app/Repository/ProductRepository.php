@@ -116,21 +116,36 @@ class ProductRepository extends BaseRepository
         return $result;
     }
 
+    public function findId($id)
+    {
+        $result = $this->model->find($id);
+        return $result;
+    }
 
-    public function test($id)
+    public function test()
     {
 //        $test = DB::table('product')
 //                    ->leftJoin('category', 'product.id','=','category.product_id')
 //                    ->where('product.id','=',$id)
 //                    ->get();
 
-                $test = DB::table('product')
-                    ->Join('warehouses', 'product.id','=','warehouses.product_id')
-                    ->where('product.id','=',$id)
-                    ->get();
+//                $test = DB::table('product')
+//                    ->Join('warehouses', 'product.id','=','warehouses.product_id')
+//                    ->where('product.id','=',$id)
+//                    ->get();
+
+        $test = DB::table('product_store')
+                ->join('product','product_store.product_id','=','product.id')
+                ->join('store','product_store.store_id','=','store.id')
+                ->select('name_product','store_name','product.total','product.price')
+                ->get();
 
         return $test;
     }
+
+
+
+
 
 
 

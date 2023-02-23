@@ -5,6 +5,8 @@ namespace App\Repository;
 
 
 use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class CategoryRepository extends BaseRepository
 {
@@ -75,5 +77,15 @@ class CategoryRepository extends BaseRepository
     {
          $result = $this->model->whereIn(Category::COLUMN_STATUS_CATEGORY, [Category::COLUMN_STATUS_ACTIVE, Category::COLUMN_STATUS_BLOCK])->get();
          return $result;
+    }
+
+    public function test($data)
+    {
+        $result = DB::table('category')
+        ->where('product.status','=',$data['status'])
+        ->leftJoin('product','category.id','=','product.category_id')
+        ->select('name_category','name_product','total','price','product.id','product.status')
+        ->get();
+        return $result;
     }
 }

@@ -25,12 +25,12 @@ class Product extends BaseModel
 
     public function category()
     {
-        return $this->hasOne('App\category',Product::COLUMN_CATEGORY_ID);
+        return $this->hasMany('App\category',Product::COLUMN_CATEGORY_ID);
     }
 
     public function stores()
     {
-         return $this->belongsToMany(Store::class);
+         return $this->belongsToMany(Store::class)->withPivot('total');
     }
 
 

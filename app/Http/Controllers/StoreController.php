@@ -61,6 +61,25 @@ class StoreController extends Controller
         return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật trạng thái cửa hàng thành công',$result);
     }
 
+    public function test($storeId,$productId)
+    {
+        $result = $this->storeRepository->test($storeId,$productId);
+        return $result;
+    }
+
+    public function test1($storeId,Request $request)
+    {
+        $data = $request->all();
+        $result = $this->storeRepository->test1($storeId,$data);
+        return $result;
+    }
+
+    public function test2($id)
+    {
+        $result = $this->storeRepository->test2($id);
+        return $result;
+    }
+
 
 
 }

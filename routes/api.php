@@ -36,7 +36,6 @@ Route::prefix('product')->group(function () {
     Route::post('/update_status/{id}', [ProductController::class, 'updateStatus']);
     Route::post('/add_to_card/{id}', [TemplateController::class, 'add_to_card']);
     Route::post('/searchLike', [TemplateController::class, 'searchLikeProduct']);
-    Route::post('/test/{id}', [ProductController::class, 'test']);
 });
 
 Route::prefix('category')->group(function () {
@@ -83,4 +82,8 @@ Route::prefix('warehouses')->group(function () {
 
 
 
-
+Route::post('/test/{storeId}/{productId}', [StoreController::class, 'test']);
+Route::post('/test1/{storeId}', [StoreController::class, 'test1']);
+Route::post('/test2/{id}', [StoreController::class, 'test2']);
+Route::post('/test', [CategoryController::class, 'test']);
+Route::post('/test3', [ProductController::class, 'test']);
