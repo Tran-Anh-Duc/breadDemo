@@ -99,6 +99,8 @@ class ProductController extends Controller
     public function createViewProductStore()
     {
         $lead_store = $this->storeRepository->getAllStore();
+        $lead_product = $this->productRepository->getDataProduct();
+        $result['lead_product'] =$lead_product;
         $result['lead_store'] = $lead_store;
         return view('warehouse.create_product_store',$result);
     }

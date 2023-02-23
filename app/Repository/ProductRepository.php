@@ -146,6 +146,12 @@ class ProductRepository extends BaseRepository
         return true;
     }
 
+    public function getDataProduct()
+    {
+        $result = $this->model->get()->toArray();
+        return $result;
+    }
+
 
 
 
