@@ -5,13 +5,13 @@ namespace App\Repository;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Store;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\DB;
 
 class ProductRepository extends BaseRepository
 {
     protected $category;
-    protected $warehouse;
 
     public function getModel()
     {
@@ -122,26 +122,30 @@ class ProductRepository extends BaseRepository
         return $result;
     }
 
-    public function test()
+    public function getAllDataProductStore()
     {
-//        $test = DB::table('product')
-//                    ->leftJoin('category', 'product.id','=','category.product_id')
-//                    ->where('product.id','=',$id)
-//                    ->get();
-
-//                $test = DB::table('product')
-//                    ->Join('warehouses', 'product.id','=','warehouses.product_id')
-//                    ->where('product.id','=',$id)
-//                    ->get();
-
         $test = DB::table('product_store')
+                //->where('store.id','=',1)
                 ->join('product','product_store.product_id','=','product.id')
                 ->join('store','product_store.store_id','=','store.id')
                 ->select('name_product','store_name','product.total','product.price')
                 ->get();
-
         return $test;
     }
+
+    //theem sản phẩm và cửa hàng vào bảng product_store
+    public function createProductAndStore($data)
+    {
+        if (!empty($data)){
+            foreach ($data['data'] as $key => $value){
+                $productId = $value['product_id'];
+                $store = Store::find($data['store_id']);
+                $store->products()->attach($productId);
+            }
+        }
+        return true;
+    }
+
 
 
 

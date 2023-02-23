@@ -39,6 +39,9 @@
             <a class="nav-link" href="{{url('table/list')}}">Danh sách bàn</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{url('product_store/')}}">Kho</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Lịch sử</a>
         </li>
     </ul>

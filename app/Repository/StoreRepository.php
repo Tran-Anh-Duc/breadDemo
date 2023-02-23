@@ -10,23 +10,21 @@ use Illuminate\Support\Facades\DB;
 
 class StoreRepository extends BaseRepository
 {
-    protected $productRepository;
+    //protected $productRepository;
 
     public function getModel()
     {
         return Store::class;
     }
 
-    public function __construct(ProductRepository $productRepository)
-    {
-        $this->productRepository = $productRepository;
-    }
 
     public function getAllStore()
     {
         $result = $this->model;
-        $result->whereIn(Store::COLUMN_STATUS_STORE,[Store::COLUMN_STATUS_BLOCK,Store::COLUMN_STATUS_BLOCK]);
-        return $result->orderby(Store::CREATED_AT,'DESC')->paginate(4);
+        $result->whereIn(Store::COLUMN_STATUS_STORE,[Store::COLUMN_STATUS_BLOCK,Store::COLUMN_STATUS_ACTIVE]);
+        return $result
+                ->orderby(Store::CREATED_AT,'DESC')
+                ->paginate(4);
     }
 
     public function createStore($data)
@@ -80,28 +78,32 @@ class StoreRepository extends BaseRepository
         }
         return $resultActive;
     }
+//theem sản phẩm và cửa hàng vào bảng product_store
+//    public function createProductAndStore($storeId,$data)
+//    {
+//        if (!empty($data)){
+//            foreach ($data['data'] as $key => $value){
+//                $productId = $value['product_id'];
+//                $store = Store::find($storeId);
+//                $store->products()->attach($productId);
+//            }
+//        }
+//        return true;
+//    }
 
-    public function test($storeId,$productId)
-    {
-        $findId = $this->productRepository->find($productId);
-        $store = Store::find($storeId);
-        $store->products()->attach($productId,['total' => [$findId['total']]]);
-        return $store;
-    }
-
-    public function test1($storeId,$data)
-    {
-        if (!empty($data)){
-            foreach ($data['data'] as $key => $value){
-                $productId = $value['product_id'];
-                $total = $value['total'];
-                $product = Store::find($storeId);
-                $product->products()->updateExistingPivot($productId, ['total'=>$total]);
-            }
-        }
-        $result = DB::table('product_store')->where('store_id','=',$storeId)->distinct()->get();
-        return $result;
-    }
+//    public function test1($storeId,$data)
+//    {
+//        if (!empty($data)){
+//            foreach ($data['data'] as $key => $value){
+//                $productId = $value['product_id'];
+//                $total = $value['total'];
+//                $product = Store::find($storeId);
+//                $product->products()->updateExistingPivot($productId, ['total'=>$total]);
+//            }
+//        }
+//        $result = DB::table('product_store')->where('store_id','=',$storeId)->distinct()->get();
+//        return $result;
+//    }
 
     public function test2($id)
     {
@@ -118,5 +120,11 @@ class StoreRepository extends BaseRepository
             ->get();
 
         return $test;
+    }
+
+    public function getAllDataStore()
+    {
+        $result = $this->model->get();
+        return $result;
     }
 }

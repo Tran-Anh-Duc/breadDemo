@@ -36,6 +36,8 @@ Route::prefix('product')->group(function () {
     Route::post('/update_status/{id}', [ProductController::class, 'updateStatus']);
     Route::post('/add_to_card/{id}', [TemplateController::class, 'add_to_card']);
     Route::post('/searchLike', [TemplateController::class, 'searchLikeProduct']);
+    Route::post('/getAllDataProductStore', [ProductController::class, 'getAllDataProductStore']);
+    Route::post('/createProductAndStore', [ProductController::class, 'createProductAndStore']);
 });
 
 Route::prefix('category')->group(function () {
@@ -52,6 +54,7 @@ Route::prefix('store')->group(function () {
     Route::post('/detail_store/{id}', [StoreController::class, 'find_one_store']);
     Route::post('/update_store/{id}', [StoreController::class, 'update_store']);
     Route::post('/update_status/{id}', [StoreController::class, 'updateStatus']);
+    Route::post('/createProductAndStore/{storeId}', [StoreController::class, 'createProductAndStore']);
 });
 
 Route::prefix('news')->group(function () {
@@ -82,8 +85,8 @@ Route::prefix('warehouses')->group(function () {
 
 
 
-Route::post('/test/{storeId}/{productId}', [StoreController::class, 'test']);
+
 Route::post('/test1/{storeId}', [StoreController::class, 'test1']);
-Route::post('/test2/{id}', [StoreController::class, 'test2']);
-Route::post('/test', [CategoryController::class, 'test']);
-Route::post('/test3', [ProductController::class, 'test']);
+Route::post('/test2', [StoreController::class, 'test2']);
+Route::post('/test', [ProductController::class, 'test1']);
+

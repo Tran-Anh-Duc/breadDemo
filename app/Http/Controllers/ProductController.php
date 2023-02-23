@@ -89,10 +89,31 @@ class ProductController extends Controller
         return Controller::sendResponse(Controller::HTTP_OK,'Cập nhật trạng thái  sản phẩm thành công',$result);
     }
 
-    public function test()
+    public function getAllDataProductStore()
     {
-         $result = $this->productRepository->test();
-         return $result;
+         $lead_warehouse = $this->productRepository->getAllDataProductStore();
+         $result['product_store'] = $lead_warehouse;
+         return view('warehouse.view_lead_all',$result);
+    }
+//view product_store
+    public function createViewProductStore()
+    {
+        $lead_store = $this->storeRepository->getAllStore();
+        $result['lead_store'] = $lead_store;
+        return view('warehouse.create_product_store',$result);
+    }
+// create product_store
+    public function createProductAndStore(Request $request)
+    {
+        $data = $request->all();
+        $result = $this->productRepository->createProductAndStore($data);
+        return Controller::sendResponse(Controller::HTTP_OK,' Thêm sản phẩm vào kho thành công',$result);
+    }
+
+    public function test1()
+    {
+        $result = $this->productRepository->test();
+        return $result;
     }
 
 
