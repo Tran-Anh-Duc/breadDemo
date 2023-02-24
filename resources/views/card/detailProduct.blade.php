@@ -53,7 +53,7 @@
                                             <p class="text-muted mb-0 small" style="font-size: 20px;color:black;">Mô tả chi
                                                 tiết sản phẩm:</p>
                                             <textarea
-                                                style="width: 750px;height: auto">{{$result['product_description']}}</textarea>
+                                                style="width: 750px;height: auto" disabled>{{$result['product_description']}}</textarea>
                                         </div>
                                     </div>
                                 </div>

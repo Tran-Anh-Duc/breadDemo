@@ -99,7 +99,7 @@ Route::prefix('table')->group(function (){
 
 Route::prefix('product_store')->group(function (){
     Route::get('/',[ProductController::class,'getAllDataProductStore'])->name('product_store.list');
-    Route::post('/createProductAndStore/{storeId}',[ProductController::class,'createProductAndStore'])->name('product_store.create_product_sotre');
+    Route::post('/createProductAndStore',[ProductController::class,'createProductAndStore'])->name('product_store.create_product_sotre');
     Route::get('/view_create_product_store',[ProductController::class,'createViewProductStore'])->name('product_store.view_product_store');
 });
 

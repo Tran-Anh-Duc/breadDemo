@@ -109,7 +109,11 @@ class ProductController extends Controller
     {
         $data = $request->all();
         $result = $this->productRepository->createProductAndStore($data);
-        return Controller::sendResponse(Controller::HTTP_OK,' Thêm sản phẩm vào kho thành công',$result);
+        if (!empty($result) && $result == 1){
+            return Controller::sendResponse(Controller::HTTP_OK,' Thêm sản phẩm vào kho thành công',$result);
+        }else{
+            return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,' Thêm sản phẩm vào kho thất bại(sản phẩm đã tồn tại trong kho)');
+        }
     }
 
     public function test1()

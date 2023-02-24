@@ -102,9 +102,9 @@
                         </tbody>
                     </table>
                 </div>
-{{--                <div class="pagination d-felx justify-content-right">--}}
-{{--                    {{$result->appends($_GET)->links()}}--}}
-{{--                </div>--}}
+                <div class="pagination d-felx justify-content-right">
+                    {{$product_store->appends($_GET)->links()}}
+                </div>
             </div>
         </div>
     </div>

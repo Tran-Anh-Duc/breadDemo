@@ -129,21 +129,43 @@ class ProductRepository extends BaseRepository
                 ->join('product','product_store.product_id','=','product.id')
                 ->join('store','product_store.store_id','=','store.id')
                 ->select('name_product','store_name','product.total','product.price')
-                ->get();
+                ->paginate(10);
         return $test;
     }
 
     //theem sản phẩm và cửa hàng vào bảng product_store
     public function createProductAndStore($data)
     {
-        if (!empty($data)){
-            foreach ($data['data'] as $key => $value){
-                $productId = $value['product_id'];
-                $store = Store::find($data['store_id']);
-                $store->products()->attach($productId);
+        $bool = false;
+        $arrProductStore = [];
+        $arrData = [];
+        if ($data['store_id']){
+            $stores = DB::table('product_store')->where('product_store.store_id','=',$data['store_id'])->get();
+            foreach ($stores as $key => $value){
+                $arrData[] = $value->product_id;
             }
         }
-        return true;
+        if($data['data']){
+            foreach ($data['data'] as $ke => $va){
+                $arrProductStore[] = $va['product_id'];
+            }
+        }
+        if (!empty($arrProductStore)){
+            $test = DB::table('product_store')
+            ->where('store_id','=',$data['store_id'])
+            ->whereIn('product_id', $arrProductStore)->get();
+            if (!empty($test) && count($test) != 0) {
+                return false;
+            } else {
+                foreach ($arrProductStore as $k => $v) {
+                    $productId = $v;
+                    $store = Store::find($data['store_id']);
+                    $store->products()->attach($productId);
+                    $bool = true;
+                }
+            }
+        }
+        return $bool;
     }
 
     public function getDataProduct()

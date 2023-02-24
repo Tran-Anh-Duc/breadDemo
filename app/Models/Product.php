@@ -30,7 +30,12 @@ class Product extends BaseModel
 
     public function stores()
     {
-         return $this->belongsToMany(Store::class)->withPivot('total');
+         return $this->belongsToMany(Store::class);
+    }
+
+    public function bills()
+    {
+        return $this->belongsToMany(bill::class)->withPivot('total','price')->withTimestamps();
     }
 
 
