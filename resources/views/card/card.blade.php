@@ -146,7 +146,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
+    const csrf = "{{ csrf_token() }}";
     $(document).ready(function () {
 
         $('.update_card').on('click', function (e) {
@@ -249,7 +249,38 @@
                }
                 data.data[countBlock] = lead_bill_product;
                 countBlock++;
+
             });
+            $.ajax({
+                url: '{{route('bread.createBill')}}',
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    'x-csrf-token': csrf
+                },
+                type: "POST",
+                data: JSON.stringify(data),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.status == 200) {
+                        $('#successModal').modal('show');
+                        $('.msg_success').text(data.message);
+                        window.scrollTo(0, 0);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2500);
+                    } else {
+                        $('#errorModal').modal('show');
+                        $('.msg_error').text(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                    alert('Có lỗi xảy ra')
+                }
+            })
 
         })
 
