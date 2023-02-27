@@ -69,18 +69,77 @@
         <tr>
             <td colspan="5" class="text-right">
                 <a href="{{ url('/bread/list_product') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
-                <button class="btn btn-success">Checkout</button>
+                <button class="btn btn-success" data-bs-toggle="modal"  data-bs-target="#staticBackdrop" id="checkBill" >Checkout</button>
             </td>
         </tr>
         </tfoot>
     </table>
 </div>
+<!-- modal success -->
+<div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-success" id="staticBackdropLabel">Thành công</h5>
+            </div>
+            <div class="modal-body">
+                <p class="msg_success text-primary"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal error -->
+<div class="modal fade" id="errorModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="staticBackdropLabel">Có lỗi xảy ra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="msg_error"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal payment -->
+
+<!-- Modal -->
+<div class="modal fade modal-fullscreen" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <lable style="margin-bottom: 5px">Mã giảm giá</lable>
+            <div class="" style="margin-bottom: 5px">
+                <input type="text" class="form-control coupon" id="coupon" name="coupon">
+            </div>
+            <lable style="margin-bottom: 5px">Người mua hàng</lable>
+            <div style="margin-bottom: 5px">
+                <input type="text" class="form-control created_by" id="created_by" name="created_by">
+            </div>
+            <div class="bills" id="bills">
+
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="createBill">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
-
-
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -146,6 +205,29 @@
                 }
             })
         })
+
+        $('#checkBill').on('click',function (e) {
+            var session = <?php echo json_encode(session('card')) ?>;
+            if(session){
+                let block = "";
+                let block_acceptions = $("#bills")
+                $.each(session, function (key, value) {
+                    block += ` <div class="bill block" id="bill" data-id="`+ key +`">`
+                    block += ` <lable>Tên sản phẩm</lable>`
+                    block += `<input type="text" name="name_product" class="name_product form-control" id="name_product" value="` + value.name_product + `" disabled>`
+                    block += `<lable>Giá sản phẩm</lable>`
+                    block += `<input type="text" name="price" class="price form-control" id="price" value="` + value.price + `" disabled>`
+                    block += `<lable>Số lượng sản phẩm</lable>`
+                    block += ` <input type="text" id="quantity" name="quantity" class="form-control quantity" value="` + value.quantity + `" disabled>`
+                    block += `</div>`
+                    block += `<div style="margin-bottom: 15px"></div>`
+                })
+                $(block_acceptions).html(block)
+            }
+        })
+
+
+
     });
 </script>
 

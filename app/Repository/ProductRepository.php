@@ -3,6 +3,7 @@
 
 namespace App\Repository;
 
+use App\Models\bill;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
@@ -172,6 +173,18 @@ class ProductRepository extends BaseRepository
     {
         $result = $this->model->get()->toArray();
         return $result;
+    }
+
+    public function createBillProduct($billId)
+    {
+//        $bill = bill::find($billId);
+//        $bill->products()->attach($productId);
+
+        $bill = Bill::find(1);
+        $bill->products()->sync([2, 3]);
+
+
+        return $bill;
     }
 
 

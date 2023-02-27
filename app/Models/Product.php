@@ -35,7 +35,7 @@ class Product extends BaseModel
 
     public function bills()
     {
-        return $this->belongsToMany(bill::class)->withPivot('total','price')->withTimestamps();
+        return $this->belongsToMany(bill::class)->withTimestamps();
     }
 
 

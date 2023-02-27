@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Product;
+use App\Repository\BillRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\NewsRepository;
 use App\Repository\ProductRepository;
@@ -19,21 +20,23 @@ class TemplateController extends Controller
     protected $categoryRepository;
     protected $newsRepository;
     protected $tableRepository;
+    protected $billRepository;
 
     public function __construct(ProductRepository $productRepository,StoreRepository $storeRepository,CategoryRepository $categoryRepository,
-                                NewsRepository $newsRepository,TableRepository $tableRepository)
+                                NewsRepository $newsRepository,TableRepository $tableRepository,BillRepository $billRepository)
     {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
         $this->categoryRepository = $categoryRepository;
         $this->newsRepository = $newsRepository;
         $this->tableRepository = $tableRepository;
+        $this->billRepository = $billRepository;
     }
 
     public function allProduct(Request $request)
     {
         $data = $request->all();
-        $user = session()->get('user');
+        $user = session()->get('users');
         $resultAll = $this->productRepository->getAllDataProduct($data);
         $result['all_product'] = $resultAll;
         $result['user'] = $user;
@@ -72,10 +75,11 @@ class TemplateController extends Controller
             $card[$id] = [
                 'name_product' => $product['name_product'],
                 'price' => $product['price'],
-                'quantity' => 1
+                'quantity' => 1,
+                'product_id' => $id
             ];
         }
-        session()->put('card',$card);
+        $a = session()->put('card',$card);
         return Controller::sendResponse(Controller::HTTP_OK,'create card succes');
     }
 
@@ -181,6 +185,20 @@ class TemplateController extends Controller
     {
          $result = $this->tableRepository->statusOrder($id);
          return Controller::sendResponse(Controller::HTTP_OK,'update status order succes',$result);
+    }
+
+    public function viewDetailBill($id)
+    {
+        $result['findOneBill'] = $this->billRepository->find($id);
+        $result['showBill'] = $this->billRepository->showBill();
+        return view('bill.detail_bill',$result);
+    }
+
+    public function createBill(Request $request)
+    {
+        $data = $request->all();
+        $result = $this->billRepository->createBill($data);
+        return Controller::sendResponse(Controller::HTTP_OK,'create succes',$result);
     }
 
 

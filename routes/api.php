@@ -83,6 +83,10 @@ Route::prefix('warehouses')->group(function () {
     Route::post('/createWarehouse',[\App\Http\Controllers\WarehouseController::class,'createWarehouse']);
 });
 
+Route::prefix('bill')->group(function(){
+    Route::post('/creteBill',[\App\Http\Controllers\BillController::class,'create_bill_product']);
+    Route::post('/show_bill',[\App\Http\Controllers\BillController::class,'show_bill']);
+});
 
 
 

@@ -40,6 +40,7 @@ Route::prefix('bread')->group(function () {
     Route::get('/updateCardTable', [TemplateController::class, 'updateCardTable'])->name('bread.updateCardTable');
     Route::get('/updateStatusOrder/{id}', [TemplateController::class, 'updateStatusOrder'])->name('bread.updateStatusOrder');
     Route::get('/paymentOneTable/{idTable}', [TemplateController::class, 'paymentOneTable'])->name('bread.paymentOneTable');
+    Route::post('/createBill', [TemplateController::class, 'createBill'])->name('bread.createBill');
 
 
 
