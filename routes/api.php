@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
@@ -84,8 +85,8 @@ Route::prefix('warehouses')->group(function () {
 });
 
 Route::prefix('bill')->group(function(){
-    Route::post('/creteBill',[\App\Http\Controllers\BillController::class,'create_bill_product']);
-    Route::post('/show_bill',[\App\Http\Controllers\BillController::class,'show_bill']);
+    Route::post('/creteBill',[BillController::class,'create_bill_product']);
+    Route::post('/show_bill',[BillController::class,'show_bill']);
 });
 
 

@@ -24,9 +24,10 @@ class BillRepository extends  BaseRepository
             Bill::COLUMN_USER => 'GM'.random_int(0,99).time(),
             Bill::COLUMN_TOTAL => $data['total'] ?? null
         ];
-        $result['resultBill'] = $this->model->create($data1)->toArray();
+        $resultBill = $this->model->create($data1)->toArray();
+        $result['resultBill'] = $resultBill;
         $result['id'] = $resultBill['id'];
-        $bill = Bill::find($id);
+        $bill = Bill::find($result['id']);
         $arr_sync = [];
         for ($i = 0; $i < count($data['data']); $i++) {
             $price = $data['data'][$i]['price'];
@@ -43,13 +44,13 @@ class BillRepository extends  BaseRepository
         return $result;
     }
 
-    public function showBill()
+    public function showBill($billId)
     {
         $test = DB::table('bill_product')
             ->join('bills', 'bill_product.bill_id', '=', 'bills.id')
             ->join('product', 'bill_product.product_id', '=', 'product.id')
             ->select('product.name_product', 'bill_product.total', 'product.price','bills.created_by','bills.user')
-            ->where('bill_product.bill_id','=',101)
+            ->where('bill_product.bill_id','=',$billId)
             ->get();
         return $test;
     }

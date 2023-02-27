@@ -212,18 +212,45 @@
                 let block = "";
                 let block_acceptions = $("#bills")
                 $.each(session, function (key, value) {
-                    block += ` <div class="bill block" id="bill" data-id="`+ key +`">`
+                    block += ` <div class="bill block" id="bill" data-id="0">`
                     block += ` <lable>Tên sản phẩm</lable>`
                     block += `<input type="text" name="name_product" class="name_product form-control" id="name_product" value="` + value.name_product + `" disabled>`
                     block += `<lable>Giá sản phẩm</lable>`
                     block += `<input type="text" name="price" class="price form-control" id="price" value="` + value.price + `" disabled>`
                     block += `<lable>Số lượng sản phẩm</lable>`
                     block += ` <input type="text" id="quantity" name="quantity" class="form-control quantity" value="` + value.quantity + `" disabled>`
+                    block += ` <input type="text" id="product_id" name="product_id" class="form-control product_id" value="` + value.product_id + `" hidden>`
                     block += `</div>`
                     block += `<div style="margin-bottom: 15px"></div>`
                 })
                 $(block_acceptions).html(block)
             }
+        })
+
+        $('#createBill').on('click',function (e) {
+            e.preventDefault();
+            var data = {
+                coupon: $("input[name='coupon']").val(),
+                created_by: $("input[name='created_by']").val(),
+                data : []
+            }
+            var countBlock = 0;
+            $(".block").each(function (key, value) {
+               var block = $(value);
+               block.attr('data-id',countBlock)
+               var name_product = block.find("[name='name_product']").val();
+               var price = block.find("[name='price']").val();
+               var quantity = block.find("[name='quantity']").val();
+               var product_id = block.find("[name='product_id']").val();
+               var lead_bill_product = {
+                   product_id:product_id,
+                   price:price,
+                   total:quantity
+               }
+                data.data[countBlock] = lead_bill_product;
+                countBlock++;
+            });
+
         })
 
 
