@@ -190,7 +190,8 @@ class TemplateController extends Controller
     public function viewDetailBill($id)
     {
         $result['findOneBill'] = $this->billRepository->find($id);
-        $result['showBill'] = $this->billRepository->showBill();
+        $result['showBill'] = $this->billRepository->showBill($id);
+        $result['id'] = $id;
         return view('bill.detail_bill',$result);
     }
 
@@ -198,11 +199,23 @@ class TemplateController extends Controller
     {
         $data = $request->all();
         $result = $this->billRepository->createBill($data);
+        $delete = session()->forget('card');
         return Controller::sendResponse(Controller::HTTP_OK,'create succes',$result);
     }
 
 
+    public function delete_bill($bill_id)
+    {
+        $result = $this->billRepository->deleteBill($bill_id);
+        $delete = session()->forget('card');
+        return Controller::sendResponse(Controller::HTTP_OK,'Hủy phiếu thanh toán thành công',$result);
+    }
 
+    public function update_store($id)
+    {
+        $result = $this->billRepository->updateProductStore($id);
+        return Controller::sendResponse(Controller::HTTP_OK,'thanh toán thành công',$result);
+    }
 
 
 

@@ -1,4 +1,5 @@
 <title>card</title>
+{{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -146,9 +147,8 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    const csrf = "{{ csrf_token() }}";
+    var csrf = "{{ csrf_token() }}";
     $(document).ready(function () {
-
         $('.update_card').on('click', function (e) {
             e.preventDefault()
             var url = $(this).data('url')
@@ -224,7 +224,20 @@
                     block += `<div style="margin-bottom: 15px"></div>`
                 })
                 $(block_acceptions).html(block)
+            }else{
+                console.log($('.block').length)
+               let block = "";
+               let block_acceptions = $("#bills")
+               block += `<div class="bill block" id="bill" style="color: red;text-align: center;margin-top: 20px" >không có sản phẩm nào</div>`
+               $(block_acceptions).html(block)
             }
+            if ($('.block').length <= 0){
+               let block = "";
+               let block_acceptions = $("#bills")
+               block += `<div class="bill block" id="bill" style="color: red;text-align: center;margin-top: 20px" >không có sản phẩm nào</div>`
+               $(block_acceptions).html(block)
+            }
+
         })
 
         $('#createBill').on('click',function (e) {
@@ -251,37 +264,42 @@
                 countBlock++;
 
             });
-            $.ajax({
-                url: '{{route('bread.createBill')}}',
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    'x-csrf-token': csrf
-                },
-                type: "POST",
-                data: JSON.stringify(data),
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    if (data.status == 200) {
-                        $('#successModal').modal('show');
-                        $('.msg_success').text(data.message);
-                        window.scrollTo(0, 0);
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 2500);
-                    } else {
-                        $('#errorModal').modal('show');
-                        $('.msg_error').text(data.message);
+            if (confirm('bạn chắc chắn muốn thanh toán cho hóa đơn này')) {
+                $.ajax({
+                    url: '{{route('bread.createBill')}}',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                        'x-csrf-token': csrf
+                    },
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data.status == 200) {
+                            console.log(data.data.id)
+                            var billId = data.data.id
+                            var url = '{{route('bread.viewDetailBill',['id' => ':id'])}}'
+                            url = url.replace(':id', billId)
+                            $('#successModal').modal('show');
+                            $('.msg_success').text(data.message);
+                            window.scrollTo(0, 0);
+                            setTimeout(function () {
+                                window.location.href = url;
+                            }, 2500);
+                        } else {
+                            $('#errorModal').modal('show');
+                            $('.msg_error').text(data.message);
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data)
+                        alert('Có lỗi xảy ra')
                     }
-                },
-                error: function (data) {
-                    console.log(data)
-                    alert('Có lỗi xảy ra')
-                }
-            })
-
+                })
+            }
         })
 
 

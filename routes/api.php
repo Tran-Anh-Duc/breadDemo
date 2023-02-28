@@ -86,7 +86,9 @@ Route::prefix('warehouses')->group(function () {
 
 Route::prefix('bill')->group(function(){
     Route::post('/creteBill',[BillController::class,'create_bill_product']);
-    Route::post('/show_bill',[BillController::class,'show_bill']);
+    Route::post('/show_bill/{bill_id}',[BillController::class,'show_bill']);
+    Route::post('/delete_bill/{bill_id}',[BillController::class,'delete_bill']);
+    Route::post('/updateStore/{id}',[BillController::class,'updateStore']);
 });
 
 
