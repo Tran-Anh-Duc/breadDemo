@@ -41,6 +41,9 @@ Route::prefix('bread')->group(function () {
     Route::get('/updateStatusOrder/{id}', [TemplateController::class, 'updateStatusOrder'])->name('bread.updateStatusOrder');
     Route::get('/paymentOneTable/{idTable}', [TemplateController::class, 'paymentOneTable'])->name('bread.paymentOneTable');
     Route::post('/createBill', [TemplateController::class, 'createBill'])->name('bread.createBill');
+    Route::get('/viewDetailBill/{id}', [TemplateController::class, 'viewDetailBill'])->name('bread.viewDetailBill');
+    Route::post('/delete_bill/{bill_id}', [TemplateController::class, 'delete_bill'])->name('bread.delete_bill');
+    Route::post('/update_store/{id}', [TemplateController::class, 'update_store'])->name('bread.update_store');
 
 
 
@@ -102,6 +105,10 @@ Route::prefix('product_store')->group(function (){
     Route::get('/',[ProductController::class,'getAllDataProductStore'])->name('product_store.list');
     Route::post('/createProductAndStore',[ProductController::class,'createProductAndStore'])->name('product_store.create_product_sotre');
     Route::get('/view_create_product_store',[ProductController::class,'createViewProductStore'])->name('product_store.view_product_store');
+});
+
+Route::prefix('bill')->group(function(){
+    Route::get('/list',[\App\Http\Controllers\BillController::class,'get_all_data_bill'])->name('bill.get_all_data_bill');
 });
 
 

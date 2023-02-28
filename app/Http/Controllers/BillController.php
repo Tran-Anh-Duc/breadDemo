@@ -26,11 +26,31 @@ class BillController extends Controller
         return Controller::sendResponse(Controller::HTTP_OK,'succes',$result);
     }
 
-    public function show_bill($id)
+    public function show_bill($bill_id)
     {
+        $result['showBill'] = $this->billRepository->showBill($bill_id);
+        return $result;
+        //return Controller::sendResponse(Controller::HTTP_OK,'succes',$result);
+    }
 
-        $result['showBill'] = $this->billRepository->showBill();
-        return Controller::sendResponse(Controller::HTTP_OK,'succes',$result);
+    public function delete_bill($bill_id)
+    {
+        $result = $this->billRepository->deleteBill($bill_id);
+        return $result;
+    }
+
+
+    public function updateStore($id)
+    {
+        $result = $this->billRepository->updateProductStore($id);
+        return $result;
+    }
+
+    public function get_all_data_bill()
+    {
+        $resultList = $this->billRepository->getAllDataBill();
+        $result['resultList'] = $resultList;
+        return view('bill.list_bill',$result);
     }
 
 

@@ -39,7 +39,7 @@
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active ">
-                <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pfeiffer-beach-sunset-big-sur-ca-royalty-free-image-1590086887.jpg?crop=1.00xw:0.753xh;0,0&resize=980:*" class="d-block" alt="..." style="width:1100px;margin-left: 20%;height: 500px">
+                <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pfeiffer-beach-sunset-big-sur-ca-royalty-free-image-1590086887.jpg?crop=1.00xw:0.753xh;0,0&resize=980:*" class="d-block" alt="..." style="width:1100px;margin-left: 23%;height: 500px">
             </div>
             @foreach($news as $key => $value)
             <div class="carousel-item">

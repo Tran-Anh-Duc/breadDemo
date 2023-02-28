@@ -15,7 +15,7 @@ class BillRepository extends  BaseRepository
     {
         return Bill::class;
     }
-
+//tạo phiếu thanh toán
     public function createBill($data)
     {
         $data1 = [
@@ -43,16 +43,61 @@ class BillRepository extends  BaseRepository
         }
         return $result;
     }
-
+//hiển thị chi tiết phiếu thanh toán
     public function showBill($billId)
     {
         $test = DB::table('bill_product')
             ->join('bills', 'bill_product.bill_id', '=', 'bills.id')
             ->join('product', 'bill_product.product_id', '=', 'product.id')
-            ->select('product.name_product', 'bill_product.total', 'product.price','bills.created_by','bills.user')
+            ->select('product.name_product', 'bill_product.total', 'product.price','bills.created_by','bills.user','product.id')
             ->where('bill_product.bill_id','=',$billId)
             ->get();
         return $test;
+    }
+//hủy phiếu thanh toán
+    public function deleteBill($bill_id)
+    {
+        $result = DB::table('bill_product')->where('bill_product.bill_id','=',$bill_id)->get();
+        if ($result){
+            foreach ($result as $key => $value){
+                $billId = $value->bill_id;
+                $idBill = $value->id;
+                $resultDele = DB::table('bill_product')->delete($idBill);
+            }
+            $this->model->where([Bill::COLUMN_ID => $billId])->delete();
+        }
+        return $resultDele;
+    }
+//cập nhật số lượng trong kho
+    public function updateProductStore($billId)
+    {
+       $resultBill =  $this->showBill($billId);
+        foreach ($resultBill as $key => $value){
+            $total = $value->total;
+            $idProduct = $value->id;
+            $findOneProduct = DB::table('product')->where('product.id','=',$idProduct)->first();
+            $totalCurent = $findOneProduct->total - $total;
+            $data = [
+                'name_product' => $findOneProduct->name_product,
+                'product_description' => $findOneProduct->product_description,
+                'category_id' => $findOneProduct->category_id,
+                'status' => $findOneProduct->status,
+                'image' => $findOneProduct->image,
+                'price' => $findOneProduct->price,
+                'click_id' => $findOneProduct->click_id,
+                'total' => $totalCurent,
+                'store_id' => $findOneProduct->store_id,
+            ];
+            $resultUpdateTotalProduct = DB::table('product')->where('product.id','=',$idProduct)->update($data);
+        }
+       return $resultUpdateTotalProduct;
+    }
+
+//danh sách tất cả phiếu thanh toán
+    public function getAllDataBill()
+    {
+        $result = $this->model->get()->toArray();
+        return $result;
     }
 
 
