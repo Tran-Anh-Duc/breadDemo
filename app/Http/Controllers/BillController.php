@@ -53,5 +53,13 @@ class BillController extends Controller
         return view('bill.list_bill',$result);
     }
 
+    public function view_detail_bill($id)
+    {
+        $result['findOneBill'] = $this->billRepository->find($id);
+        $result['showBill'] = $this->billRepository->showBill($id);
+        $result['id'] = $id;
+        return view('bill.detail_one_bill',$result);
+    }
+
 
 }
