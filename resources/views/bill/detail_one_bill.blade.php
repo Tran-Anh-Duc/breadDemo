@@ -149,7 +149,7 @@
                 var url = $(this).attr('data-save-bill')
                 var id = $(this).attr('data-id')
                 console.log(url, id)
-                if (confirm('Bạn chắc chắn muốn hủy phiếu thanh toán này')) {
+                if (confirm('Bạn chắc chắn muốn lưu phiếu thanh toán này')) {
                     $.ajax({
                         url: url,
                         type: "POST",

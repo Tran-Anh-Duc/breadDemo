@@ -187,6 +187,29 @@ class ProductRepository extends BaseRepository
         return $bill;
     }
 
+    //lấy tất cả số sản phẩm đang tòn kho theo số lượng yêu cầu
+    public function getDataPoductLimit($data)
+    {
+        //$result = $this->model->where(Product::COLUMN_TOTAL ,'>',(int)$data['total'])->get();
+
+        $result = DB::table('product')
+        ->select('name_product','id','product_description','price',DB::raw('sum(total) as total'))
+        ->groupBy('name_product','id','product_description','price')
+        ->having('total','>',$data['total'])->get();
+        return $result;
+    }
+
+    //test try catch
+    public function test3()
+    {
+        try {
+            $result = DB::table('product')->get();
+        }catch (Exception $e){
+            echo "Lỗi truy vấn cơ sở dữ liệu: " . $e->getMessage();
+        }
+
+    }
+
 
 
 

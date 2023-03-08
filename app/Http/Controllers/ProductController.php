@@ -8,6 +8,8 @@ use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\StoreRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class ProductController extends Controller
 {
@@ -116,11 +118,22 @@ class ProductController extends Controller
         }
     }
 
-    public function test1()
+    public function test3($id)
     {
-        $result = $this->productRepository->test();
+        //data = $request->all();
+        //$result = $this->productRepository->test3();
+
+
+        try {
+            $result = DB::table('product')->where($id)->get();
+        }catch (QueryException $e){
+            echo "Lỗi truy vấn cơ sở dữ liệu: " . $e->getMessage();
+        }
+
         return $result;
     }
+
+
 
 
 

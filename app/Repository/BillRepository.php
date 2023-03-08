@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 
+use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use Illuminate\Support\Facades\DB;
 
@@ -99,6 +100,20 @@ class BillRepository extends  BaseRepository
         $result = $this->model->get()->toArray();
         return $result;
     }
+
+
+//lấy tổng số tiền và ; lấy tổng số sản phẩm cùng bill_id
+    public function sumPriceAndTotal($bill_id)
+    {
+        $result['data_result'] =DB::table('bill_product')->where('bill_product.bill_id','=',$bill_id)
+                                               ->select('bill_id')
+                                               ->selectRaw("SUM(price) as price")
+                                               ->selectRaw("SUM(total) as total")
+                                               ->groupBy('bill_product.bill_id')->get();
+        return $result;
+    }
+
+
 
 
 
