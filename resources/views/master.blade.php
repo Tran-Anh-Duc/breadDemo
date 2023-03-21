@@ -132,7 +132,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('bread.logout')}}">Đăng xuất</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('bread.logout')}}">
+                                    @if(!empty($loginUser))
+                                        Đăng xuất : {{$loginUser}}
+                                    @else
+{{--                                    <a class="nav-link active" aria-current="page" href="{{route('bread.viewLogin')}}" style="top: 10px"><span>Đăng nhập</span>--}}
+                                    <span>Đăng nhập</span>
+                                    @endif
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('bread.tableList')}}">danh sách bàn</a>

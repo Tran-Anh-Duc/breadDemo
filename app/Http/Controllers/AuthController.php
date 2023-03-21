@@ -36,7 +36,8 @@ class AuthController extends Controller
     {
         $data = $request->all();
         $result = $this->userRepository->loginUser($data);
-        if (!empty($result) &&  $result == 1 ){
+        if (!empty($result) &&  $result[0] == 1 ){
+                $result['login'] = session('user',$result[1]);
                 return Controller::sendResponse(self::HTTP_OK,'login success',$result);
         }else{
             return Controller::sendResponse(self::HTTP_BAD_REQUEST,'login error');
@@ -47,6 +48,7 @@ class AuthController extends Controller
     {
         Auth::logout();
         session()->flush();
+//        return redirect()->route('list');
         return redirect()->route('bread.viewLogin');
     }
 

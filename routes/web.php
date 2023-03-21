@@ -27,7 +27,7 @@ Route::get('/', function () {
 Route::prefix('bread')->group(function () {
     Route::get('/list_product', [TemplateController::class, 'allProduct'])->name('list');
     Route::get('/view_card', [TemplateController::class, 'view_card'])->name('bread.card');
-    Route::get('/add_to_card/{id}', [TemplateController::class, 'add_to_card'])->name('bread.add_to_card');
+    Route::get('/add_to_card/{id}', [TemplateController::class, 'add_to_card'])->name('bread.add_to_card')->middleware('auth');
     Route::get('/updateCard', [TemplateController::class, 'updateCard'])->name('bread.updateCard');
     Route::get('/removeCard', [TemplateController::class, 'removeCard'])->name('bread.removeCard');
     Route::get('/searchLikeProduct', [TemplateController::class, 'searchLikeProduct'])->name('bread.searchLikeProduct');
