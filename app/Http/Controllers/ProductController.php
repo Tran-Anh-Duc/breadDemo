@@ -31,7 +31,7 @@ class ProductController extends Controller
         if (!empty($result)){
             return Controller::sendResponse(Controller::HTTP_OK,'find all data succes',$result);
         }else{
-            return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'find all data error',);
+            return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'find all data error');
         }
     }
 

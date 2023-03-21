@@ -185,6 +185,9 @@
     <div class="container" style="min-height: 70vh;">
         @yield('content')
     </div>
+        <div>
+{{--            Welcome {{ ucfirst(Auth()->user()->name) }}--}}
+        </div>
         <footer class="bg-light text-center text-lg-start" style="border-radius: 5px solid while">
             <!-- Grid container -->
             <div class="container p-4">
