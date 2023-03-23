@@ -62,10 +62,12 @@ class TemplateController extends Controller
 
     public function view_card()
     {
-        $card = session()->get('card');
+        $card['card'] = session()->get('card');
         $resultUser = session()->get('user');
         $loginUser = !empty($resultUser) ? $resultUser->email : '';
-        return view('card.card',compact("card","loginUser"));
+        $card['loginUser'] = $loginUser;
+//        return view('card.card',compact("card","loginUser"));
+        return view('card.card',$card);
     }
 
     public function add_to_card($id)
@@ -133,12 +135,13 @@ class TemplateController extends Controller
         $data = $request->all();
         $resultTable = $this->tableRepository->findOneTable($id);
         $result['resultTable'] = $resultTable;
+        $result['id'] = !empty($id) ? (int)$id: '';
         $resultProduct = $this->productRepository->getAllDataProduct($data);
         $result['resultProduct'] = $resultProduct;
-        $result['resultTable'] = $resultTable;
-        $cardTable = session()->get('cardTable');
-        $result['cardTable'] = $cardTable;
-        $result['id'] = $id;
+//        $cardTable = session()->get('cardTable');
+//        $result['cardTable'] = $cardTable;
+        $tableName = "table-" . $id;
+        $result['cardTable'] = session()->get($tableName) ?? [];
         return view('card.detailTable',$result);
     }
 
@@ -147,6 +150,7 @@ class TemplateController extends Controller
         $tableName = "table-" . $idTable;
         //$order = session()->get($tableName) ?? [];
         $cardTable = session()->get($tableName) ?? [];
+        //var_dump($cardTable);die();
         //$cardTable = session()->get('cardTable');
         $product = $this->productRepository->find($idProduct);
         if (isset($cardTable[$idProduct])) {
@@ -165,15 +169,17 @@ class TemplateController extends Controller
 
     public function updateCardTable(Request $request)
     {
-        if ($request->id && $request->quantity){
+        $data = $request->all();
+        if ($data['id'] && $data['quantity']){
             $cardTable = session()->get('cardTable');
-            $cardTable[$request->id]['quantity'] = $request->quantity;
+            $cardTable[$data['id']]['quantity'] = $data['quantity'];
             session()->put('cardTable',$cardTable);
-            $cardTable = session()->get('cardTable');
+            $cardTableData = session()->get('cardTable');
             $resultProduct = $this->productRepository->getAllDataProduct($request);
-            $cardView = view('card.detailTable',compact('cardTable','resultProduct'))->render();
-            return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
+            $cardView = view('card.detailTable',compact("cardTableData","resultProduct"))
+                       ->render();
         }
+        return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
     }
 
     public function paymentOneTable($idTable)

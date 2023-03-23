@@ -27,12 +27,13 @@
 </style>
 <body style="background-image: url('https://images01.nicepagecdn.com/page/67/56/ website-template-preview-67567.jpg');white-space: nowrap;background-size:cover;">
 <div class="">
+
     <div class="row" style="margin-top: 80px;margin-bottom: 10px">
         <div class="box1 col col-6">
             <h3 style="text-align: center;color: #abddc5">Danh sách sản phẩm</h3>
             <div class="card" style="margin-top: 10px">
                 <div class="flex-container row" style="margin-left: 20%;max-width:73% ">
-                    @if(count($resultProduct) > 0)
+{{--                    @if(count($resultProduct) > 0)--}}
                         @foreach($resultProduct as $key => $value)
                             <div class="card col-md-3" style="margin: 10px;margin-top: 30px !important;">
                                 <img
@@ -40,16 +41,17 @@
                                     alt="Denim Jeans" style="width:100%">
                                 <p style="height: 100%; font-size: 13px;text-align:center;font-weight: 1000">{!!Str::limit($value['name_product'],10) !!}</p>
                                 <p class="price" style="text-align: center">Giá bán: {{number_format($value['price'])}} VND</p>
-                                    <a href="#"
+                                @if(!empty($id))
+                                <a href="#"
                                        class="btn btn-info addCard"
                                        type="button"
-                                       data-url="{{route('bread.addCardTable',['idProduct' =>$value['id'] ,'idTable'=>$id ])}}" data-idProduct="{{$value['id']}}" data-idTable="{{$id}}"
-                                    >Thêm giỏ hàng</a>
+                                       data-url="{{route('bread.addCardTable',['idProduct' =>$value['id'] ,'idTable'=> $id ])}}" data-idProduct="{{$value['id']}}" data-idTable="{{$id}}"
+                                    >Thêm giỏ hàng</a> @endif
                             </div>
                         @endforeach
-                    @else
-                        <span style="color: red;font-size: 30px;margin-left: 30%">'không có dữ liệu'</span>
-                    @endif
+{{--                    @else--}}
+{{--                        <span style="color: red;font-size: 30px;margin-left: 30%">'không có dữ liệu'</span>--}}
+{{--                    @endif--}}
                     <div class="pagination d-felx justify-content-right"
                          style="display: flex !important;justify-content: flex-end !important;">
                         {{ $resultProduct->withQueryString()->render('paginate') }}
@@ -70,6 +72,7 @@
         </thead>
         <tbody>
         @php $total = 0 @endphp
+        @if(!empty($id))
         @if(session()->has('table-'.$id))
 {{--        @if(!empty(session('cardTable')))--}}
 {{--            @foreach(session('cardTable') as $key => $details)--}}
@@ -95,13 +98,14 @@
                         <button data-id-delete="{{$key}}" class="btn btn-danger btn-sm remove-from-cart" data-delete="{{route('bread.removeCard')}}"><i class="fa fa-trash-o"></i></button>
                     </td>
                     <td>
-                        <button data-id="{{$key}}" class="btn btn-info update_card" data-url="{{route('bread.updateCardTable')}}">update</button>
+                        <button data-id="{{$key}}" class="btn btn-info update_card" data-url-update="{{route('bread.updateCardTable')}}">update</button>
                     </td>
                 </tr>
             @endforeach
 {{--        @else--}}
 {{--            <p style="color: red;margin-top: 20px;text-align: center">không có sản phẩm nào trong giỏ hàng</p>--}}
 {{--        @endif--}}
+        @endif
         @endif
         </tbody>
         <tfoot>
@@ -112,18 +116,20 @@
             <td colspan="5" class="text-right">
                 <a href="{{ url('/bread/tableList') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
 {{--                <button class="btn btn-success">Checkout</button>--}}
+                @if(!empty($resultTable))
                 @if($resultTable['status_order'] == 2)
                 <a href="" class="btn btn-success" type="button" data-urlPay="{{route('bread.paymentOneTable',['idTable' => $id])}}" id="payment">Checkout</a>
                 @else
                     <a href="" class="btn btn-success" type="button" data-urlPay="{{route('bread.paymentOneTable',['idTable' => $id])}}" style="display: none">Checkout</a>
                 @endif
-
+                @endif
             </td>
         </tr>
         </tfoot>
     </table>
         </div>
     </div>
+
 </div>
 
 </body>
@@ -168,10 +174,10 @@
 
         $('.update_card').on('click', function (e) {
             e.preventDefault()
-            var url = $(this).data('url')
-            var id = $(this).data('id')
+            var url = $(this).attr('data-url-update')
+            var id = $(this).attr('data-id')
             var quantity = $(this).parents('tr').find('input.quantity').val()
-            console.log(id,quantity)
+            console.log(id,url)
             $.ajax({
                 type: "GET",
                 url: url,

@@ -126,7 +126,9 @@
             </div>
             <lable style="margin-bottom: 5px">Người mua hàng</lable>
             <div style="margin-bottom: 5px">
+                @if(!empty($loginUser))
                 <input type="text" class="form-control created_by" id="created_by" name="created_by" value="{{$loginUser}}">
+                @endif
             </div>
             <div class="bills" id="bills">
 
