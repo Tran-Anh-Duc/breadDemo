@@ -10,6 +10,7 @@ use App\Repository\StoreRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -56,6 +57,27 @@ class ProductController extends Controller
     public function create_product(Request $request)
     {
         $data = $request->all();
+        $validate = Validator::make($data,[
+            'name_product' => 'required',
+            'product_description' => 'required',
+            'store_id' => 'required',
+            'category_id' => 'required',
+            'price' => 'required',
+            'total' => 'required',
+        ],
+        [
+            'name_product.required' => "Tên sản phẩm không được để trống",
+            'product_description.required' => "Mô tả sản phẩm không được để trống",
+            'store_id.required' => "Của hàng bầy bán sản phẩm không được để trống",
+            'category_id.required' => "Nhóm sản phẩm không được đê trống",
+            'price.required' => "Giá sản phẩm không được để trống",
+            'total.required' => "Số lượng sản phẩm không được để trống",
+        ]
+        );
+        if ($validate->fails()) {
+              return  Controller::sendResponse(Controller::HTTP_BAD_REQUEST,$validate->errors());
+
+        }
         $result = $this->productRepository->createProduct($data);
         return Controller::sendResponse(Controller::HTTP_OK, 'create data succes', $result);
     }
@@ -131,6 +153,20 @@ class ProductController extends Controller
         }
 
         return $result;
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            //upload image
+            $result = $request->file('image')->storeOnCloudinary();
+            //get url image luu vao db
+            $image = $result->getPath();
+            //return $image;
+            return Controller::sendResponse(Controller::HTTP_OK,'update status success',$image);
+        } else {
+            return false;
+        }
     }
 
 

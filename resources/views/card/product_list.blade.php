@@ -84,7 +84,7 @@
             @foreach($all_product as $key => $value)
                 <div class="card col-md-3" style="margin: 10px;">
                     <img
-                        src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
+                        src="@if(!empty($value['image']) && $value['image'] !== 'undefined')  {{$value['image']}}  @else  {{asset('/image/image1.jpg') }}  @endif"
                         alt="Denim Jeans" style="width:100%">
                     <p style="height: 100%; font-size: 20px;text-align:center;font-weight: 1000">{{$value['name_product']}}</p>
                     <p class="price" style="text-align: center">Giá bán: {{number_format($value['price'])}} VND</p>

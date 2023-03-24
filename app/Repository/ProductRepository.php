@@ -53,7 +53,7 @@ class ProductRepository extends BaseRepository
         $data1 = [
             Product::COLUMN_PRODUCT_NAME => $data['name_product'] ?? null,
             Product::COLUMN_PRODUCT_DESCRIPTION => $data['product_description'] ?? null,
-            Product::COLUMN_PRODUCT_IMAGE => $data['image'] ?? null,
+            Product::COLUMN_PRODUCT_IMAGE =>  !empty($data['image']) ? $data['image'] : null,
             Product::COLUMN_STATUS_PRODUCT => Product::COLUMN_STATUS_BLOCK,
             Product::COLUMN_STORE_ID => $data['store_id'] ?? null,
             Product::COLUMN_CATEGORY_ID => $data['category_id'] ?? null,
@@ -61,6 +61,7 @@ class ProductRepository extends BaseRepository
             Product::COLUMN_TOTAL => !empty($data['total']) ? $data['total'] : 0,
             Product::COLUMN_CLICK_ID => !empty($data['click_id']) ? $data['click_id'] : 0,
         ];
+        print_r($data1);die();
         $result = $this->model->create($data1);
         return $result;
     }

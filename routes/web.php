@@ -61,6 +61,7 @@ Route::prefix('product')->group(function () {
     Route::get('/detail_product/{id}', [ProductController::class, 'find_one'])->name('product.detail_product');
     Route::post('/update_product/{id}', [ProductController::class, 'update_product'])->name('product.update_product');
     Route::post('/update_status/{id}', [ProductController::class, 'updateStatus'])->name('product.update_status');
+    Route::post('/uploadImage', [ProductController::class, 'uploadImage'])->name('product.uploadImage');
 });
 
 Route::prefix('category')->group(function () {

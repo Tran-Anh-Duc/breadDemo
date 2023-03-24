@@ -35,7 +35,9 @@
 
                     <lable>upload ảnh</lable>
                     <input type="text" name="image" id="image" class="form-control" value="{{$detail['image']}}">
-
+                    <div>
+                        <img src="{{$detail['image']}}" alt="" style="width: 250px; height: 250px">
+                    </div>
                     <lable>Ngày tạo sản phẩm</lable>
                     <input type="text" name="created_at" id="created_at" class="form-control" value="{{$detail['created_at']}}" disabled>
 
