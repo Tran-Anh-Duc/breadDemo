@@ -63,7 +63,7 @@
         @foreach($resultClick as $key => $value)
             <div class="card col-md-3" style="margin-left: 45px;margin-top: 45px">
                     <img
-                        src="{{$value['image']}} "
+                        src="@if(!empty($value['image']) && $value['image'] !== null)  {{$value['image']}}  @else  {{asset('/image/image1.jpg') }}  @endif"
                         alt="Denim Jeans" style="width:200px;height: 107px;margin-left: 10px">
                     <p style="height: 100%; font-size: 20px;text-align:center;font-weight: 1000">{{$value['name_product']}}</p>
                     <p class="price" style="text-align: center">Giá bán: {{number_format($value['price'])}} VND</p>
@@ -84,7 +84,7 @@
             @foreach($all_product as $key => $value)
                 <div class="card col-md-3" style="margin: 10px;">
                     <img
-                        src="@if(!empty($value['image']) && $value['image'] !== 'undefined')  {{$value['image']}}  @else  {{asset('/image/image1.jpg') }}  @endif"
+                        src="@if(!empty($value['image']) && $value['image'] !== null)  {{$value['image']}}  @else  {{asset('/image/image1.jpg') }}  @endif"
                         alt="Denim Jeans" style="width:100%">
                     <p style="height: 100%; font-size: 20px;text-align:center;font-weight: 1000">{{$value['name_product']}}</p>
                     <p class="price" style="text-align: center">Giá bán: {{number_format($value['price'])}} VND</p>

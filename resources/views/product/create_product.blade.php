@@ -2,8 +2,13 @@
 @section('title', 'Thêm mới sản phẩm ')
 @section('style')
     <style>
-        .invalid{
-            border: 1px solid red !important;
+        .invalid {
+            font-size: 13px;
+            color: red;
+            font-weight: 500;
+        }
+        .border-red {
+            border-color: red !important;
         }
     </style>
 @endsection
@@ -124,13 +129,17 @@
         $(document).ready(function () {
             $("#saveProduct").click(function (event) {
                 event.preventDefault();
-                $('.invalid-message').remove();
-                $('.invalid').removeClass();
+                $('.invalid').remove();
+                $('.border-red').removeClass('border-red');
                 var name_product = $("input[name='name_product']").val();
                 var product_description = $("input[name='product_description']").val();
                 var category = $("select[name='category_id']").val();
                 var store = $("select[name='store_id']").val();
-                var image = $("input[name='image2']").val();
+                if ($("input[name='image2']").val()){
+                    var image = $("input[name='image2']").val();
+                }else{
+                    var image = '';
+                }
                 var price = $("input[name='price']").val();
                 var total = $("input[name='total']").val();
                 var formData = new FormData();
@@ -163,8 +172,20 @@
                         } else {
                             if (data.message) {
                                 console.log(data.message)
-                                $(".msg_error").html("");
-                                $.each(data.message, function(i) {$('[name=' + i + ']').after("<span class='invalid-message' style='margin-top: 5px;color: red'>" + data.message[i] + "</span>"); $('[name=' + i + ']').addClass("invalid")});
+                                $.each(data.message, function (key, value) {
+                                    let splitKey = key.split(".");
+                                    let el = $("[name='" + splitKey[0] + "']");
+                                    if (el.attr('name') == 'name_product' || el.attr('name') == 'product_description' || el.attr('name') == 'category_id' || el.attr('name') == 'store_id'
+                                        || el.attr('name') == 'price'|| el.attr('name') == 'total'
+                                    ) {
+                                        el.addClass('border-red');
+                                        el.after('<span class="invalid">' + value[0] + '</span>');
+                                    } else {
+                                        el.addClass('border-red');
+                                        el.after('<span class="invalid">' + value[0] + '</span>');
+                                    }
+                                })
+
                             }
 
                         }

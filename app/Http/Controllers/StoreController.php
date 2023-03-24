@@ -75,10 +75,19 @@ class StoreController extends Controller
 //        return $result;
 //    }
 
-    public function test2()
+    public function test2(Request $request)
     {
-        $result = $this->storeRepository->getAllDataStore();
-        return $result;
+
+        if ($request->hasFile('avatar')) {
+            //get name image
+            $filename = $request->avatar;
+            //upload image
+            Cloudder::upload($filename, 'uploads/' . $filename);
+        }
+
+        //get url image on Cloudinary
+        return Cloudder::show('uploads/' . $filename);
+
     }
 
 

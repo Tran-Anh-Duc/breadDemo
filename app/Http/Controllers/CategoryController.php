@@ -7,7 +7,9 @@ namespace App\Http\Controllers;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Illuminate\Http\Request;
-
+use Cloudinary\Uploader;
+use Cloudder;
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 class CategoryController extends Controller
 {
     protected $categoryRepository;
@@ -73,8 +75,13 @@ class CategoryController extends Controller
 
     public function test(Request $request)
     {
-        $data = $request->all();
-        $result = $this->categoryRepository->test($data);
-        return $result;
+        $arrImage = [];
+        if ($request->hasFile('image')) {
+            $response = cloudinary()->upload($request->file('image')->getRealPath())->getSecurePath();
+            var_dump($response);die();
+        }
+        $a = array_push($response,$arrImage);
+        var_dump($a);die();
+        return $response;
     }
 }

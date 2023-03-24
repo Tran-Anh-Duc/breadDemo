@@ -58,7 +58,7 @@ class ProductController extends Controller
     {
         $data = $request->all();
         $validate = Validator::make($data,[
-            'name_product' => 'required',
+            'name_product' => 'required|unique:product',
             'product_description' => 'required',
             'store_id' => 'required',
             'category_id' => 'required',
@@ -67,6 +67,7 @@ class ProductController extends Controller
         ],
         [
             'name_product.required' => "Tên sản phẩm không được để trống",
+            'name_product.unique' => "Tên sản phẩm đã tồn tại",
             'product_description.required' => "Mô tả sản phẩm không được để trống",
             'store_id.required' => "Của hàng bầy bán sản phẩm không được để trống",
             'category_id.required' => "Nhóm sản phẩm không được đê trống",
@@ -76,7 +77,6 @@ class ProductController extends Controller
         );
         if ($validate->fails()) {
               return  Controller::sendResponse(Controller::HTTP_BAD_REQUEST,$validate->errors());
-
         }
         $result = $this->productRepository->createProduct($data);
         return Controller::sendResponse(Controller::HTTP_OK, 'create data succes', $result);
@@ -97,6 +97,26 @@ class ProductController extends Controller
     public function update_product(Request $request,$id)
     {
         $data = $request->all();
+        $validate = Validator::make($data,[
+            'name_product' => 'required',
+            'product_description' => 'required',
+            'store_id' => 'required',
+            'category_id' => 'required',
+//            'price' => 'required',
+//            'total' => 'required',
+        ],
+            [
+                'name_product.required' => "Tên sản phẩm không được để trống",
+                'product_description.required' => "Mô tả sản phẩm không được để trống",
+                'store_id.required' => "Của hàng bầy bán sản phẩm không được để trống",
+                'category_id.required' => "Nhóm sản phẩm không được đê trống",
+//                'price.required' => "Giá sản phẩm không được để trống",
+//                'total.required' => "Số lượng sản phẩm không được để trống",
+            ]
+        );
+        if ($validate->fails()) {
+            return  Controller::sendResponse(Controller::HTTP_BAD_REQUEST,$validate->errors());
+        }
         $find_product = $this->productRepository->find($id);
         if ($find_product['status'] == 2){
             $result = $this->productRepository->updateProduct($data,$id);

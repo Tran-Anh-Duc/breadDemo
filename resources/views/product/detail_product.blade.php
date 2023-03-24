@@ -1,5 +1,17 @@
 @extends('home')
 @section('title', 'Chi mới sản phẩm ')
+@section('style')
+    <style>
+        .invalid {
+            font-size: 13px;
+            color: red;
+            font-weight: 500;
+        }
+        .border-red {
+            border-color: red !important;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container-sm">
         <div class="card">
@@ -7,38 +19,43 @@
                 <div class="tabs">
                     <h2>Chi tiết sản phẩm</h2>
                     <lable>Tên sản phẩm</lable>
+                    <br>
                     <input type="text" name="name_product" placeholder="Nhập tên sản phẩm" id="name_product"
                            value="{{$detail['name_product']}}"
-                           class="name_product  form-control"/>
+                           class="name_product  form-control"/> <br>
 
                     <lable>Mô tả sản phẩm</lable>
+
                     <input type="text" name="product_description" placeholder="Nhập mô tả sản phẩm"
                            value="{{$detail['product_description']}}"
                            class="product_description form-control"
-                           id="product_description form-control">
+                           id="product_description form-control"> <br>
 
                     <lable>Loại sản phẩm</lable>
+
                     <select name="category" id="category" class="form-control">
                         @foreach($category as $k => $i)
                             <option
                                 value="{{$i['id']}}" {{ ($detail['category_id'] == $i['id']) ? 'selected' : '' }}>{{$i['name_category']}}</option>
                         @endforeach
-                    </select>
+                    </select> <br>
 
                     <lable>Cửa hàng</lable>
+
                     <select name="store" id="store" class="form-control">
                         @foreach($store as $k => $v)
                             <option
                                 value="{{$v['id']}}" {{($detail['store_id'] == $v['id']) ? 'selected' : '' }}>{{$v['store_name']}}</option>
                         @endforeach
-                    </select>
+                    </select>  <br>
 
                     <lable>upload ảnh</lable>
-                    <input type="text" name="image" id="image" class="form-control" value="{{$detail['image']}}">
+
+                    <input type="text" name="image" id="image" class="form-control" value="{{$detail['image']}}"><br>
                     <div>
-                        <img src="{{$detail['image']}}" alt="" style="width: 250px; height: 250px">
-                    </div>
-                    <lable>Ngày tạo sản phẩm</lable>
+                        <img src="@if(!empty($value['image']) && $value['image'] !== null)  {{$value['image']}}  @else  {{asset('/image/image1.jpg') }}  @endif" alt="" style="width: 250px; height: 250px">
+                    </div> <br>
+                    <lable>Ngày tạo sản phẩm</lable> <br>
                     <input type="text" name="created_at" id="created_at" class="form-control" value="{{$detail['created_at']}}" disabled>
 
                     <input type="text" hidden value="{{$detail['id']}}"  name="id_product"
@@ -99,6 +116,10 @@
         $(document).ready(function () {
             $('#saveDetailProduct').click(function (e) {
                 e.preventDefault()
+                $('.invalid').remove();
+                $('.border-red').removeClass('border-red');
+                $('.invalid-message').remove();
+                $('.invalid').removeClass();
                 var id = $(this).attr('data-id');
                 var name_product = $("input[name='name_product']").val()
                 var product_description = $("input[name='product_description']").val()
@@ -135,8 +156,22 @@
                                     window.location.reload();
                                 }, 500);
                             } else {
-                                $('#errorModal').modal('show');
-                                $('.msg_error').text(data.message);
+                                if (data.message) {
+                                    console.log(data.message)
+                                    $.each(data.message, function (key, value) {
+                                        let splitKey = key.split(".");
+                                        let el = $("[name='" + splitKey[0] + "']");
+                                        if (el.attr('name') == 'name_product' || el.attr('name') == 'product_description' || el.attr('name') == 'category_id' || el.attr('name') == 'store_id'
+                                            || el.attr('name') == 'price'
+                                        ) {
+                                            el.addClass('border-red');
+                                            el.after('<span class="invalid">' + value[0] + '</span>');
+                                        } else {
+                                            el.addClass('border-red');
+                                            el.after('<span class="invalid">' + value[0] + '</span>');
+                                        }
+                                    })
+                                }
                             }
                         },
                         error: function (data) {

@@ -71,6 +71,7 @@ Route::prefix('category')->group(function () {
     Route::get('/detail_category/{id}', [CategoryController::class, 'find_one'])->name('category.detail_category');
     Route::post('/update_category/{id}', [CategoryController::class, 'update_category'])->name('category.update_category');
     Route::post('/update_status/{id}', [CategoryController::class, 'updateStatus'])->name('category.update_status');
+    Route::post('/test', [CategoryController::class, 'test'])->name('category.update_status');
 });
 
 

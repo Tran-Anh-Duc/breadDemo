@@ -61,7 +61,6 @@ class ProductRepository extends BaseRepository
             Product::COLUMN_TOTAL => !empty($data['total']) ? $data['total'] : 0,
             Product::COLUMN_CLICK_ID => !empty($data['click_id']) ? $data['click_id'] : 0,
         ];
-        print_r($data1);die();
         $result = $this->model->create($data1);
         return $result;
     }
