@@ -75,13 +75,15 @@ class CategoryController extends Controller
 
     public function test(Request $request)
     {
+//        echo("<pre>");
+//        print_r($result);
+//        echo("<pre>");
+//        die();
         $arrImage = [];
         if ($request->hasFile('image')) {
             $response = cloudinary()->upload($request->file('image')->getRealPath())->getSecurePath();
-            var_dump($response);die();
         }
         $a = array_push($response,$arrImage);
-        var_dump($a);die();
         return $response;
     }
 }
