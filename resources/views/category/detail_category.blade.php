@@ -17,13 +17,23 @@
                            id="category_description form-control">
 
                     <lable>upload ảnh</lable>
-                    <input type="text" name="image" id="image" class="form-control" value="{{$category['image']}}">
-
+                    <br>
+                    <div class="imageShow" style="display: flex;">
+                    @if(!empty($image_category))
+                        @foreach($image_category as $value)
+                           <div style="display: grid;margin: 10px">
+                               <span>Tên ảnh: {{$value->name}}</span>
+                               <img src="{{$value->path}}" alt="" style="width: 250px; height: 250px;">
+                           </div>
+                        @endforeach
+                    @endif
+                    </div>
+                    <br>
                     <lable>Ngày tạo sản phẩm</lable>
-                    <input type="text" name="created_at" id="created_at" class="form-control" value="{{$category['created_at']}}" disabled>
+                    <input type="text" name="created_at" id="created_at" class="form-control" value="{{date('d/m/Y',$category['created_at'])}}" disabled />
 
                     <input type="text"  value="{{$category['id']}}"  name="id_category" hidden
-                           class="id_category form-control">
+                           class="id_category form-control" />
                 </div>
                 <div class="buttons" style="margin-top: 10px; margin-bottom: 15px">
                     <div>
@@ -71,6 +81,7 @@
 </div>
 @section('script')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

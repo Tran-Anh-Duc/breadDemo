@@ -230,7 +230,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Cloudinary' => \CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
+        //'Cloudinary' => \CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
+        'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\CloudinaryFacade::class,
     ],
 
 ];

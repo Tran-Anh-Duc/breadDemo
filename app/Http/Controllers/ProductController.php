@@ -39,8 +39,9 @@ class ProductController extends Controller
     public function allDataProduct(Request $request)
     {
         $data = $request->all();
+        $export = true;
         $id = !empty($data['id']) ? $data['id'] : "";
-        $resultAll = $this->productRepository->getAllDataProduct($data);
+        $resultAll = $this->productRepository->getAllDataProduct($data,$export);
         $result['all_product'] = $resultAll;
         return View('product.list_product',$result);
     }
