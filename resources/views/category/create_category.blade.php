@@ -1,4 +1,17 @@
 @extends('home')
+@section('title', 'Thêm mới loại sản phẩm ')
+@section('style')
+    <style>
+        .invalid {
+            font-size: 13px;
+            color: red;
+            font-weight: 500;
+        }
+        .border-red {
+            border-color: red !important;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container-sm">
         <div class="card">
@@ -6,16 +19,27 @@
                 <div class="tabs">
                     <h2>Thêm mới sản phẩm</h2>
                     <lable>Tên sản phẩm</lable>
-                    <input type="text" name="category_name" placeholder="Nhập tên sản phẩm" id="category_name"
-                           class="name_product form-control"/>
-
+                    <input type="text" name="name_category" placeholder="Nhập tên sản phẩm" id="name_category"
+                           class="name_category form-control"/>
+                    <br>
                     <lable>Mô tả sản phẩm</lable>
                     <input type="text" name="category_description" placeholder="Nhập mô tả sản phẩm"
                            class="category_description form-control"
                            id="category_description form-control">
+                    <br>
 
                     <lable>upload ảnh</lable>
-                    <input type="text" name="category_image" id="category_image" class="form-control">
+{{--                    <input type="text" name="category_image" id="category_image" class="form-control">--}}
+                    <input type="file" name="image[]" class="image form-control" id="image" multiple>
+                    <br>
+                    <div class="imageHidden">
+
+                    </div>
+                    <div>
+                        <div class="imageShow" style="display: flex">
+
+                        </div>
+                    </div>
                 </div>
                 <div class="buttons" style="margin-top: 10px; margin-bottom: 15px">
                     <div>
@@ -71,14 +95,16 @@
          $(document).ready(function () {
             $("#saveCategory").click(function (event) {
                 event.preventDefault();
-                var category_name = $("input[name='category_name']").val();
+                $('.invalid').remove();
+                $('.border-red').removeClass('border-red');
+                var category_name = $("input[name='name_category']").val();
                 var category_description = $("input[name='category_description']").val();
-                var image = $("input[name='category_image']").val();
+                var image = $("input[name='image2']").val();
+                // var arr = Array.from(image.split(","));
                 var formData = new FormData();
                 formData.append('name_category', category_name);
                 formData.append('category_description', category_description);
                 formData.append('image', image);
-                console.log(category_name, category_description,image)
                 $.ajax({
                     url: '{{route('category.create_category')}}',
                     type: "POST",
@@ -98,8 +124,21 @@
                                 window.location.reload();
                             }, 2500);
                         } else {
-                            $('#errorModal').modal('show');
-                            $('.msg_error').text(data.message);
+                            if (data.message) {
+                                console.log(data.message)
+                                $.each(data.message, function (key, value) {
+                                    let splitKey = key.split(".");
+                                    let el = $("[name='" + splitKey[0] + "']");
+                                    if (el.attr('name') == 'name_category' || el.attr('name') == 'category_description'
+                                    ) {
+                                        el.addClass('border-red');
+                                        el.after('<span class="invalid">' + value[0] + '</span>');
+                                    } else {
+                                        el.addClass('border-red');
+                                        el.after('<span class="invalid">' + value[0] + '</span>');
+                                    }
+                                })
+                            }
                         }
                     },
                     error: function (data) {
@@ -108,6 +147,43 @@
                     }
                 })
             });
+
+            $('#image').on('change',function () {
+                var totalImage = document.getElementById('image').files.length;
+                var formData = new FormData();
+                for (var i = 0 ; i < totalImage ; i++){
+                    formData.append("image[]",document.getElementById('image').files[i]);
+                }
+                $.ajax({
+                    url: '{{route('category.uploadImage')}}',
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    enctype: 'multipart/form-data',
+                    beforeSend: function () {
+                        $(".theloading").show();
+                    },
+                    success:function (data) {
+                        var arrJson = JSON.stringify(data.data)
+                        console.log(arrJson)
+                            $('.imageHidden').append(
+                                ' <input type="text"  id="image2" name="image2" class="form-control"  hidden/>'
+                            );
+                        document.getElementById('image2').value = arrJson;
+                        for (var i = 0; i < data.data.length; i++) {
+                            var imageOne = data.data[i].path;
+                            $('.imageShow').append(
+                                '<div><img src="' + imageOne + '" alt="" style="width: 250px; height: 250px"></div>'
+                            );
+                        }
+                    },
+                    error: function (data) {
+                        alert('errors')
+                    }
+                })
+            })
+
 
         });
     </script>
