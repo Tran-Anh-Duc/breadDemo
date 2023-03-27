@@ -91,7 +91,9 @@
                                     <td style="text-align: center">{{$value['user']}}</td>
                                     <td style="text-align: center">{{$value['coupon']}}</td>
                                     <td style="text-align: center">{{$value['created_by']}}</td>
+                                     <td><a href="{{route('bill.view_detail_bill',$value['id'])}}" class="btn btn-warning">Chi tiết</a></td>
                                 </tr>
+
                             @endforeach
                         @else
                             <div>

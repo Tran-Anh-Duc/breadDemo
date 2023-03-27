@@ -93,7 +93,8 @@ Route::prefix('bill')->group(function(){
 
 
 
-Route::post('/test1/{storeId}', [StoreController::class, 'test1']);
+//Route::post('/test1/{storeId}', [StoreController::class, 'test1']);
 Route::post('/test2', [StoreController::class, 'test2']);
-Route::post('/test', [ProductController::class, 'test1']);
+Route::post('/test1/{id}', [ProductController::class, 'test3']);
+Route::post('/findBill/{id}', [BillController::class, 'findOneDataBill']);
 

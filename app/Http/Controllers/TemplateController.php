@@ -36,7 +36,8 @@ class TemplateController extends Controller
     public function allProduct(Request $request)
     {
         $data = $request->all();
-        $user = session()->get('users');
+        $user = session()->get('user');
+        $result['loginUser'] = !empty($user) ? $user->email : '';
         $resultAll = $this->productRepository->getAllDataProduct($data);
         $result['all_product'] = $resultAll;
         $result['user'] = $user;
@@ -62,7 +63,9 @@ class TemplateController extends Controller
     public function view_card()
     {
         $card = session()->get('card');
-        return view('card.card',compact("card"));
+        $resultUser = session()->get('user');
+        $loginUser = !empty($resultUser) ? $resultUser->email : '';
+        return view('card.card',compact("card","loginUser"));
     }
 
     public function add_to_card($id)

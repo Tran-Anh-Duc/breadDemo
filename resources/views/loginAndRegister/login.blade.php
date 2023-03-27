@@ -461,6 +461,7 @@
                 },
                 error: function (data) {
                     console.log(data);
+                    alert('hệ thông đang găp sự cố vui lòng đăng nhập lại sau')
                     $(".theloading").hide();
                 }
             })

@@ -27,7 +27,7 @@ Route::get('/', function () {
 Route::prefix('bread')->group(function () {
     Route::get('/list_product', [TemplateController::class, 'allProduct'])->name('list');
     Route::get('/view_card', [TemplateController::class, 'view_card'])->name('bread.card');
-    Route::get('/add_to_card/{id}', [TemplateController::class, 'add_to_card'])->name('bread.add_to_card');
+    Route::get('/add_to_card/{id}', [TemplateController::class, 'add_to_card'])->name('bread.add_to_card')->middleware('auth');
     Route::get('/updateCard', [TemplateController::class, 'updateCard'])->name('bread.updateCard');
     Route::get('/removeCard', [TemplateController::class, 'removeCard'])->name('bread.removeCard');
     Route::get('/searchLikeProduct', [TemplateController::class, 'searchLikeProduct'])->name('bread.searchLikeProduct');
@@ -109,6 +109,7 @@ Route::prefix('product_store')->group(function (){
 
 Route::prefix('bill')->group(function(){
     Route::get('/list',[\App\Http\Controllers\BillController::class,'get_all_data_bill'])->name('bill.get_all_data_bill');
+    Route::get('/view_detail_bill/{id}',[\App\Http\Controllers\BillController::class,'view_detail_bill'])->name('bill.view_detail_bill');
 });
 
 
