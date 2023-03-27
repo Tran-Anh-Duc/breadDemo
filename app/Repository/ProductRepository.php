@@ -23,7 +23,7 @@ class ProductRepository extends BaseRepository
 
 
 //lấy tất cả các sản phẩm
-    public function getAllDataProduct($data)
+    public function getAllDataProduct($data,$export = false)
     {
         $result = $this->model;
         if (!empty($data['status'])) {
@@ -38,10 +38,17 @@ class ProductRepository extends BaseRepository
             $result = $result->where(Product::COLUMN_CATEGORY_ID, $data['category_id']);
         }
 
-        $result = $result->
-        whereIn(
-            Product::COLUMN_STATUS_PRODUCT,
-            [Product::COLUMN_STATUS_ACTIVE, Product::COLUMN_STATUS_BLOCK]);
+        if(!empty($export)){
+            $result = $result->
+            whereIn(
+                Product::COLUMN_STATUS_PRODUCT,
+                [Product::COLUMN_STATUS_ACTIVE, Product::COLUMN_STATUS_BLOCK]);
+        }else{
+            $result = $result->
+            whereIn(
+                Product::COLUMN_STATUS_PRODUCT,
+                [Product::COLUMN_STATUS_ACTIVE]);
+        }
         return $result
             ->orderBy(Product::CREATED_AT, self::DESC)
             ->paginate(9);
