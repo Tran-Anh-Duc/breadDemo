@@ -8,8 +8,6 @@ use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-//use Cloudinary\Uploader;
-//use Cloudinary;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Validator;
 
@@ -62,7 +60,7 @@ class CategoryController extends Controller
 
     public function find_one($id)
     {
-        $result_category = $this->categoryRepository->find($id)->toArray();
+        $result_category = $this->categoryRepository->find($id);
         $result['category'] = $result_category;
         $result['image_category'] = json_decode($result_category['image']);
         $result['id'] = $id;
