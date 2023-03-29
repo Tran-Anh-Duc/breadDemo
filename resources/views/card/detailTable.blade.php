@@ -28,8 +28,8 @@
 
   .card{
       margin: 20px;
-      width: 150px;
-      height: 100px;
+      /*width: 150px;*/
+      /*height: 100px;*/
       float: left;
   }
 </style>
@@ -39,13 +39,12 @@
         <div class="col col-6 box1" id="boxChil">
             @if(!empty($resultProduct))
                  @foreach($resultProduct as $key =>$value)
-                     <div class="card">
-                         <img src="{{!empty($value['image']) ? $value['image'] : asset('/image/image1.jpg')}}" alt="" style="width:auto">
-                         <div>
-                             <a href="" style="width: 49px;height: 24px;background-color: #a83d3d;text-align: center;text-decoration: none;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                             <span style="width: 100px;height: 30px;background-color: #af9797;text-align: center;border: solid 1px gray;color:#7b0404;">{{number_format($value['price'])}}:VND</span>
-                         </div>
-                     </div>
+                    <div class="card" style="width: 10rem;">
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">Some quick</p>
+                        </div>
+                    </div>
                 @endforeach
             @endif
         </div>
