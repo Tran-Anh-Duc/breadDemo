@@ -119,7 +119,7 @@ class TemplateController extends Controller
         }
         return view('card.detailProduct',compact('result'));
     }
-
+//
     public function viewTable()
     {
         $export = true;
@@ -127,13 +127,14 @@ class TemplateController extends Controller
         $result['resultTable'] = $resultTable;
         return view('card.openCardTable',$result);
     }
-
+//
     public function detailTable($id,Request $request)
-    {
+    {    
         $data = $request->all();
         $resultTable = $this->tableRepository->findOneTable($id);
         $result['resultTable'] = $resultTable;
         $resultProduct = $this->productRepository->getAllDataProduct($data);
+        // var_dump($resultProduct);die;
         $result['resultProduct'] = $resultProduct;
         $result['resultTable'] = $resultTable;
         $cardTable = session()->get('cardTable');
@@ -141,7 +142,7 @@ class TemplateController extends Controller
         $result['id'] = $id;
         return view('card.detailTable',$result);
     }
-
+//
     public function addCardTable($idProduct,$idTable)
     {
         $tableName = "table-" . $idTable;
