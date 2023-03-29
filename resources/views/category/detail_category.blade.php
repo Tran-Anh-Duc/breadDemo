@@ -1,9 +1,12 @@
 @extends('home')
 @section('style')
-{{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />--}}
-<link href="
-https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css
-" rel="stylesheet">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
+    />
+{{--<link href="--}}
+{{--https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css--}}
+{{--" rel="stylesheet">--}}
     <style>
 
     </style>
@@ -27,7 +30,7 @@ https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.
 
                     <lable>upload ảnh</lable>
                     <br>
-                    <div class="imageShow" style="display: flex;">
+                    <div class="imageShow" style="display: flex;" id="gallery">
                     @if(!empty($image_category))
                         @foreach($image_category as $value)
                            <div style="display: grid;margin: 10px" >
@@ -90,12 +93,16 @@ https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.
     </div>
 </div>
 @section('script')
-{{--    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>--}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="
-https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js
-"></script>
-{{--<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/l10n/de.umd.js"></script>--}}
+
+{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>--}}
+{{--<script src="--}}
+{{--https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js--}}
+{{--"></script>--}}
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>--}}
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 
     <script type="text/javascript">
         $.ajaxSetup({
@@ -148,16 +155,22 @@ https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.
             }
         })
 
+            Fancybox
+                .bind('#gallery a', {
+                    groupAll: true,
+                    padding: 0, // default 15
+                    margin: 0,   // default 20
+                    width: 860,  // default 800
+                    height: 640, // default 600
+                    opacity: true, // default false
+                    openEffect: 'elastic',
+                    closeEffect: 'elastic',
+                });
 
-            $('.fancybox').attr('rel', 'gallery').fancybox({
-                padding : 0, // default 15
-                margin: 0,   // default 20
-                width: 560,  // default 800
-                height: 340, // default 600
-                opacity: true, // default false
-                openEffect	: 'elastic',
-                closeEffect	: 'elastic',
-            });
+
+
+
+
         });
 
     </script>
