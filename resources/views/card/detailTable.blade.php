@@ -32,6 +32,11 @@
       /*height: 100px;*/
       float: left;
   }
+  .text{
+      white-space: nowrap;
+      overflow: hidden;
+  }
+
 </style>
 <body style="background-image: url('https://images01.nicepagecdn.com/page/67/56/ website-template-preview-67567.jpg');white-space: nowrap;background-size:cover;">
 <div class="">
@@ -40,9 +45,11 @@
             @if(!empty($resultProduct))
                  @foreach($resultProduct as $key =>$value)
                     <div class="card" style="width: 10rem;">
-                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <img class="card-img-top" src="{{$value['image']}}" alt="Card image cap" style="width: 100%;height: 90px">
                         <div class="card-body">
-                            <p class="card-text">Some quick</p>
+                            <p class="card-text text"><a href="" class="btn btn-primary"
+                            style="text-align: center;text-overflow: clip;width: 120px">{{$value['name_product']}}</a></p>
+
                         </div>
                     </div>
                 @endforeach
