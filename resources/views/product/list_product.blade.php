@@ -67,7 +67,7 @@
     <div class="container-sm">
         <div class="card">
             <div class="card-body">
-                <div class="tables ">
+                <div class="tables">
                     <div style="right: 100%">
                         <a href="{{route('product.create_product_view')}}" class="btn btn-success " style="margin-left: 82%">Thêm sản phẩm</a>
                         <a type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#modal1">Tìm kiếm </a>

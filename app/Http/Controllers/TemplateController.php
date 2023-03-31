@@ -129,17 +129,22 @@ class TemplateController extends Controller
     }
 //
     public function detailTable($id,Request $request)
-    {    
+    {
         $data = $request->all();
         $resultTable = $this->tableRepository->findOneTable($id);
         $result['resultTable'] = $resultTable;
         $resultProduct = $this->productRepository->getAllDataProduct($data);
-        // var_dump($resultProduct);die;
         $result['resultProduct'] = $resultProduct;
         $result['resultTable'] = $resultTable;
-        $cardTable = session()->get('cardTable');
+        $tableName = "table-" . $id;
+        $cardTable = session()->get($tableName) ?? [];
         $result['cardTable'] = $cardTable;
-        $result['id'] = $id;
+        echo("<pre>");
+        print_r($cardTable);
+        echo("<pre>");
+        die();
+        $result['idTable'] = $id;
+//        session()->flush();
         return view('card.detailTable',$result);
     }
 //
@@ -154,27 +159,51 @@ class TemplateController extends Controller
             $cardTable[$idProduct]['quantity'] = $cardTable[$idProduct]['quantity'] + 1;
         } else {
             $cardTable[$idProduct] = [
+                'idProduct' => $idProduct,
                 'name_product' => $product['name_product'],
                 'price' => $product['price'],
                 'quantity' => 1
             ];
         }
-        //session()->put('cardTable',$cardTable);
         session()->put($tableName,$cardTable);
         return Controller::sendResponse(Controller::HTTP_OK,'create card succes');
     }
 
-    public function updateCardTable(Request $request)
+    public function updateCardTable($idTable,Request $request)
     {
-        if ($request->id && $request->quantity){
-            $cardTable = session()->get('cardTable');
-            $cardTable[$request->id]['quantity'] = $request->quantity;
-            session()->put('cardTable',$cardTable);
-            $cardTable = session()->get('cardTable');
-            $resultProduct = $this->productRepository->getAllDataProduct($request);
-            $cardView = view('card.detailTable',compact('cardTable','resultProduct'))->render();
-            return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
+        $data = $request->all();
+        $tableName = "table-" . $idTable;
+        if (!empty($data)) {
+            $cardTable = session()->get($tableName) ?? [];
+            foreach ($data['data'] as $key => $value) {
+                $a = $cardTable[$value['id']];
+                $checkIdProduct = $cardTable[$value['id']]['idProduct'];
+                $checkQuantity = $cardTable[$value['id']]['quantity'];
+                if ($value['id'] == $checkIdProduct) {
+                    $checkQuantity = $value['quantity'];
+                }
+                $cardTable[$value['id']] = [
+                    'idProduct' => $a['idProduct'],
+                    'name_product' => $a['name_product'],
+                    'price' => $a['price'],
+                    'quantity' => $checkQuantity
+                ];
+            }
+            session()->put($tableName, $cardTable);
         }
+        $cardView =  session()->has($tableName);
+
+        return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
+
+//        if ($request->id && $request->quantity){
+//            $cardTable = session()->get('cardTable');
+//            $cardTable[$request->id]['quantity'] = $request->quantity;
+//            session()->put('cardTable',$cardTable);
+//            $cardTable = session()->get('cardTable');
+//            $resultProduct = $this->productRepository->getAllDataProduct($request);
+//            $cardView = view('card.detailTable',compact('cardTable','resultProduct'))->render();
+//            return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
+//        }
     }
 
     public function paymentOneTable($idTable)

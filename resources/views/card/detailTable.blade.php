@@ -24,6 +24,7 @@
   #boxChil{
       width: 50%;
       overflow: hidden;
+      padding: 100px;
   }
 
   .card{
@@ -37,6 +38,10 @@
       overflow: hidden;
   }
 
+  .tables{
+      margin-top: 13%;
+  }
+
 </style>
 <body style="background-image: url('https://images01.nicepagecdn.com/page/67/56/ website-template-preview-67567.jpg');white-space: nowrap;background-size:cover;">
 <div class="">
@@ -47,21 +52,85 @@
                     <div class="card" style="width: 10rem;">
                         <img class="card-img-top" src="{{$value['image']}}" alt="Card image cap" style="width: 100%;height: 90px">
                         <div class="card-body">
-                            <p class="card-text text"><a href="" class="btn btn-primary"
+                            <p class="card-text text"><a href="" class="btn btn-primary addCard" data-id-product="{{$value['id']}}"
+                            data-id-table="{{$idTable}}" data-add-url="{{route('bread.addCardTable',['idProduct' => $value['id'],'idTable' => $idTable])}}"
                             style="text-align: center;text-overflow: clip;width: 120px">{{$value['name_product']}}</a></p>
-
                         </div>
                     </div>
                 @endforeach
+            @else
+                <span style="color: red;text-align: center">Không có sản phẩm nào hết</span>
             @endif
+                <div class="pagination d-felx justify-content-right">
+                    {{ $resultProduct->withQueryString()->render('paginate') }}
+                </div>
         </div>
         <div class="col col-6 box2">
+            <div class="tables">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">STT</th>
+                            <th style="text-align: center">Tên sản phẩm</th>
+                            <th style="text-align: center">Giá sản phẩm</th>
+                            <th style="text-align: center">Số lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            @if(!empty($cardTable))
+                                <?php $a = 1 ?>
+                                @foreach($cardTable as $key => $value)
+                                    <tr>
+                                        <td style="text-align: center">{{$a++}}</td>
+                                        <td style="text-align: center">{{$value['name_product']}}</td>
+                                        <td style="text-align: center">{{number_format($value['price'])}} :VND</td>
+                                        <td style="text-align: center">
+                                        <input type="number" value="{{$value['quantity']}}" style="width: 50px;text-align: center"></td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <span style="color: red">Chưa có sản phẩm nào hết !!!</span>
+                            @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-
     </div>
 </div>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function () {
+        $('.addCard').on('click', function (e) {
+            e.preventDefault();
+            let url = $(this).attr('data-add-url')
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    console.log(data)
+                    if (data.status == 200) {
+                        alert('thêm sản phẩm thành công');
+                        window.scrollTo(0, 0);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 500);
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                    alert('them san pham that bai')
+                }
+            })
+        })
+    })
+
+</script>
 

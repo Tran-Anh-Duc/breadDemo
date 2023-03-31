@@ -37,7 +37,7 @@ Route::prefix('bread')->group(function () {
     Route::get('/tableList', [TemplateController::class, 'viewTable'])->name('bread.tableList');
     Route::get('/findOneTable/{id}', [TemplateController::class, 'detailTable'])->name('bread.findOneTable');
     Route::get('/addCardTable/{idProduct}/{idTable}', [TemplateController::class, 'addCardTable'])->name('bread.addCardTable');
-    Route::get('/updateCardTable', [TemplateController::class, 'updateCardTable'])->name('bread.updateCardTable');
+    Route::get('/updateCardTable/{idTable}', [TemplateController::class, 'updateCardTable'])->name('bread.updateCardTable');
     Route::get('/updateStatusOrder/{id}', [TemplateController::class, 'updateStatusOrder'])->name('bread.updateStatusOrder');
     Route::get('/paymentOneTable/{idTable}', [TemplateController::class, 'paymentOneTable'])->name('bread.paymentOneTable');
     Route::post('/createBill', [TemplateController::class, 'createBill'])->name('bread.createBill');
