@@ -72,10 +72,10 @@
                     <thead>
                         <tr>
                             <th style="text-align: center">STT</th>
-                            <th style="text-align: center" hidden>ID</th>
                             <th style="text-align: center">Tên sản phẩm</th>
                             <th style="text-align: center">Giá sản phẩm</th>
                             <th style="text-align: center">Số lượng</th>
+                            <th style="text-align: center" >ID</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,11 +84,13 @@
                                 @foreach($cardTable as $key => $value)
                                     <tr id="cradBox" data-id="{{$a++}}" class="block">
                                         <td style="text-align: center">{{$a}}</td>
-                                        <td style="text-align: center" hidden  class="valuePr">{{$value['idProduct']}}</td>
+{{--                                        <td style="text-align: center" hidden  class="valuePr">{{$value['idProduct']}}</td>--}}
                                         <td style="text-align: center">{{$value['name_product']}}</td>
                                         <td style="text-align: center">{{number_format($value['price'])}} :VND</td>
                                         <td style="text-align: center">
                                         <input type="number" value="{{$value['quantity']}}" name="quantity" id="quantity" style="width: 50px;text-align: center"></td>
+                                        <td><input  type="text" value="{{$value['idProduct']}}" name="idCard" id="idCard" style="width: 50px;text-align: center" /></td>
+
                                     </tr>
                                 @endforeach
                             @else
@@ -143,21 +145,25 @@
         $('#saveUpdate').on('click', function (e) {
             e.preventDefault();
             let url = $(this).attr('data-url-update');
-            let data = {
-                data: []
-            }
+            let data = [
+                {
+                    data:[]
+                }
+            ]
+            console.log(data)
             let countBlock = 0;
             $('.block').each(function (key, value) {
                 let block = $(value)
                 block.attr('data-id', countBlock);
-                let id = $(this).find(".valuePr").html();
+                // let id = $(this).find(".valuePr").html();
+                let id = block.find("[name='idCard']").val();
                 let quantity = block.find("[name='quantity']").val();
                 let lead_card_product = {
                     id: id,
                     quantity: quantity
                 }
                 data.data[countBlock] = lead_card_product;
-                countBlock++
+                countBlock++;
             })
             console.log(data)
             $.ajax({
@@ -165,7 +171,7 @@
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
-
+                     //'x-csrf-token': csrf
                 },
                 type: "GET",
                 data: JSON.stringify(data),
@@ -173,7 +179,8 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    if (data.data.status == 200) {
+                    console.log(data)
+                    if (data.status == 200) {
                         $('#successModal').modal('show');
                         $('.msg_success').text(data.message);
                         window.scrollTo(0, 0);

@@ -172,28 +172,34 @@ class TemplateController extends Controller
     public function updateCardTable($idTable,Request $request)
     {
         $data = $request->all();
+//        return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'update card succes',$data);
         $tableName = "table-" . $idTable;
         if (!empty($data)) {
             $cardTable = session()->get($tableName) ?? [];
-            foreach ($data as $key => $value) {
-                $a = $cardTable[$value['id']];
-                $checkIdProduct = $cardTable[$value['id']]['idProduct'];
-                $checkQuantity = $cardTable[$value['id']]['quantity'];
-                if ($value['id'] == $checkIdProduct) {
-                    $checkQuantity = $value['quantity'];
+            if (!empty($data['data'])){
+                foreach ($data['data'] as $key => $value) {
+                    $a = $cardTable[$value['id']];
+                    $checkIdProduct = $cardTable[$value['id']]['idProduct'];
+                    $checkQuantity = $cardTable[$value['id']]['quantity'];
+                    if ($value['id'] == $checkIdProduct) {
+                        $checkQuantity = $value['quantity'];
+                    }
+                    $cardTable[$value['id']] = [
+                        'idProduct' => $a['idProduct'],
+                        'name_product' => $a['name_product'],
+                        'price' => $a['price'],
+                        'quantity' => $checkQuantity
+                    ];
                 }
-                $cardTable[$value['id']] = [
-                    'idProduct' => $a['idProduct'],
-                    'name_product' => $a['name_product'],
-                    'price' => $a['price'],
-                    'quantity' => $checkQuantity
-                ];
+            }else{
+                return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'update card error');
             }
+
             session()->put($tableName, $cardTable);
         }
-        $cardView =  session()->has($tableName);
+        session()->has($tableName);
 
-        return Controller::sendResponse(Controller::HTTP_OK,'update card succes',$cardView);
+        return Controller::sendResponse(Controller::HTTP_OK,'update card succes');
 
 //        if ($request->id && $request->quantity){
 //            $cardTable = session()->get('cardTable');
