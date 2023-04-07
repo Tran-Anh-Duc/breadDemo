@@ -144,7 +144,7 @@
             e.preventDefault();
             let url = $(this).attr('data-url-update');
             let data = {
-
+                data: []
             }
             let countBlock = 0;
             $('.block').each(function (key, value) {
@@ -156,7 +156,7 @@
                     id: id,
                     quantity: quantity
                 }
-                data[countBlock] = lead_card_product;
+                data.data[countBlock] = lead_card_product;
                 countBlock++
             })
             console.log(data)
