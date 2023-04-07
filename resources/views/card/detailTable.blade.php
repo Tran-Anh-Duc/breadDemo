@@ -1,4 +1,5 @@
 <title>table</title>
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -71,6 +72,7 @@
                     <thead>
                         <tr>
                             <th style="text-align: center">STT</th>
+                            <th style="text-align: center" hidden>ID</th>
                             <th style="text-align: center">Tên sản phẩm</th>
                             <th style="text-align: center">Giá sản phẩm</th>
                             <th style="text-align: center">Số lượng</th>
@@ -78,20 +80,26 @@
                     </thead>
                     <tbody>
                             @if(!empty($cardTable))
-                                <?php $a = 1 ?>
+                                <?php $a = 0 ?>
                                 @foreach($cardTable as $key => $value)
-                                    <tr>
-                                        <td style="text-align: center">{{$a++}}</td>
+                                    <tr id="cradBox" data-id="{{$a++}}" class="block">
+                                        <td style="text-align: center">{{$a}}</td>
+                                        <td style="text-align: center" hidden  class="valuePr">{{$value['idProduct']}}</td>
                                         <td style="text-align: center">{{$value['name_product']}}</td>
                                         <td style="text-align: center">{{number_format($value['price'])}} :VND</td>
                                         <td style="text-align: center">
-                                        <input type="number" value="{{$value['quantity']}}" style="width: 50px;text-align: center"></td>
+                                        <input type="number" value="{{$value['quantity']}}" name="quantity" id="quantity" style="width: 50px;text-align: center"></td>
                                     </tr>
                                 @endforeach
                             @else
                                 <span style="color: red">Chưa có sản phẩm nào hết !!!</span>
                             @endif
                     </tbody>
+                </table>
+                <table>
+                    <tr>
+                        <td><a href="" class="btn btn-info saveUpdate" id="saveUpdate" data-url-update="{{route('bread.updateCardTable',['idTable' =>$idTable])}}">Cập nhật</a></td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -127,6 +135,59 @@
                 error: function (data) {
                     console.log(data)
                     alert('them san pham that bai')
+                }
+            })
+        })
+
+
+        $('#saveUpdate').on('click', function (e) {
+            e.preventDefault();
+            let url = $(this).attr('data-url-update');
+            let data = {
+
+            }
+            let countBlock = 0;
+            $('.block').each(function (key, value) {
+                let block = $(value)
+                block.attr('data-id', countBlock);
+                let id = $(this).find(".valuePr").html();
+                let quantity = block.find("[name='quantity']").val();
+                let lead_card_product = {
+                    id: id,
+                    quantity: quantity
+                }
+                data[countBlock] = lead_card_product;
+                countBlock++
+            })
+            console.log(data)
+            $.ajax({
+                url: url,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+
+                },
+                type: "GET",
+                data: JSON.stringify(data),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.data.status == 200) {
+                        $('#successModal').modal('show');
+                        $('.msg_success').text(data.message);
+                        window.scrollTo(0, 0);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2500);
+                    } else {
+                        $('#errorModal').modal('show');
+                        $('.msg_error').text(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                    alert('Có lỗi xảy ra')
                 }
             })
         })

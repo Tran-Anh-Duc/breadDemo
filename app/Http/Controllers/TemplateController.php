@@ -139,10 +139,10 @@ class TemplateController extends Controller
         $tableName = "table-" . $id;
         $cardTable = session()->get($tableName) ?? [];
         $result['cardTable'] = $cardTable;
-        echo("<pre>");
-        print_r($cardTable);
-        echo("<pre>");
-        die();
+//        echo("<pre>");
+//        print_r($cardTable);
+//        echo("<pre>");
+//        die();
         $result['idTable'] = $id;
 //        session()->flush();
         return view('card.detailTable',$result);
@@ -175,7 +175,7 @@ class TemplateController extends Controller
         $tableName = "table-" . $idTable;
         if (!empty($data)) {
             $cardTable = session()->get($tableName) ?? [];
-            foreach ($data['data'] as $key => $value) {
+            foreach ($data as $key => $value) {
                 $a = $cardTable[$value['id']];
                 $checkIdProduct = $cardTable[$value['id']]['idProduct'];
                 $checkQuantity = $cardTable[$value['id']]['quantity'];
