@@ -62,10 +62,12 @@
             @else
                 <span style="color: red;text-align: center">Không có sản phẩm nào hết</span>
             @endif
-                <div class="pagination d-felx justify-content-right">
-                    {{ $resultProduct->withQueryString()->render('paginate') }}
+                <div class="pagination d-felx justify-content-right" style="margin-top: 600px">
+                    {{ $resultProduct->appends($_GET)->links()}}
                 </div>
+
         </div>
+
         <div class="col col-6 box2">
             <div class="tables">
                 <table class="table">
@@ -75,7 +77,7 @@
                             <th style="text-align: center">Tên sản phẩm</th>
                             <th style="text-align: center">Giá sản phẩm</th>
                             <th style="text-align: center">Số lượng</th>
-                            <th style="text-align: center" >ID</th>
+                            <th style="text-align: center" hidden >ID</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,7 +91,7 @@
                                         <td style="text-align: center">{{number_format($value['price'])}} :VND</td>
                                         <td style="text-align: center">
                                         <input type="number" value="{{$value['quantity']}}" name="quantity" id="quantity" style="width: 50px;text-align: center"></td>
-                                        <td><input  type="text" value="{{$value['idProduct']}}" name="idCard" id="idCard" style="width: 50px;text-align: center" /></td>
+                                        <td><input hidden type="text" value="{{$value['idProduct']}}" name="idCard" id="idCard" style="width: 50px;text-align: center" /></td>
 
                                     </tr>
                                 @endforeach
@@ -107,7 +109,39 @@
         </div>
     </div>
 </div>
-
+<!-- modal success -->
+<div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-success" id="staticBackdropLabel">Thành công</h5>
+            </div>
+            <div class="modal-body">
+                <p class="msg_success text-primary"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal error -->
+<div class="modal fade" id="errorModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="staticBackdropLabel">Có lỗi xảy ra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="msg_error"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -145,17 +179,12 @@
         $('#saveUpdate').on('click', function (e) {
             e.preventDefault();
             let url = $(this).attr('data-url-update');
-            let data = [
-                {
-                    data:[]
-                }
-            ]
-            console.log(data)
+            let data = { data : [] };
             let countBlock = 0;
+
             $('.block').each(function (key, value) {
                 let block = $(value)
                 block.attr('data-id', countBlock);
-                // let id = $(this).find(".valuePr").html();
                 let id = block.find("[name='idCard']").val();
                 let quantity = block.find("[name='quantity']").val();
                 let lead_card_product = {
@@ -170,10 +199,10 @@
                 url: url,
                 headers: {
                     "Content-Type": "application/json",
-                    Accept: "application/json",
+                     Accept: "application/json",
                      //'x-csrf-token': csrf
                 },
-                type: "GET",
+                type: "POST",
                 data: JSON.stringify(data),
                 dataType: 'json',
                 processData: false,
@@ -202,3 +231,13 @@
 
 </script>
 
+{{--[--}}
+{{--{--}}
+{{--"id": 5,--}}
+{{--"quantity": 4--}}
+{{--},--}}
+{{--{--}}
+{{--"id": 6,--}}
+{{--"quantity": 92--}}
+{{--}--}}
+{{--]--}}

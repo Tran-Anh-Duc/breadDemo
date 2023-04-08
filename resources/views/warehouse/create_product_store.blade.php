@@ -206,6 +206,7 @@
                         data.data[countBlock] = lead_product;
                         countBlock++;
                     })
+                    console.log(data)
                     $.ajax({
                         url: '{{route('product_store.create_product_sotre')}}',
                         headers: {

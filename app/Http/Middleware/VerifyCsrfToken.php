@@ -12,6 +12,23 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        'bread/updateCardTable/*'
     ];
+
+
+//    protected function excludeRoutes($request)
+//    {
+//        $excludedRoutes = [
+//            'bread/updateCardTable/*', // Tên route cần bỏ qua bảo vệ CSRF
+//            'bread.updateCardTable', // Tên route cần bỏ qua bảo vệ CSRF
+//        ];
+//
+//        foreach ($excludedRoutes as $route) {
+//            if ($request->is($route)) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 }
