@@ -172,14 +172,6 @@ class TemplateController extends Controller
     public function updateCardTable($idTable,Request $request)
     {
         $data = $request->all();
-//        if (!empty($data)){
-//            $this->billRepository->updateCardTableId($idTable,$data);
-//        }else{
-//            return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'create card error');
-//        }
-//        return Controller::sendResponse(Controller::HTTP_OK,'create card succes');
-
-
         $tableName = "table-" . $idTable;
         if (!empty($data)) {
             $cardTable = session()->get($tableName) ?? [];
@@ -208,6 +200,25 @@ class TemplateController extends Controller
 
         return Controller::sendResponse(Controller::HTTP_OK,'update card succes');
 
+    }
+
+
+    public function deleteCardTable($idTable,Request $request)
+    {
+        $data = $request->all();
+        $tableName = "table-" . $idTable;
+        $cardTable = session()->get($tableName) ?? [];
+        if (!empty($data['id'])){
+           unset($cardTable[$data['id']]);
+           session()->get($tableName,$cardTable);
+        }else{
+            return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'xóa sản phẩm thất bại');
+        }
+        echo("<pre>");
+        print_r($cardTable);
+        echo("<pre>");
+        die();
+        return  Controller::sendResponse(Controller::HTTP_OK,'xóa sản phẩm thành công',$cardTable);
     }
 
     public function paymentOneTable($idTable)

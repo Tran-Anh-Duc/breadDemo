@@ -113,36 +113,6 @@ class BillRepository extends  BaseRepository
         return $result;
     }
 
-//    public function updateCardTableId($idTable, $data)
-//    {
-//        $tableName = "table-" . $idTable;
-//        if (!empty($data)) {
-//            $cardTable = session()->get($tableName) ?? [];
-//            if (!empty($data['data'])){
-//                foreach ($data['data'] as $key => $value) {
-//                    $a = $cardTable[$value['id']];
-//                    $checkIdProduct = $cardTable[$value['id']]['idProduct'];
-//                    $checkQuantity = $cardTable[$value['id']]['quantity'];
-//                    if ($value['id'] == $checkIdProduct) {
-//                        $checkQuantity = $value['quantity'];
-//                    }
-//                    $cardTable[$value['id']] = [
-//                        'idProduct' => $a['idProduct'],
-//                        'name_product' => $a['name_product'],
-//                        'price' => $a['price'],
-//                        'quantity' => $checkQuantity
-//                    ];
-//                }
-//            }else{
-//                return false;
-//            }
-//
-//            session()->put($tableName, $cardTable);
-//        }
-//        session()->has($tableName);
-//        return  true;
-//    }
-
 
 
 

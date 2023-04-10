@@ -78,6 +78,7 @@
                             <th style="text-align: center">Giá sản phẩm</th>
                             <th style="text-align: center">Số lượng</th>
                             <th style="text-align: center" hidden >ID</th>
+                            <th style="text-align: center">Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,8 +92,8 @@
                                         <td style="text-align: center">{{number_format($value['price'])}} :VND</td>
                                         <td style="text-align: center">
                                         <input type="number" value="{{$value['quantity']}}" name="quantity" id="quantity" style="width: 50px;text-align: center"></td>
-                                        <td><input hidden type="text" value="{{$value['idProduct']}}" name="idCard" id="idCard" style="width: 50px;text-align: center" /></td>
-
+                                        <td hidden><input  type="text" value="{{$value['idProduct']}}" name="idCard" id="idCard" style="width: 50px;text-align: center" /></td>
+                                        <td style="text-align: center"><a href="" class="deleteCard" data-url="{{route('bread.deleteCardTable',['idTable' => $idTable])}}" data-card-id="{{$value['idProduct']}}"><i style="color: red" class="fa fa-trash" aria-hidden="true"></i></a></td>
                                     </tr>
                                 @endforeach
                             @else
@@ -226,18 +227,46 @@
                     alert('Có lỗi xảy ra')
                 }
             })
+        }),
+        $('.deleteCard').on('click',function (e) {
+               e.preventDefault();
+               let url = $(this).attr('data-url')
+               let id = $(this).attr('data-card-id')
+               let formData = new FormData();
+               formData.append('id',id)
+                $.ajax({
+                    url: url,
+                    headers: {
+                        // "Content-Type": "application/json",
+                        // Accept: "application/json",
+                        //'x-csrf-token': csrf
+                    },
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function () {
+                        $(".theloading").show();
+                    },
+                    success: function (data) {
+                        if (data.status == 200) {
+                            $('#successModal').modal('show');
+                            $('.msg_success').text(data.message);
+                            window.scrollTo(0, 0);
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                        }
+                    },
+                    error: function (data) {
+                        alert('xóa sản phẩm thất bại');
+                        $(".theloading").hide();
+                    }
+                })
         })
+
     })
 
 </script>
 
-{{--[--}}
-{{--{--}}
-{{--"id": 5,--}}
-{{--"quantity": 4--}}
-{{--},--}}
-{{--{--}}
-{{--"id": 6,--}}
-{{--"quantity": 92--}}
-{{--}--}}
-{{--]--}}
+
