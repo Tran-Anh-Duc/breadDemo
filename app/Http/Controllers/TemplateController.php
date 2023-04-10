@@ -131,6 +131,8 @@ class TemplateController extends Controller
     public function detailTable($id,Request $request)
     {
         $data = $request->all();
+        $user = session()->get('user');
+        $result['loginUser'] = !empty($user) ? $user->email : '';
         $resultTable = $this->tableRepository->findOneTable($id);
         $result['resultTable'] = $resultTable;
         $resultProduct = $this->productRepository->getAllDataProduct($data);
@@ -139,10 +141,6 @@ class TemplateController extends Controller
         $tableName = "table-" . $id;
         $cardTable = session()->get($tableName) ?? [];
         $result['cardTable'] = $cardTable;
-//        echo("<pre>");
-//        print_r($cardTable);
-//        echo("<pre>");
-//        die();
         $result['idTable'] = $id;
 //        session()->flush();
         return view('card.detailTable',$result);
@@ -210,14 +208,12 @@ class TemplateController extends Controller
         $cardTable = session()->get($tableName) ?? [];
         if (!empty($data['id'])){
            unset($cardTable[$data['id']]);
-           session()->get($tableName,$cardTable);
+            session()->put($tableName,$cardTable);
+            session()->get($tableName,$cardTable);
         }else{
             return Controller::sendResponse(Controller::HTTP_BAD_REQUEST,'xóa sản phẩm thất bại');
         }
-        echo("<pre>");
-        print_r($cardTable);
-        echo("<pre>");
-        die();
+
         return  Controller::sendResponse(Controller::HTTP_OK,'xóa sản phẩm thành công',$cardTable);
     }
 
@@ -266,13 +262,24 @@ class TemplateController extends Controller
     }
 
 
+    public function createBillOneTable(Request $request)
+    {
+        $data = $request->all();
+        $result = $this->billRepository->createPaymentFindOneTable($data);
+        //$delete = session()->forget('card');
+        return Controller::sendResponse(Controller::HTTP_OK,'create succes',$result);
+    }
+
+
+
 
 
 
     //test
-    public function test()
+    public function test(Request $request)
     {
-         $result = $this->categoryRepository->getAllCate();
+        $data =$request->all();
+         $result = $this->billRepository->createPaymentFindOneTable($data);
          return $result;
     }
 

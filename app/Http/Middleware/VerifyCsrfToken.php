@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'bread/updateCardTable/*',
         'bread/deleteCardTable/*',
+        'bread/test/',
     ];
 
 

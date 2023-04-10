@@ -113,6 +113,36 @@ class BillRepository extends  BaseRepository
         return $result;
     }
 
+//tạo phiếu thanh toán cho từng bàn
+    public function createPaymentFindOneTable($data)
+    {
+        $data1 = [
+            Bill::COLUMN_CREATED_BY =>  !empty($data['created_by']) ? $data['created_by'] : 'trananhducty@gmail.com',
+            Bill::COLUMN_COUPON => $data['coupon'] ?? null,
+            Bill::COLUMN_USER => 'GM'.random_int(0,99).time(),
+            Bill::COLUMN_TOTAL => $data['total'] ?? null
+        ];
+        $resultBill = $this->model->create($data1)->toArray();
+        $result['resultBill'] = $resultBill;
+        $result['id'] = $resultBill['id'];
+        $bill = Bill::find($result['id']);
+        $arrTablePayment = [];
+
+        for ( $i = 0; $i <  count($data['data']); $i++){
+            $price = $data['data'][$i]['price'];
+            $total = $data['data'][$i]['total'];
+            $product_id = $data['data'][$i]['product_id'];
+            $key = $data['data'][$i]['product_id'];
+            $value = [
+                'total' => $total,
+                'price' => $price
+            ];
+            $arrTablePayment[$key] = $value;
+            $a = $bill->products()->sync($arrTablePayment);
+        }
+        return $result;
+    }
+
 
 
 

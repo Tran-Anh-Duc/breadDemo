@@ -33,12 +33,15 @@ Route::prefix('bread')->group(function () {
     Route::get('/searchLikeProduct', [TemplateController::class, 'searchLikeProduct'])->name('bread.searchLikeProduct');
     Route::get('/detailProduct/{id}', [TemplateController::class, 'detailProduct'])->name('bread.detailProduct');
     Route::get('/getALlClick', [TemplateController::class, 'getALlClick'])->name('bread.getALlClick');
-    Route::get('/test', [TemplateController::class, 'test'])->name('bread.test');
+    Route::post('/test', [TemplateController::class, 'test'])->name('bread.test');
     Route::get('/tableList', [TemplateController::class, 'viewTable'])->name('bread.tableList');
     Route::get('/findOneTable/{id}', [TemplateController::class, 'detailTable'])->name('bread.findOneTable');
     Route::get('/addCardTable/{idProduct}/{idTable}', [TemplateController::class, 'addCardTable'])->name('bread.addCardTable');
     Route::post('/updateCardTable/{idTable}', [TemplateController::class, 'updateCardTable'])->name('bread.updateCardTable');
     Route::post('/deleteCardTable/{idTable}', [TemplateController::class, 'deleteCardTable'])->name('bread.deleteCardTable');
+
+
+    Route::post('/createBillOneTable', [TemplateController::class, 'createBillOneTable'])->name('bread.createBillOneTable');
 
 
 

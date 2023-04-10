@@ -264,8 +264,8 @@
                }
                 data.data[countBlock] = lead_bill_product;
                 countBlock++;
-
             });
+            console.log(data)
             if (confirm('bạn chắc chắn muốn thanh toán cho hóa đơn này')) {
                 $.ajax({
                     url: '{{route('bread.createBill')}}',

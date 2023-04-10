@@ -51,7 +51,8 @@
             @if(!empty($resultProduct))
                  @foreach($resultProduct as $key =>$value)
                     <div class="card" style="width: 10rem;">
-                        <img class="card-img-top" src="{{$value['image']}}" alt="Card image cap" style="width: 100%;height: 90px">
+                        <img class="card-img-top" src="@if(!empty($value['image']))  {{$value['image']}}  @else  {{asset('/image/image1.jpg') }}  @endif"
+                             alt="Card image cap" style="width: 100%;height: 90px">
                         <div class="card-body">
                             <p class="card-text text"><a href="" class="btn btn-primary addCard" data-id-product="{{$value['id']}}"
                             data-id-table="{{$idTable}}" data-add-url="{{route('bread.addCardTable',['idProduct' => $value['id'],'idTable' => $idTable])}}"
@@ -62,7 +63,7 @@
             @else
                 <span style="color: red;text-align: center">Không có sản phẩm nào hết</span>
             @endif
-                <div class="pagination d-felx justify-content-right" style="margin-top: 600px">
+                <div class="pagination d-felx justify-content-right" style="margin-top: 600px;margin-left: -19px;color: #0c4128">
                     {{ $resultProduct->appends($_GET)->links()}}
                 </div>
 
@@ -87,7 +88,6 @@
                                 @foreach($cardTable as $key => $value)
                                     <tr id="cradBox" data-id="{{$a++}}" class="block">
                                         <td style="text-align: center">{{$a}}</td>
-{{--                                        <td style="text-align: center" hidden  class="valuePr">{{$value['idProduct']}}</td>--}}
                                         <td style="text-align: center">{{$value['name_product']}}</td>
                                         <td style="text-align: center">{{number_format($value['price'])}} :VND</td>
                                         <td style="text-align: center">
@@ -101,9 +101,13 @@
                             @endif
                     </tbody>
                 </table>
-                <table>
-                    <tr>
+                <table style="width: 100%;overflow: hidden">
+                    <tr style="float: left;width: 50%">
                         <td><a href="" class="btn btn-info saveUpdate" id="saveUpdate" data-url-update="{{route('bread.updateCardTable',['idTable' =>$idTable])}}">Cập nhật</a></td>
+                    </tr>
+                    <tr style="float: right;width:35%">
+                        <td style="padding-right: 8px !important;"><a href="{{route('bread.tableList')}}" class="btn btn-dark">Quay lại</a></td>
+                        <td><a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="checkBill">Thanh toán/check bill</a></td>
                     </tr>
                 </table>
             </div>
@@ -143,6 +147,38 @@
         </div>
     </div>
 </div>
+<!-- modal payment -->
+<div class="modal fade modal-fullscreen" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <lable style="margin-bottom: 5px">Mã giảm giá</lable>
+                <div class="" style="margin-bottom: 5px">
+                    <input type="text" class="form-control coupon" id="coupon" name="coupon">
+                </div>
+                <lable style="margin-bottom: 5px">Người thanh toán</lable>
+                <div style="margin-bottom: 5px">
+                    @if(!empty($loginUser))
+                        <input type="text" class="form-control created_by" id="created_by" name="created_by" value="{{$loginUser}}">
+                    @endif
+                </div>
+                <div class="bills" id="bills">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createBill" data-bs-dismiss="modal" >Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -175,8 +211,6 @@
                 }
             })
         })
-
-
         $('#saveUpdate').on('click', function (e) {
             e.preventDefault();
             let url = $(this).attr('data-url-update');
@@ -265,6 +299,66 @@
                 })
         })
 
+        $('#checkBill').on('click',function (e) {
+            e.preventDefault();
+            let session = <?php echo json_encode($cardTable) ?>;
+            if (session){
+                //console.log(session)
+                let block = "";
+                let block_acceptions = $("#bills")
+                $.each(session, function (key, value) {
+                    block += ` <div class="bill block" id="bill" data-id="0">`
+                    block += ` <lable>Tên sản phẩm</lable>`
+                    block += `<input type="text" name="name_product" class="name_product form-control" id="name_product" value="` + value.name_product + `" disabled>`
+                    block += `<lable>Giá sản phẩm</lable>`
+                    block += `<input type="text" name="price" class="price form-control" id="price" value="` + value.price + `" disabled>`
+                    block += `<lable>Số lượng sản phẩm</lable>`
+                    block += ` <input type="text" id="quantity" name="quantity" class="form-control quantity" value="` + value.quantity + `" disabled>`
+                    block += ` <input type="text" id="product_id" name="product_id" class="form-control product_id" value="` + value.product_id + `" hidden>`
+                    block += `</div>`
+                    block += `<div style="margin-bottom: 15px"></div>`
+                })
+                $(block_acceptions).html(block)
+            }else{
+                console.log($('.block').length)
+                let block = "";
+                let block_acceptions = $("#bills")
+                block += `<div class="bill block" id="bill" style="color: red;text-align: center;margin-top: 20px" >không có sản phẩm nào</div>`
+                $(block_acceptions).html(block)
+            }
+            if ($('.block').length <= 0){
+                let block = "";
+                let block_acceptions = $("#bills")
+                block += `<div class="bill block" id="bill" style="color: red;text-align: center;margin-top: 20px" >không có sản phẩm nào</div>`
+                $(block_acceptions).html(block)
+            }
+        })
+
+        $('#createBill').on('click',function (e) {
+            e.preventDefault();
+            var data = {
+                coupon: $("input[name='coupon']").val(),
+                created_by: $("input[name='created_by']").val(),
+                data : []
+            }
+            var countBlock = 0;
+            $(".block").each(function (key, value) {
+                var block = $(value);
+                block.attr('data-id',countBlock)
+                var name_product = block.find("[name='name_product']").val();
+                var price = block.find("[name='price']").val();
+                var quantity = block.find("[name='quantity']").val();
+                var product_id = block.find("[name='product_id']").val();
+                var lead_bill_product = {
+                    product_id:product_id,
+                    price:price,
+                    total:quantity
+                }
+                data.data[countBlock] = lead_bill_product;
+                countBlock++;
+            });
+            console.log(data)
+        })
     })
 
 </script>
