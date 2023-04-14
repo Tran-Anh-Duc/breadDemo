@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TemplateController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/clear-cache', function () {
+    $a = Artisan::call('cache:clear');
+    $b = Artisan::call('config:cache');
+    return 'DONE';
 });
 
 Route::prefix('bread')->group(function () {

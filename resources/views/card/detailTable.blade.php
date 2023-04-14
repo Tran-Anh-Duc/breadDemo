@@ -52,7 +52,7 @@
                  @foreach($resultProduct as $key =>$value)
                     <div class="card" style="width: 10rem;">
                         <img class="card-img-top" src="@if(!empty($value['image']))  {{$value['image']}}  @else  {{asset('/image/image1.jpg') }}  @endif"
-                             alt="Card image cap" style="width: 100%;height: 90px">
+                             alt="Ảnh đã xóa" style="width: 100%;height: 90px">
                         <div class="card-body">
                             <p class="card-text text"><a href="" class="btn btn-primary addCard" data-id-product="{{$value['id']}}"
                             data-id-table="{{$idTable}}" data-add-url="{{route('bread.addCardTable',['idProduct' => $value['id'],'idTable' => $idTable])}}"
@@ -166,7 +166,7 @@
                         <input type="text" class="form-control created_by" id="created_by" name="created_by" value="{{$loginUser}}">
                     @endif
                 </div>
-                <div class="bills" id="bills">
+                <div class="bill_order" id="bill_order">
 
                 </div>
             </div>
@@ -305,16 +305,16 @@
             if (session){
                 //console.log(session)
                 let block = "";
-                let block_acceptions = $("#bills")
+                let block_acceptions = $("#bill_order")
                 $.each(session, function (key, value) {
-                    block += ` <div class="bill block" id="bill" data-id="0">`
+                    block += ` <div class="bill blockProduct" id="bill" data-id="0">`
                     block += ` <lable>Tên sản phẩm</lable>`
                     block += `<input type="text" name="name_product" class="name_product form-control" id="name_product" value="` + value.name_product + `" disabled>`
                     block += `<lable>Giá sản phẩm</lable>`
                     block += `<input type="text" name="price" class="price form-control" id="price" value="` + value.price + `" disabled>`
                     block += `<lable>Số lượng sản phẩm</lable>`
                     block += ` <input type="text" id="quantity" name="quantity" class="form-control quantity" value="` + value.quantity + `" disabled>`
-                    block += ` <input type="text" id="product_id" name="product_id" class="form-control product_id" value="` + value.product_id + `" hidden>`
+                    block += ` <input type="text" id="product_id" name="product_id" class="form-control product_id" value="` + value.idProduct + `" hidden>`
                     block += `</div>`
                     block += `<div style="margin-bottom: 15px"></div>`
                 })
@@ -322,13 +322,13 @@
             }else{
                 console.log($('.block').length)
                 let block = "";
-                let block_acceptions = $("#bills")
+                let block_acceptions = $("#bill_order")
                 block += `<div class="bill block" id="bill" style="color: red;text-align: center;margin-top: 20px" >không có sản phẩm nào</div>`
                 $(block_acceptions).html(block)
             }
             if ($('.block').length <= 0){
                 let block = "";
-                let block_acceptions = $("#bills")
+                let block_acceptions = $("#bill_order")
                 block += `<div class="bill block" id="bill" style="color: red;text-align: center;margin-top: 20px" >không có sản phẩm nào</div>`
                 $(block_acceptions).html(block)
             }
@@ -342,7 +342,7 @@
                 data : []
             }
             var countBlock = 0;
-            $(".block").each(function (key, value) {
+            $(".blockProduct").each(function (key, value) {
                 var block = $(value);
                 block.attr('data-id',countBlock)
                 var name_product = block.find("[name='name_product']").val();
@@ -358,6 +358,42 @@
                 countBlock++;
             });
             console.log(data)
+            if (confirm('bạn chắc chắn muốn thanh toán cho hóa đơn này')) {
+                $.ajax({
+                    url: '{{route('bread.createBillOneTable')}}',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                        //'x-csrf-token': csrf
+                    },
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data.status == 200) {
+                            console.log(data.data.id)
+                            var billId = data.data.id
+                            var url = '{{route('bread.viewDetailBill',['id' => ':id'])}}'
+                            url = url.replace(':id', billId)
+                            $('#successModal').modal('show');
+                            $('.msg_success').text(data.message);
+                            window.scrollTo(0, 0);
+                            setTimeout(function () {
+                                window.location.href = url;
+                            }, 2500);
+                        } else {
+                            $('#errorModal').modal('show');
+                            $('.msg_error').text(data.message);
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data)
+                        alert('Có lỗi xảy ra')
+                    }
+                })
+            }
         })
     })
 

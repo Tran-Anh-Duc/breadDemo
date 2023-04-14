@@ -13,6 +13,8 @@ use App\Repository\StoreRepository;
 use App\Repository\TableRepository;
 use http\Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+
 class TemplateController extends Controller
 {
     protected $productRepository;
@@ -280,6 +282,9 @@ class TemplateController extends Controller
     {
         $data =$request->all();
          $result = $this->billRepository->createPaymentFindOneTable($data);
+
+         $a = Artisan::call('cache:clear');
+         $b = Artisan::call('config:cache');
          return $result;
     }
 
