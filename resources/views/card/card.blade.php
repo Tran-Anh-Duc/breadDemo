@@ -126,7 +126,7 @@
             </div>
             <lable style="margin-bottom: 5px">Người mua hàng</lable>
             <div style="margin-bottom: 5px">
-                <input type="text" class="form-control created_by" id="created_by" name="created_by">
+                <input type="text" class="form-control created_by" id="created_by" name="created_by" value="{{$loginUser}}">
             </div>
             <div class="bills" id="bills">
 

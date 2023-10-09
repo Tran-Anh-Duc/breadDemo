@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository extends BaseRepository
 {
@@ -26,21 +27,18 @@ class UserRepository extends BaseRepository
 
     public function loginUser($data)
     {
-        $result = Auth::attempt([
-           'email' => $data['email'],
-           'password' => $data['password']
-        ]);
-        return $result;
-
-        $bool = false;
-        if (Auth::attempt([
+        $checkLogin = [
             'email' => $data['email'],
             'password' => $data['password']
-        ])){
+        ];
+        $bool = false;
+        if (Auth::attempt($checkLogin)){
+            $user = DB::table('users')->where('email','=',$data['email'])->first();
+            $a  = session()->put('user',$user);
             $bool = true;
         }else{
             $bool = false;
         }
-        return  $bool;
+        return  [$bool,$a];
     }
 }

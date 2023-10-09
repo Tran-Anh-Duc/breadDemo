@@ -107,6 +107,40 @@
         </div>
     </div>
 @endsection
+    <!-- modal success -->
+        <div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-success" id="staticBackdropLabel">Thành công</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="msg_success text-primary"></p>
+                    </div>
+                    <div class="modal-footer">
+                        {{--            <a id="redirect-url" class="btn btn-success">Xem</a>--}}
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal error -->
+        <div class="modal fade" id="errorModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-primary" id="staticBackdropLabel">Có lỗi xảy ra</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="msg_error"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 @section('script')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript">
@@ -134,7 +168,11 @@
                     },
                     error:function (data) {
                         console.log(data)
-                            alert('them san pham that bai')
+                            alert('Thêm mới sản phẩm thất bại(bạn cần đăng nhập trước)')
+                        window.scrollTo(0, 0);
+                        setTimeout(function () {
+                            window.location.href = "{{ route('bread.viewLogin') }}";
+                        }, 500);
                     }
                 });
             })
