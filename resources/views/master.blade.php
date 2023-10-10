@@ -150,12 +150,13 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 270px !important;top: 45px !important">
 
-                            @if(!empty($resultCategory))
+                                @if(!empty($resultCategory) and $resultCategory != "")
                                 @foreach($resultCategory as $key => $value)
                                     <li class="dropdown-item" id="dropdown-item" data-category="{{$value['id']}}">{{$value['name_category']}}</li>
                                 @endforeach
                                 @else
-                                     <li style="display: none" class="dropdown-item" id="dropdown-item" data-category="{{$value['id']}}">{{$value['name_category']}}</li>
+{{--                                     <li style="display: none" class="dropdown-item" id="dropdown-item" data-category="{{$value['id']}}">{{$value['name_category']}}</li>--}}
+                                     <li style="display: none" class="dropdown-item" id="dropdown-item" data-category=""></li>
                                 @endif
                             </ul>
                         </li>

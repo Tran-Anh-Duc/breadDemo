@@ -32,7 +32,7 @@
                 </select>
 
                 <lable>upload ảnh</lable>
-                <input type="text" name="image" id="image" class="form-control">
+                <input type="file" name="image" id="image" class="form-control">
             </div>
             <div class="buttons" style="margin-top: 10px; margin-bottom: 15px">
                 <div>

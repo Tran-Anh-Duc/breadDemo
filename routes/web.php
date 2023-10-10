@@ -111,5 +111,8 @@ Route::prefix('bill')->group(function(){
     Route::get('/list',[\App\Http\Controllers\BillController::class,'get_all_data_bill'])->name('bill.get_all_data_bill');
     Route::get('/view_detail_bill/{id}',[\App\Http\Controllers\BillController::class,'view_detail_bill'])->name('bill.view_detail_bill');
 });
-
+//echo("<pre>");
+//print_r($result);
+//echo("<pre>");
+//die();
 
